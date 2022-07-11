@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = Sqlite
+DATABASES = PostgresSQL
 
 # DATABASES = {
 #     'default': {
@@ -142,7 +142,15 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Configuraciones personalizadas del proyecto.
+
+# ------------------------------------
+#       Project custom settings
+# ------------------------------------
+
+# Dirs for static files. 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static/"),
 ]
+
+# Global variable 'Distrito Judicial'.
+DISTRITO = '29'

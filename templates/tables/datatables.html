@@ -1,0 +1,167 @@
+{% extends 'base/body.html' %}
+{% load static %}
+
+
+{% block lib-styles %}
+    <link href="{% static 'libs/datatables.1.12.1/css/dataTables.bootstrap5.min.css' %}" rel="stylesheet">    
+    <link href="{% static 'libs/datatables.1.12.1/css/responsive.bootstrap5.min.css' %}" rel="stylesheet">   
+{% endblock lib-styles %}
+
+
+{% block page-title %}
+    {% include 'base/page-title.html' with pre_title=pre_title title=title %}
+    {% include 'base/title-actions.html' with action='Nueva persona' %}
+{% endblock page-title %}
+
+
+{% block content %}
+    <div class="card">
+        <!-- Begin card title -->    
+        <!-- <div class="card-header">
+            <h3 class="card-title">
+                Invoices
+            </h3>
+        </div> -->
+        <!-- End card title -->
+
+
+        <!-- <div class="card-body border-bottom py-3">
+            <div class="d-flex">
+                <div class="text-muted">
+                    Show
+                    <div class="mx-2 d-inline-block">
+                        <input type="text" class="form-control form-control-sm" value="8" size="3"
+                            aria-label="Invoices count">
+                    </div>
+                    entries
+                </div>
+                <div class="ms-auto text-muted">
+                    Search:
+                    <div class="ms-2 d-inline-block">
+                        <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+        <!-- Begin card body -->
+        <div class="table-responsive">
+            <table 
+                id="data"
+                class="table card-table table-vcenter text-nowrap datatable">
+                <thead>
+                    {% block columns %}                
+                    <tr>
+                        <th class="font-light align-middle text-center " style="width: 3%;">Nro</th>
+                        <th class="font-light align-middle text-center " style="width: 7%;">DNI</th>
+                        <th class="font-light align-middle text-center " style="width: 11%;">Apellido Paterno</th>                                    
+                        <th class="font-light align-middle text-center " style="width: 11%;">Apellido Materno</th>                                    
+                        <th class="font-light align-middle text-center " style="width: 16%;">Nombres</th>
+                        <th class="font-light align-middle text-center " style="width: 15%;">Correo</th>
+                        <th class="font-light align-middle text-center " style="width: 7%;">Teléfono</th>
+                        <th class="font-light align-middle text-center " style="width: 5%;">Anexo</th>
+                        <th class="font-light align-middle text-center " style="width: 15%;">Cumpleaños</th>
+                        <th class="font-light align-middle text-center " style="width: 10%;">Acciones</th>               
+                    </tr>
+                    {% endblock columns %}
+                </thead>
+                <tbody>
+                    {% block rows %}
+                        {% for persona in personas %}
+                        <tr>
+                            <td 
+                                class="text-center font-light align-middle"
+                                style="background-color: #f8f9fa;">
+                            </td>
+                            <td class="font-light align-middle">
+                                <a href="">
+                                    {{ persona.dni }}
+                                </a>                                    
+                            </td>                                        
+                            <td class="font-light align-middle">{{ persona.apellido_paterno|title|default_if_none:'' }}</td>
+                            <td class="font-light align-middle">{{ persona.apellido_materno|title|default_if_none:'' }}</td>
+                            <td class="font-light align-middle">{{ persona.nombres|title|default_if_none:'' }}</td>
+                            <td class="font-light align-middle">{{ persona.correo_institucional|default_if_none:''|lower }}</td>                                                                                
+                            <td class="font-light align-middle">{{ persona.telefono_principal|default_if_none:'' }}</td>
+                            <td class="font-light align-middle">{{ persona.anexo_institucional|default_if_none:'' }}</td>
+                            <td class="font-light align-middle">
+                                {% if persona.fecha_nacimiento %}
+                                {{ persona.fecha_nacimiento|date:'j' }} de {{ persona.fecha_nacimiento|date:'F' }}
+                                {% endif %}
+                            </td>                                                                        
+                            <td class="">
+                                <div class="btn-list flex-nowrap">
+                                    {% include 'buttons/edit_button.html' %}
+
+                                    {% include 'buttons/delete_button.html' %}
+  
+                                    {% include 'buttons/instance_button.html' %}                        
+                                </div>
+                            </td>
+                        </tr>                            
+                        {% endfor %}                        
+                    {% endblock rows %}                
+                </tbody>
+            </table>
+        </div>
+        <!-- End table body -->
+
+        <!-- Begin card footer -->
+        <!-- <div class="card-footer d-flex align-items-center">
+            <p class="m-0 text-muted">Showing <span>1</span> to <span>8</span> of <span>16</span> entries</p>
+            <ul class="pagination m-0 ms-auto">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <polyline points="15 6 9 12 15 18"></polyline>
+                        </svg>
+                        prev
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">
+                        next
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <polyline points="9 6 15 12 9 18"></polyline>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div> -->
+        <!-- End table footer -->
+    </div>
+{% endblock content %}
+
+
+{% block lib-scripts %}
+    <script src="{% static 'libs/datatables.1.12.1/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.1.12.1/js/dataTables.bootstrap5.min.js' %}"></script>    
+    
+{% endblock lib-scripts %}
+
+
+{% block page-scripts %}
+    <script>
+        $(document).ready( function () {
+            $('#data').DataTable({
+                'language': {
+                    'url': '/static/libs/datatables.1.12.1/lang/es-ES.json'
+                }
+            });
+        });
+    </script>
+{% endblock page-scripts %}

@@ -25,13 +25,14 @@ class Persona(models.Model):
     estado_civil = models.CharField('Estado civil', max_length=200, choices=ESTADO_CIVIL_CHOICES, default='SOL')
     foto = models.ImageField('Foto', upload_to=renombrar_imagen, null=True, blank=True)
     
-    # # Datos de contacto.
-    # correo_institucional = models.EmailField('Correo electrónico institucional', max_length=150, null=True, blank=True)
-    # correo_personal = models.EmailField('Correo electrónico personal', max_length=200, blank=True, null=True)    
-    # telefono_principal = models.CharField('Nro de Teléfono institucional', max_length=9, null=True, blank=True)
-    # telefono_secundario = models.CharField('Nro de Teléfono personal', max_length=9, null=True, blank=True)
-    # anexo_institucional = models.CharField('Anexo telefónico', max_length=10, null=True, blank=True)
-    # direccion = models.CharField('Direccion', max_length=255, null=True, blank=True)        
+    # TODO: DEFINIR SI LA RELACIÓN SERÁ UNO A UNO, UNO A MUCHOS O EN UN SOLO MODELO.
+    # Datos de contacto.
+    correo_institucional = models.EmailField('Correo electrónico institucional', max_length=150, null=True, blank=True)
+    correo_personal = models.EmailField('Correo electrónico personal', max_length=200, blank=True, null=True)    
+    telefono_principal = models.CharField('Nro de Teléfono institucional', max_length=9, null=True, blank=True)
+    telefono_secundario = models.CharField('Nro de Teléfono personal', max_length=9, null=True, blank=True)
+    anexo_institucional = models.CharField('Anexo telefónico', max_length=10, null=True, blank=True)
+    direccion = models.CharField('Direccion', max_length=255, null=True, blank=True)        
 
     # Datos adicionales.
     observaciones = models.TextField('Observaciones', null=True, blank=True)    
