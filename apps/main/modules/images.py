@@ -11,5 +11,5 @@ def renombrar_imagen(persona, archivo):
         archivo = f'{persona.dni}-{persona.apellido_paterno}_{persona.apellido_materno}-{persona.nombres}_{fecha_hora}.{extension}'
     else:
         archivo = f'{uuid4().hex}.{extension}'
-    imagen = os.path.join(carpeta, archivo).lower()
+    imagen = os.path.join(carpeta, archivo).upper()
     return imagen

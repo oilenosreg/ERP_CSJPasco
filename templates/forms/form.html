@@ -1,0 +1,288 @@
+{% extends 'base/body.html' %}
+
+<!-- TODO: mejorar magin y padding de la foto y formulario -->
+
+
+{% block page-title %}
+    <!-- Begin Page Title -->
+    {% include 'base/page-title.html' with title=title pre_title=pre_title %}
+    <!-- End Page Title -->
+{% endblock page-title %}
+
+
+{% block content %}
+<div class="row row-cards">
+    <div class="col-12">
+        {% include 'messages/messages.html' %}
+        <form 
+            id="{{ form_id }}"
+            enctype="multipart/form-data"
+            action="."
+            method="post" 
+            class="card"
+            novalidate>
+            <!-- <div class="card-header">
+                <h4 class="card-title">
+                    {{ title }}
+                </h4>
+            </div> -->            
+            
+            <div class="card-body">
+                {% csrf_token %}
+
+                
+                <div class="row">  
+                    {% block form-fields %}                  
+                    <!-- Begin photo -->
+                    <div class=" col-xl-2 col-md-2 col-sm-2">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="mt-3 ms-3">
+                                    {% include 'base/photo.html' %}
+                                </div>                                                            
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End photo -->
+                    <div class=" col-xl-10 col-md-10 col-sm-10">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <fieldset {% if detalle %} disabled {% endif %}>
+                                    
+
+                                         
+                                        
+                                        <!-- Begin body modal form section 1 -->
+                                        <div class="modal-body">
+                        
+                        
+                                            <div class="mb-3 form-group {% if form_persona.dni.errors %} has-error {% endif %}">
+                                                <label class="form-label">
+                                                    {{ form_persona.dni.label }}
+                                                </label>                                
+                                                {{ form_persona.dni }}
+                                                <div class="text-danger">
+                                                    {{ form_persona.dni.errors }}
+                                                </div>
+                                            </div>
+                        
+                                            <div class="row">
+                                                <div class="mb-3 col-lg-4 form-group {% if form_persona.nombres.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.nombres.label }}
+                                                    </label>                                
+                                                    {{ form_persona.nombres }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.nombres.errors }}
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 col-lg-4 form-group {% if form_persona.apellido_paterno.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.apellido_paterno.label }}
+                                                    </label>                                
+                                                    {{ form_persona.apellido_paterno }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.apellido_paterno.errors }}
+                                                    </div>
+                                                </div>  
+                                                <div class="mb-3 col-lg-4 form-group {% if form_persona.apellido_materno.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.apellido_materno.label }}
+                                                    </label>                                
+                                                    {{ form_persona.apellido_materno }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.apellido_materno.errors }}
+                                                    </div>
+                                                </div>                                                                                                  
+                                            </div>
+                        
+                                            <div class="row">
+                                                <div class="mb-3 col-lg-4 form-group {% if form_persona.fecha_nacimiento.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.fecha_nacimiento.label }}
+                                                    </label>                                
+                                                    {{ form_persona.fecha_nacimiento }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.fecha_nacimiento.errors }}
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 col-lg-4 form-group {% if form_persona.genero.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.genero.label }}
+                                                    </label>                                
+                                                    {{ form_persona.genero }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.genero.errors }}
+                                                    </div>
+                                                </div>  
+                                                <div class="mb-3 col-lg-4 form-group {% if form_persona.estado_civil.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.estado_civil.label }}
+                                                    </label>                                
+                                                    {{ form_persona.estado_civil }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.estado_civil.errors }}
+                                                    </div>
+                                                </div>                                                                                                  
+                                            </div>
+                                        </div>
+                                        <!-- End body modal form section 1 -->
+                        
+                                        <!-- Begin body modal form section 2 -->
+                                        <div class="modal-body">
+                        
+                                            <div class="row">
+                                                <div class="mb-3 col-lg-3 form-group {% if form_persona.correo_institucional.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.correo_institucional.label }}
+                                                    </label>
+                                                    {{ form_persona.correo_institucional }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.correo_institucional.errors }}
+                                                    </div>                                        
+                                                </div>             
+                                                <div class="mb-3 col-lg-3 form-group {% if form_persona.correo_personal.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.correo_personal.label }}
+                                                    </label>
+                                                    {{ form_persona.correo_personal }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.correo_personal.errors }}
+                                                    </div>                                        
+                                                </div>   
+                                                <div class="mb-3 col-lg-3 form-group {% if form_persona.telefono_personal.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.telefono_principal.label }}
+                                                    </label>
+                                                    {{ form_persona.telefono_principal }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.telefono_principal.errors }}
+                                                    </div>                                        
+                                                </div>
+                                                <div class="mb-3 col-lg-3 form-group {% if form_persona.telefono_institucional.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.telefono_secundario.label }}
+                                                    </label>
+                                                    {{ form_persona.telefono_secundario }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.telefono_secundario.errors }}
+                                                    </div>                                        
+                                                </div>                       
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="mb-3 col-lg-3 form-group {% if form_persona.anexo_institucional.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.anexo_institucional.label }}
+                                                    </label>
+                                                    {{ form_persona.anexo_institucional }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.anexo_institucional.errors }}
+                                                    </div>                                        
+                                                </div>          
+                                                <div class="mb-3 col-lg-9 form-group {% if form_persona.direccion.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.direccion.label }}    
+                                                    </label>
+                                                    {{ form_persona.direccion }}    
+                                                    <div class="text-danger">
+                                                        {{ form_persona.direccion.errors }}
+                                                    </div>                                        
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="mb-3 col-lg-12 form-group {% if form_persona.observaciones.errors %} has-error {% endif %}">
+                                                    <label class="form-label">
+                                                        {{ form_persona.observaciones.label }}
+                                                    </label>
+                                                    {{ form_persona.observaciones }}
+                                                    <div class="text-danger">
+                                                        {{ form_persona.observaciones.errors }}
+                                                    </div>                                        
+                                                </div>                          
+                                            </div>    
+                                        </div>
+                                        <!-- End body modal form section 2 -->
+                        
+                                                       
+                                </fieldset> 
+                            </div>
+                        </div>
+                    </div>
+                    {% endblock form-fields %}   
+                </div>
+            </div>
+
+            <!-- TODO: Tamaño de los formularios responsivos -->
+            {% block form-buttons %}
+            <div class="card-footer text-end">
+                <div class="d-flex">
+                    <a href="{% url 'persons:list' %}" class="btn btn-link me-auto">
+                        Cancelar
+                    </a>
+                    <div>                        
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary ms-auto"
+                            name="another">
+                            Guardar y añadir otro
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary ms-auto"
+                            name="save">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endblock form-buttons %}
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block page-scripts %}
+<script> /* Tratamiento de imágenes. */
+    // Personalización: 
+    // Agrega el nombre de la imagen a una etiqueta HTML, por ejemplo,
+    // <p> a fin de que se pueda aplicar estilos. 
+
+    let input = document.getElementById('id_foto');
+    let nombreImagen = document.getElementById('nombreImagen');
+
+    input.addEventListener('change', () => {
+        let inputImagen = document.querySelector('input[type=file]').files[0];
+        nombreImagen.innerText = '' + inputImagen.name;
+    });  
+
+
+    // Muestra la imagen previa, antes de guardarlo en la Base de Datos.    
+    const foto = document.getElementById('id_foto');
+    const mostrar_imagen = document.getElementById('mostrar_imagen');
+
+    foto.addEventListener('change', function() {
+        obtener_foto();
+    });
+
+    function obtener_foto() {
+        const archivos = foto.files[0];
+        if (archivos) {
+            const archivo = new FileReader();
+            archivo.readAsDataURL(archivos);
+            archivo.addEventListener('load', function() {
+                //mostrar_imagen.innerHTML = '<img src="'+ this.result +'"/>';
+                mostrar_imagen.setAttribute('src', this.result);
+            });
+        }
+    }
+</script>    
+
+<script> /* Alert fading */
+$('.alert').fadeTo(5000, 500).fadeOut(2000, function(){
+    $('.alert').alert('close');
+});
+</script>
+{% endblock page-scripts %}

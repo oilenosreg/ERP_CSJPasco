@@ -72,13 +72,17 @@ class CreatePersonaForm(forms.ModelForm):
                     'name': 'apellido_materno',
                 }
             ),
-            'fecha_nacimiento': forms.DateInput(
+
+            # TODO: El campo debería se con DateInput, evaluar y probar con otros
+            # plugins de datepicker.
+
+            'fecha_nacimiento': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Fecha de nacimiento',                
                     'id': 'fecha_nacimiento',                    
                     'type': 'date',
-                    'value': datetime.now().strftime('%d/%m/%Y'),
+                    # 'value': datetime.now().strftime('%d / %m / %Y'),
                 }
             ),
             'genero': forms.Select(

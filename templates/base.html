@@ -16,7 +16,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 	<title>
-    {{ title }} |
+    {{ title }} -
+	{{ pre_title }} |
     ERP de la Corte Superior de Justica de Pasco
   </title>
 
@@ -74,7 +75,7 @@
       {% block body %}
 			<div class="page-body">
 				<div class="container-xl">
-          
+					{% block content %}
 					<div class="row row-deck row-cards">
 						<div class="col-sm-6 col-lg-3">
 							<div class="card">
@@ -1877,7 +1878,7 @@
 							</div>
 						</div>
 					</div>
-          
+					{% endblock content %}
 				</div>
 			</div>  
       {% endblock body %}    

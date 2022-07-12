@@ -9,10 +9,11 @@
 # TODO:     Datos.
 # =======================================================================
 
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.db.models import Q
 from django.contrib import messages
-from django.http import Http404, HttpRequest
+from django.http import Http404, HttpRequest, HttpResponseRedirect
+from django.urls import reverse
 
 # Project modules.
 from django.conf import settings
@@ -55,46 +56,113 @@ def create_persona(request):
     '''
     Registra una persona en la base de datos.
     '''
+    # TODO: Añadir un botón para agregar datos de empleado.
 
     if request.method == 'POST':
-        create_form = CreatePersonaForm(request.POST, request.FILES)
+        form = CreatePersonaForm(request.POST, request.FILES)
         
-        if create_form.is_valid():
-            persona = create_form.save(commit=False)
+        if form.is_valid():
+            persona = form.save(commit=False)
             persona.save()    
             
-            name = create_form.cleaned_data.get('nombres')
-            f_lname = create_form.cleaned_data.get('apellido_paterno')
-            m_lname = create_form.cleaned_data.get('apellido_materno')
+            name = form.cleaned_data.get('nombres')
+            f_lname = form.cleaned_data.get('apellido_paterno')
+            m_lname = form.cleaned_data.get('apellido_materno')
+
             messages.success(
                 request, 
                 f'''
                 Se ha registrado a {name} {f_lname} {m_lname} de 
-                manera correcta. ''')        
+                manera correcta. ''')     
+
+            if 'another' in request.POST:
+                return HttpResponseRedirect(reverse('persons:create'))
+            elif 'save' in request.POST:
+                 return HttpResponseRedirect(reverse('persons:list'))
+ 
 
             # TODO [0002]:  Validar que el dni y puesto no sean NONE para evitar
-            # FIXME: prueba.
-            # BUG: prueba.
+            # TODO: return redirect('empleados:editar', dni=dni, id=puesto)
 
-            # return redirect('empleados:editar', dni=dni, id=puesto)
         else:
             messages.error(
                 request,
                 '''
-                No fue posible guardar los datos, verifique la información 
+                No fue posible guardar los datos. Verifique la información 
                 ingresada.
                 ''')
     else:
-        create_form = CreatePersonaForm()
-        # form_empleado = EmpleadoForm()
-        
+        form = CreatePersonaForm()
+                
     template = 'persons/create.html'
 
     context = { 
-        'form_persona': create_form,
-        # 'form_empleado': form_empleado,
+        'form_persona': form,        
         'create': True,
         'pre_title': 'Personas',
         'title': 'Registrar nueva persona'
     }
     return render(request, template, context)       
+
+
+def edit_persona(request, dni):
+    persona = get_object_or_404(Persona, dni = dni)
+    
+    if request.method == 'POST':
+        form = CreatePersonaForm(
+            request.POST or None, 
+            request.FILES or None,
+            instance=persona
+        )
+        if form.is_valid():
+            form.save()
+
+            nombres = form.cleaned_data.get('nombres')
+            f_lname = form.cleaned_data.get('apellido_paterno')
+            m_lname = form.cleaned_data.get('apellido_materno')
+
+            messages.success(
+                request,
+                f'''
+                Datos de {nombres} {f_lname} {m_lname} actualizados con éxito.
+                ''')
+
+            if 'another' in request.POST:
+                return HttpResponseRedirect(reverse('persons:create'))
+            elif 'save' in request.POST:
+                return HttpResponseRedirect(reverse('persons:list'))
+        else:
+            messages.error(
+                request,
+                '''
+                No fue posible guardar los datos. Verifique la información 
+                ingresada.
+                ''')
+
+    else:
+        form = CreatePersonaForm(instance=persona)
+            
+    template = 'persons/create.html' 
+
+    context = { 
+        'persona': persona,
+        'form_persona': form,
+        'edit': True,
+        'pre_title': 'Modificación de datos',
+        'title': f'{persona.nombres} {persona.apellido_paterno} {persona.apellido_materno}'
+    }
+       
+    return render(request, template, context)
+
+
+def profile_persona(request, dni):
+    persona = get_object_or_404(Persona, dni = dni)
+    template = 'persons/profile.html'
+    context = { 
+        'persona': persona,        
+        'detail': True,
+        'pre_title': 'Personas',
+        'title': 'Perfil de la persona'
+        # 'title': f'{persona.nombres} {persona.apellido_paterno} {persona.apellido_materno}',
+    }
+    return render(request, template, context)

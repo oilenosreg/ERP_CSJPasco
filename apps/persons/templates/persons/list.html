@@ -41,9 +41,11 @@
     </td>
     <td class="">
         <div class="btn-list flex-nowrap">
-            {% include 'buttons/edit_button.html' %}
+            {% url 'persons:edit' persona.dni as edit_url %}
+            {% include 'buttons/edit_button.html' with edit_url=edit_url %}
 
-            {% include 'buttons/delete_button.html' %}
+            {% url 'persons:profile' persona.dni as profile_url %}
+            {% include 'buttons/profile_button.html' with profile_url=profile_url %}
 
             {% include 'buttons/instance_button.html' %}
         </div>
@@ -51,3 +53,6 @@
 </tr>
 {% endfor %}
 {% endblock rows %}
+
+
+<!-- TODO: Cambiar los nombres de los archivos a sub_guion -->

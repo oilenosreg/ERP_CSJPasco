@@ -1,40 +1,27 @@
 {% load static %}
-<div class="card text-center mb-3">    
-    {% if create %}
-    <img  
-        id="mostrar_imagen"        
-        src="{% static 'img/usuario_general_04.jpg' %}" 
-        alt="" 
-        class="card-img-top">    
 
-        <div>
-           
-        </div>
-    {% elif persona.dni and editar or detalle %}
-    <img  
-        id="mostrar_imagen"
-        {% if persona.foto == '' %}   
-        src="{% static 'img/usuario_general_04.jpg' %}"  
-        {% else %}   
-        src="/media/{{ persona.foto }}" 
-        {% endif %}
-        alt="" 
-        class="card-img-top">
+<!-- TODO: Instalar librería de avatars -->
+<!-- TODO: Remover el nombre del archivo del la ventana editar -->
+<!-- FIXME: REvisar porqué no carga la imagen cuando hay un error -->
 
-    <div class="card-body">
-        <h5 class="font-strong m-b-5 m-t-5">
-            {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}
-        </h5>  
-        <p class="card-text font-light">
-            DNI: {{ persona.dni }}
-        </p>
-    </div>
+<div class="card text-center mb-3">   
+    {% if persona.dni is None or persona.foto is None or create %}
+        <img  
+            id="mostrar_imagen"        
+            src="{% static 'project/img/users/usuario_general_04.jpg' %}" 
+            alt="" 
+            class="card-img-top"> 
+    {% elif persona.foto %}
+        <img  
+            id="mostrar_imagen"  
+            src="/media/{{ persona.foto }}"  
+            alt="" 
+            class="card-img-top">
     {% endif %}
 </div>
 
-{% if create or editar %}
+{% if create or edit %}
 <!-- Input personalizado para cargar imagen. -->
-
 <div>
     <div class="form-group {% if form_persona.foto.errors %} has-error {% endif %} text-center">
         <label for="id_foto" class="btn btn-default w-100 text-center mb-3">
