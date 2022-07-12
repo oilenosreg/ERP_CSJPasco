@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from django import forms
 
 # Project modules.
@@ -76,7 +76,9 @@ class CreatePersonaForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Fecha de nacimiento',                
-                    'id': 'fecha_nacimiento',
+                    'id': 'fecha_nacimiento',                    
+                    'type': 'date',
+                    'value': datetime.now().strftime('%d/%m/%Y'),
                 }
             ),
             'genero': forms.Select(
@@ -95,7 +97,7 @@ class CreatePersonaForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'name': 'observaciones',
-                    'rows': 6,
+                    'rows': 3,
                 }
             ),
             'correo_institucional': forms.TextInput(

@@ -1,0 +1,198 @@
+{% extends 'forms/modal-form.html' %}
+{% load static %}
+
+{% block form-fields %}          
+<!-- Begin body modal form section 1 -->
+<div class="modal-body">
+
+
+    <div class="mb-3 form-group {% if form_persona.dni.errors %} has-error {% endif %}">
+        <label class="form-label">
+            {{ form_persona.dni.label }}
+        </label>                                
+        {{ form_persona.dni }}
+        <div class="text-danger">
+            {{ form_persona.dni.errors }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="mb-3 col-lg-4 form-group {% if form_persona.nombres.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.nombres.label }}
+            </label>                                
+            {{ form_persona.nombres }}
+            <div class="text-danger">
+                {{ form_persona.nombres.errors }}
+            </div>
+        </div>
+        <div class="mb-3 col-lg-4 form-group {% if form_persona.apellido_paterno.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.apellido_paterno.label }}
+            </label>                                
+            {{ form_persona.apellido_paterno }}
+            <div class="text-danger">
+                {{ form_persona.apellido_paterno.errors }}
+            </div>
+        </div>  
+        <div class="mb-3 col-lg-4 form-group {% if form_persona.apellido_materno.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.apellido_materno.label }}
+            </label>                                
+            {{ form_persona.apellido_materno }}
+            <div class="text-danger">
+                {{ form_persona.apellido_materno.errors }}
+            </div>
+        </div>                                                                                                  
+    </div>
+
+    <div class="row">
+        <div class="mb-3 col-lg-4 form-group {% if form_persona.fecha_nacimiento.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.fecha_nacimiento.label }}
+            </label>                                
+            {{ form_persona.fecha_nacimiento }}
+            <div class="text-danger">
+                {{ form_persona.fecha_nacimiento.errors }}
+            </div>
+        </div>
+        <div class="mb-3 col-lg-4 form-group {% if form_persona.genero.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.genero.label }}
+            </label>                                
+            {{ form_persona.genero }}
+            <div class="text-danger">
+                {{ form_persona.genero.errors }}
+            </div>
+        </div>  
+        <div class="mb-3 col-lg-4 form-group {% if form_persona.estado_civil.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.estado_civil.label }}
+            </label>                                
+            {{ form_persona.estado_civil }}
+            <div class="text-danger">
+                {{ form_persona.estado_civil.errors }}
+            </div>
+        </div>                                                                                                  
+    </div>
+</div>
+<!-- End body modal form section 1 -->
+
+<!-- Begin body modal form section 2 -->
+<div class="modal-body">
+
+    <div class="row">
+        <div class="mb-3 col-lg-3 form-group {% if form_persona.correo_institucional.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.correo_institucional.label }}
+            </label>
+            {{ form_persona.correo_institucional }}
+            <div class="text-danger">
+                {{ form_persona.correo_institucional.errors }}
+            </div>                                        
+        </div>             
+        <div class="mb-3 col-lg-3 form-group {% if form_persona.correo_personal.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.correo_personal.label }}
+            </label>
+            {{ form_persona.correo_personal }}
+            <div class="text-danger">
+                {{ form_persona.correo_personal.errors }}
+            </div>                                        
+        </div>   
+        <div class="mb-3 col-lg-3 form-group {% if form_persona.telefono_personal.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.telefono_principal.label }}
+            </label>
+            {{ form_persona.telefono_principal }}
+            <div class="text-danger">
+                {{ form_persona.telefono_principal.errors }}
+            </div>                                        
+        </div>
+        <div class="mb-3 col-lg-3 form-group {% if form_persona.telefono_institucional.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.telefono_secundario.label }}
+            </label>
+            {{ form_persona.telefono_secundario }}
+            <div class="text-danger">
+                {{ form_persona.telefono_secundario.errors }}
+            </div>                                        
+        </div>                       
+    </div>
+    
+    <div class="row">
+        <div class="mb-3 col-lg-3 form-group {% if form_persona.anexo_institucional.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.anexo_institucional.label }}
+            </label>
+            {{ form_persona.anexo_institucional }}
+            <div class="text-danger">
+                {{ form_persona.anexo_institucional.errors }}
+            </div>                                        
+        </div>          
+        <div class="mb-3 col-lg-9 form-group {% if form_persona.direccion.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.direccion.label }}    
+            </label>
+            {{ form_persona.direccion }}    
+            <div class="text-danger">
+                {{ form_persona.direccion.errors }}
+            </div>                                        
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="mb-3 col-lg-12 form-group {% if form_persona.observaciones.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.observaciones.label }}
+            </label>
+            {{ form_persona.observaciones }}
+            <div class="text-danger">
+                {{ form_persona.observaciones.errors }}
+            </div>                                        
+        </div>                          
+    </div>
+
+
+wwwwwwwwwwwwwww
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="mb-3">
+                <label class="form-label">Client name</label>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="mb-3">
+                <label class="form-label">Reporting period</label>
+                <input type="date" class="form-control">
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div>
+                <label class="form-label">Additional information</label>
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End body modal form section 2 -->
+{% endblock form-fields %}     
+
+
+{% block form-buttons %}
+<a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+    Cancel
+</a>
+<a href="#" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
+    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+    </svg>
+    Create new report
+</a>
+{% endblock form-buttons %}

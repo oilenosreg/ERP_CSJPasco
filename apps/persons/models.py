@@ -23,6 +23,7 @@ class Persona(models.Model):
     fecha_nacimiento = models.DateField('Fecha de nacimiento', blank=False, default=None)
     genero = models.CharField('Género', max_length=10, choices=GENERO_CHOICES, default='MAS')
     estado_civil = models.CharField('Estado civil', max_length=200, choices=ESTADO_CIVIL_CHOICES, default='SOL')
+    # TODO: Configurar imagen por defecto con default, ejemplo del proyecto de login.
     foto = models.ImageField('Foto', upload_to=renombrar_imagen, null=True, blank=True)
     
     # TODO: DEFINIR SI LA RELACIÓN SERÁ UNO A UNO, UNO A MUCHOS O EN UN SOLO MODELO.

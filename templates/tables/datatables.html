@@ -10,7 +10,9 @@
 
 {% block page-title %}
     {% include 'base/page-title.html' with pre_title=pre_title title=title %}
-    {% include 'base/title-actions.html' with action='Nueva persona' %}
+
+    {% url 'persons:create' as action_url %}
+    {% include 'base/title-actions.html' with action='Nueva persona' action_url=action_url %}
 {% endblock page-title %}
 
 
