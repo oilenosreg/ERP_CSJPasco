@@ -3,20 +3,13 @@
 <!-- TODO: Instalar librería de avatars -->
 <!-- TODO: Remover el nombre del archivo del la ventana editar -->
 
- 
-    <div class=" card text-center">
-        <img                 
-            {% if persona.foto %}
-                src="/media/{{ persona.foto }}"
-            {% else %}
-                src="{% static 'project/img/users/usuario_general_04.jpg' %}"
-            {% endif %}                
-            class="card-img" 
-            alt="
-                {{ persona.nombres|title }}
-                {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}">            
-    </div>
-
+<div class="card text-center mb-3">   
+    {% if persona.foto %}
+        <img id="mostrar_imagen" src="/media/{{ persona.foto }}" alt="" class="card-img-top">
+    {% else %}
+        <img id="mostrar_imagen" src="{% static 'project/img/users/usuario_general_04.jpg' %}" alt="" class="card-img-top">
+    {% endif %}
+</div>
 
 {% if create or edit %}
 <!-- Input personalizado para cargar imagen. -->

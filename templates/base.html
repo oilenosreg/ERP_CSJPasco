@@ -16,9 +16,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 	<title>
-    {{ title }} -
-	{{ pre_title }} |
-    ERP de la Corte Superior de Justica de Pasco
+		{% block title %}
+			{{ title }} -
+			{{ pre_title }}			
+		{% endblock title %} |
+		ERP de la Corte Superior de Justica de Pasco
   </title>
 
 

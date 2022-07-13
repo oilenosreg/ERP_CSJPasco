@@ -24,7 +24,7 @@
     <td class="text-center font-light align-middle" style="background-color: #f8f9fa;">
     </td>
     <td class="font-light align-middle">
-        <a href="">
+        <a href="{% url 'persons:profile' persona.dni %}">
             {{ persona.dni }}
         </a>
     </td>
@@ -41,11 +41,11 @@
     </td>
     <td class="">
         <div class="btn-list flex-nowrap">
-            {% url 'persons:edit' persona.dni as edit_url %}
-            {% include 'buttons/edit_button.html' with edit_url=edit_url %}
-
             {% url 'persons:profile' persona.dni as profile_url %}
             {% include 'buttons/profile_button.html' with profile_url=profile_url %}
+
+            {% url 'persons:edit' persona.dni as edit_url %}
+            {% include 'buttons/edit_button.html' with edit_url=edit_url %}
 
             {% include 'buttons/instance_button.html' %}
         </div>
