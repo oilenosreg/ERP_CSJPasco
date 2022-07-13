@@ -1,49 +1,41 @@
-{% extends 'pages/profile.html' %}
+{% extends 'base/body.html' %}
 {% load static %}
 
 <!-- TODO: Si el usuario que verifica el perfil es de la oficina de personal, puede ver la edad y la 
 fecha de nacimiento completa -->
 
 {% block title %}
-    {{ persona.nombres|title }}
-    {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }} | {{title}}
+{{ persona.nombres|title }}
+{{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }} | {{title}}
 {% endblock title %}
 
 {% block page-title %}
-    {% include 'base/page-title.html' with title=title pre_title=pre_title %}
+{% include 'base/page-title.html' with title=title pre_title=pre_title %}
 
-    <div class="col-12 col-md-auto ms-auto d-print-none">
-        <div class="btn-list">
-            
-            <span class="d-none d-sm-inline">
-                <a href="{% url 'persons:list' %}" class="btn btn-white">
-                    Listado de personas
-                </a>
-            </span>
-            
-            <a 
-                href="{% url 'persons:edit' persona.dni %}" 
-                class="btn btn-primary d-none d-sm-inline-block" >
-                Modificar
-            </a>        
-        </div>
+<div class="col-12 col-md-auto ms-auto d-print-none">
+    <div class="btn-list">
+
+        <span class="d-none d-sm-inline">
+            <a href="{% url 'persons:list' %}" class="btn btn-white">
+                Listado de personas
+            </a>
+        </span>
+
+        <a href="{% url 'persons:edit' persona.dni %}" class="btn btn-primary d-none d-sm-inline-block">
+            Modificar
+        </a>
     </div>
+</div>
 {% endblock page-title %}
 
 {% block content %}
 <div class="row gutters-sm">
     <div class="col-lg-2 col-md-3 col-sm-3">
         <div class=" card text-center">
-            <img                 
-                {% if persona.foto %}
-                    src="/media/{{ persona.foto }}"
-                {% else %}
-                    src="{% static 'project/img/users/usuario_general_04.jpg' %}"
-                {% endif %}                
-                class="card-img" 
-                alt="
+            <img {% if persona.foto %} src="/media/{{ persona.foto }}" {% else %}
+                src="{% static 'project/img/users/usuario_general_04.jpg' %}" {% endif %} class="card-img" alt="
                     {{ persona.nombres|title }}
-                    {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}">            
+                    {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}">
         </div>
     </div>
 
@@ -53,34 +45,37 @@ fecha de nacimiento completa -->
                 {{ persona.activo|yesno:'Activo, Inactivo'}}
             </div>
             <div class="card-body p-4">
-                <h1 class="m-0 mb-2 text-blue">
-                    {{ persona.nombres|title }}
-                    {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}
-                </h1>
-                {% if persona.dni is None %}
-                    <div class="alert alert-danger">
-                        Esta persona se ha registrado sin número de DNI; por favor, actualice los datos a fin de
-                        evitar errores.
-                    </div>
+                {% block datos-persona %}
+                    <h1 class="m-0 mb-2 text-blue">
+                        {{ persona.nombres|title }}
+                        {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}
+                    </h1>
+                    {% if persona.dni is None %}
+                        <div class="alert alert-danger">
+                            Esta persona se ha registrado sin número de DNI; por favor, actualice los datos a fin de
+                            evitar errores.
+                        </div>
                     {% else %}
-                    <div class=" align-middle text-dark">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="24"
-                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <rect x="3" y="4" width="18" height="16" rx="3"></rect>
-                            <circle cx="9" cy="10" r="2"></circle>
-                            <line x1="15" y1="8" x2="17" y2="8"></line>
-                            <line x1="15" y1="12" x2="17" y2="12"></line>
-                            <line x1="7" y1="16" x2="17" y2="16"></line>
-                        </svg>
-                        DNI: {{ persona.dni }}
-                    </div>
-                    <hr>                
-                {% endif %}
+                        <div class=" align-middle text-dark">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="24"
+                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+                                <circle cx="9" cy="10" r="2"></circle>
+                                <line x1="15" y1="8" x2="17" y2="8"></line>
+                                <line x1="15" y1="12" x2="17" y2="12"></line>
+                                <line x1="7" y1="16" x2="17" y2="16"></line>
+                            </svg>
+                            DNI: {{ persona.dni }}
+                        </div>
+                    {% endif %}
+                {% endblock datos-persona %}
                 
+                {% block datos-contacto %}
+                <hr>
                 <div class="row text-muted mb-3">
-                    <div class="col-lg-4 col-md-4 col-sm-4">                      
+                    <div class="col-lg-4 col-md-4 col-sm-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24"
                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -88,12 +83,12 @@ fecha de nacimiento completa -->
                             <rect x="3" y="5" width="18" height="14" rx="2"></rect>
                             <polyline points="3 7 12 13 21 7"></polyline>
                         </svg>
-                        {{ persona.correo_institucional|default_if_none:'No registrado' }}                            
+                        {{ persona.correo_institucional|default_if_none:'No registrado' }}
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">                              
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone"
-                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path
                                 d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2">
@@ -112,7 +107,7 @@ fecha de nacimiento completa -->
                             <path d="M15 7a2 2 0 0 1 2 2"></path>
                             <path d="M15 3a6 6 0 0 1 6 6"></path>
                         </svg>
-                        Anexo: {{ persona.anexo_institucional|default_if_none:'No registrado' }}                                        
+                        Anexo: {{ persona.anexo_institucional|default_if_none:'No registrado' }}
                     </div>
                 </div>
 
@@ -131,7 +126,7 @@ fecha de nacimiento completa -->
                         {{ persona.fecha_nacimiento|default_if_none:'No registrado'|date:'j F' }}
                     </div>
 
-                    <div class="col-lg-8 col-md-8 col-sm-8">                    
+                    <div class="col-lg-8 col-md-8 col-sm-8">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-directions"
                             width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -143,9 +138,10 @@ fecha de nacimiento completa -->
                             <path d="M8 5v4h11l2 -2l-2 -2z"></path>
                             <path d="M14 13v4h-8l-2 -2l2 -2z"></path>
                         </svg>
-                        {{ persona.direccion|default_if_none:'No registrado' }}                        
+                        {{ persona.direccion|default_if_none:'No registrado' }}
                     </div>
                 </div>
+                {% endblock datos-contacto %}
             </div>
         </div>
 

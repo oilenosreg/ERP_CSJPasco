@@ -26,6 +26,7 @@ urlpatterns = [
     # Project url's.
     path('', include('apps.main.urls')),
     path('personas/', include('apps.persons.urls')),
+    path('empleados/', include('apps.employees.urls')),
 ]
 
 

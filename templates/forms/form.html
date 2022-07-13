@@ -1,51 +1,36 @@
 {% extends 'base/body.html' %}
+{% load static %}
 
 <!-- TODO: mejorar magin y padding de la foto y formulario -->
 
 
 {% block page-title %}
-<!-- Begin Page Title -->
-{% include 'base/page-title.html' with title=title pre_title=pre_title %}
-<!-- End Page Title -->
+    {% include 'base/page-title.html' with title=title pre_title=pre_title %}
 {% endblock page-title %}
 
 
 {% block content %}
 <div class="row gutters-sm">
     {% include 'messages/messages.html' %}
-    <form id="{{ form_id }}" enctype="multipart/form-data" action="." method="post" class="" novalidate>
-        <!-- <div class="card-header">
-                <h4 class="card-title">
-                    {{ title }}
-                </h4>
-            </div> -->
 
+    <!-- Begin Form -->
+    <form action="" method="POST">
         {% csrf_token %}
-
-        {% block form-fields %}
-        <!-- Begin photo -->
-        <div class=" col-xl-2 col-md-2 col-sm-2">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="mt-3 ms-3">
-                        {% include 'base/photo.html' %}
-                    </div>
-                </div>
+        <div class="row gutters-sm">
+            {% block form %}
+            <!-- Begin photo -->
+            <div class="col-lg-2 col-md-3 col-sm-3">
+                {% include 'base/photo.html' %}
             </div>
-        </div>
-        <!-- End photo -->
-        <div class=" col-xl-10 col-md-10 col-sm-10">
-            <div class="row">
-                <div class="col-xl-12">
+            <!-- Begin photo -->
+            
+            <!-- Begin form fields -->
+            <div class="col-lg-10 col-md-9 col-sm-9">
+                <div class="card">
                     <fieldset {% if detalle %} disabled {% endif %}>
-
-
-
-
-                        <!-- Begin body modal form section 1 -->
+                        {% block fieldset %}                        
+                        <!-- Begin form section 1 -->
                         <div class="modal-body">
-
-
                             <div class="mb-3 form-group {% if form_persona.dni.errors %} has-error {% endif %}">
                                 <label class="form-label">
                                     {{ form_persona.dni.label }}
@@ -55,7 +40,7 @@
                                     {{ form_persona.dni.errors }}
                                 </div>
                             </div>
-
+        
                             <div class="row">
                                 <div
                                     class="mb-3 col-lg-4 form-group {% if form_persona.nombres.errors %} has-error {% endif %}">
@@ -88,7 +73,7 @@
                                     </div>
                                 </div>
                             </div>
-
+        
                             <div class="row">
                                 <div
                                     class="mb-3 col-lg-4 form-group {% if form_persona.fecha_nacimiento.errors %} has-error {% endif %}">
@@ -100,8 +85,7 @@
                                         {{ form_persona.fecha_nacimiento.errors }}
                                     </div>
                                 </div>
-                                <div
-                                    class="mb-3 col-lg-4 form-group {% if form_persona.genero.errors %} has-error {% endif %}">
+                                <div class="mb-3 col-lg-4 form-group {% if form_persona.genero.errors %} has-error {% endif %}">
                                     <label class="form-label">
                                         {{ form_persona.genero.label }}
                                     </label>
@@ -122,11 +106,10 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- End body modal form section 1 -->
-
-                        <!-- Begin body modal form section 2 -->
+                        <!-- End form section 1 -->
+        
+                        <!-- Begin form section 2 -->
                         <div class="modal-body">
-
                             <div class="row">
                                 <div
                                     class="mb-3 col-lg-3 form-group {% if form_persona.correo_institucional.errors %} has-error {% endif %}">
@@ -169,7 +152,7 @@
                                     </div>
                                 </div>
                             </div>
-
+        
                             <div class="row">
                                 <div
                                     class="mb-3 col-lg-3 form-group {% if form_persona.anexo_institucional.errors %} has-error {% endif %}">
@@ -192,7 +175,7 @@
                                     </div>
                                 </div>
                             </div>
-
+        
                             <div class="row">
                                 <div
                                     class="mb-3 col-lg-12 form-group {% if form_persona.observaciones.errors %} has-error {% endif %}">
@@ -206,21 +189,34 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- End body modal form section 2 -->
-
-
+                        <!-- End form section 2 -->
+                        {% endblock fieldset %}    
+                        
+                        {% block form-buttons %}
+                        <div class="card-footer text-end">
+                            <div class="d-flex">
+                                <a href="{% url 'persons:list' %}" class="btn btn-link me-auto">
+                                    Cancelar
+                                </a>
+                                <div>
+                                    <button type="submit" class="btn btn-primary ms-auto" name="another">
+                                        Guardar y añadir otro
+                                    </button>
+                                    <button type="submit" class="btn btn-primary ms-auto" name="save">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endblock form-buttons %}
                     </fieldset>
                 </div>
             </div>
+            {% endblock form %}
+            <!-- End form fields -->
         </div>
-        {% endblock form-fields %}
-
-
-
-        <!-- TODO: Tamaño de los formularios responsivos -->
-
     </form>
-
+    <!-- End Form -->
 </div>
 {% endblock content %}
 

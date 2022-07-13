@@ -4,214 +4,193 @@
 
 
 {% block page-title %}
-{% include 'base/page-title.html' with title=title pre_title=pre_title %}
+    {% include 'base/page-title.html' with title=title pre_title=pre_title %}
 {% endblock page-title %}
 
 
-
-{% block form-fields %}
-    <!-- Begin photo -->
-    <div class="col-lg-2 col-md-3 col-sm-3">
-        {% include 'base/photo.html' %}
-    </div>    
-    <!-- End photo -->
-    
-    <div class="col-lg-10 col-md-9 col-sm-9">
-        <div class="card">
-
-                <fieldset {% if detalle %} disabled {% endif %}>
-    
-    
-    
-    
-                    <!-- Begin body modal form section 1 -->
-                    <div class="modal-body">
-    
-    
-                        <div class="mb-3 form-group {% if form_persona.dni.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.dni.label }}
-                            </label>
-                            {{ form_persona.dni }}
-                            <div class="text-danger">
-                                {{ form_persona.dni.errors }}
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <div
-                                class="mb-3 col-lg-4 form-group {% if form_persona.nombres.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.nombres.label }}
-                                </label>
-                                {{ form_persona.nombres }}
-                                <div class="text-danger">
-                                    {{ form_persona.nombres.errors }}
-                                </div>
-                            </div>
-                            <div
-                                class="mb-3 col-lg-4 form-group {% if form_persona.apellido_paterno.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.apellido_paterno.label }}
-                                </label>
-                                {{ form_persona.apellido_paterno }}
-                                <div class="text-danger">
-                                    {{ form_persona.apellido_paterno.errors }}
-                                </div>
-                            </div>
-                            <div
-                                class="mb-3 col-lg-4 form-group {% if form_persona.apellido_materno.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.apellido_materno.label }}
-                                </label>
-                                {{ form_persona.apellido_materno }}
-                                <div class="text-danger">
-                                    {{ form_persona.apellido_materno.errors }}
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <div
-                                class="mb-3 col-lg-4 form-group {% if form_persona.fecha_nacimiento.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.fecha_nacimiento.label }}
-                                </label>
-                                {{ form_persona.fecha_nacimiento }}
-                                <div class="text-danger">
-                                    {{ form_persona.fecha_nacimiento.errors }}
-                                </div>
-                            </div>
-                            <div class="mb-3 col-lg-4 form-group {% if form_persona.genero.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.genero.label }}
-                                </label>
-                                {{ form_persona.genero }}
-                                <div class="text-danger">
-                                    {{ form_persona.genero.errors }}
-                                </div>
-                            </div>
-                            <div
-                                class="mb-3 col-lg-4 form-group {% if form_persona.estado_civil.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.estado_civil.label }}
-                                </label>
-                                {{ form_persona.estado_civil }}
-                                <div class="text-danger">
-                                    {{ form_persona.estado_civil.errors }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End body modal form section 1 -->
-    
-                    <!-- Begin body modal form section 2 -->
-                    <div class="modal-body">
-    
-                        <div class="row">
-                            <div
-                                class="mb-3 col-lg-3 form-group {% if form_persona.correo_institucional.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.correo_institucional.label }}
-                                </label>
-                                {{ form_persona.correo_institucional }}
-                                <div class="text-danger">
-                                    {{ form_persona.correo_institucional.errors }}
-                                </div>
-                            </div>
-                            <div
-                                class="mb-3 col-lg-3 form-group {% if form_persona.correo_personal.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.correo_personal.label }}
-                                </label>
-                                {{ form_persona.correo_personal }}
-                                <div class="text-danger">
-                                    {{ form_persona.correo_personal.errors }}
-                                </div>
-                            </div>
-                            <div
-                                class="mb-3 col-lg-3 form-group {% if form_persona.telefono_personal.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.telefono_principal.label }}
-                                </label>
-                                {{ form_persona.telefono_principal }}
-                                <div class="text-danger">
-                                    {{ form_persona.telefono_principal.errors }}
-                                </div>
-                            </div>
-                            <div
-                                class="mb-3 col-lg-3 form-group {% if form_persona.telefono_institucional.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.telefono_secundario.label }}
-                                </label>
-                                {{ form_persona.telefono_secundario }}
-                                <div class="text-danger">
-                                    {{ form_persona.telefono_secundario.errors }}
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <div
-                                class="mb-3 col-lg-3 form-group {% if form_persona.anexo_institucional.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.anexo_institucional.label }}
-                                </label>
-                                {{ form_persona.anexo_institucional }}
-                                <div class="text-danger">
-                                    {{ form_persona.anexo_institucional.errors }}
-                                </div>
-                            </div>
-                            <div
-                                class="mb-3 col-lg-9 form-group {% if form_persona.direccion.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.direccion.label }}
-                                </label>
-                                {{ form_persona.direccion }}
-                                <div class="text-danger">
-                                    {{ form_persona.direccion.errors }}
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <div
-                                class="mb-3 col-lg-12 form-group {% if form_persona.observaciones.errors %} has-error {% endif %}">
-                                <label class="form-label">
-                                    {{ form_persona.observaciones.label }}
-                                </label>
-                                {{ form_persona.observaciones }}
-                                <div class="text-danger">
-                                    {{ form_persona.observaciones.errors }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End body modal form section 2 -->
-    
-    
-                </fieldset>
-
-                {% block form-buttons %}
-                <div class="card-footer text-end">
-                    <div class="d-flex">
-                        <a href="{% url 'persons:list' %}" class="btn btn-link me-auto">
-                            Cancelar
-                        </a>
-                        <div>
-                            <button type="submit" class="btn btn-primary ms-auto" name="another">
-                                Guardar888 y añadir otro
-                            </button>
-                            <button type="submit" class="btn btn-primary ms-auto" name="save">
-                                Guardar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                {% endblock form-buttons %}
+{% block fieldset %}                        
+<!-- Begin form section 1 -->
+<div class="modal-body">
+    <div class="mb-3 form-group {% if form_persona.dni.errors %} has-error {% endif %}">
+        <label class="form-label">
+            {{ form_persona.dni.label }}
+        </label>
+        {{ form_persona.dni }}
+        <div class="text-danger">
+            {{ form_persona.dni.errors }}
         </div>
     </div>
 
+    <div class="row">
+        <div
+            class="mb-3 col-lg-4 form-group {% if form_persona.nombres.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.nombres.label }}
+            </label>
+            {{ form_persona.nombres }}
+            <div class="text-danger">
+                {{ form_persona.nombres.errors }}
+            </div>
+        </div>
+        <div
+            class="mb-3 col-lg-4 form-group {% if form_persona.apellido_paterno.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.apellido_paterno.label }}
+            </label>
+            {{ form_persona.apellido_paterno }}
+            <div class="text-danger">
+                {{ form_persona.apellido_paterno.errors }}
+            </div>
+        </div>
+        <div
+            class="mb-3 col-lg-4 form-group {% if form_persona.apellido_materno.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.apellido_materno.label }}
+            </label>
+            {{ form_persona.apellido_materno }}
+            <div class="text-danger">
+                {{ form_persona.apellido_materno.errors }}
+            </div>
+        </div>
+    </div>
 
-{% endblock form-fields %}
+    <div class="row">
+        <div
+            class="mb-3 col-lg-4 form-group {% if form_persona.fecha_nacimiento.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.fecha_nacimiento.label }}
+            </label>
+            {{ form_persona.fecha_nacimiento }}
+            <div class="text-danger">
+                {{ form_persona.fecha_nacimiento.errors }}
+            </div>
+        </div>
+        <div class="mb-3 col-lg-4 form-group {% if form_persona.genero.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.genero.label }}
+            </label>
+            {{ form_persona.genero }}
+            <div class="text-danger">
+                {{ form_persona.genero.errors }}
+            </div>
+        </div>
+        <div
+            class="mb-3 col-lg-4 form-group {% if form_persona.estado_civil.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.estado_civil.label }}
+            </label>
+            {{ form_persona.estado_civil }}
+            <div class="text-danger">
+                {{ form_persona.estado_civil.errors }}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End form section 1 -->
+
+<!-- Begin form section 2 -->
+<div class="modal-body">
+    <div class="row">
+        <div
+            class="mb-3 col-lg-3 form-group {% if form_persona.correo_institucional.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.correo_institucional.label }}
+            </label>
+            {{ form_persona.correo_institucional }}
+            <div class="text-danger">
+                {{ form_persona.correo_institucional.errors }}
+            </div>
+        </div>
+        <div
+            class="mb-3 col-lg-3 form-group {% if form_persona.correo_personal.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.correo_personal.label }}
+            </label>
+            {{ form_persona.correo_personal }}
+            <div class="text-danger">
+                {{ form_persona.correo_personal.errors }}
+            </div>
+        </div>
+        <div
+            class="mb-3 col-lg-3 form-group {% if form_persona.telefono_personal.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.telefono_principal.label }}
+            </label>
+            {{ form_persona.telefono_principal }}
+            <div class="text-danger">
+                {{ form_persona.telefono_principal.errors }}
+            </div>
+        </div>
+        <div
+            class="mb-3 col-lg-3 form-group {% if form_persona.telefono_institucional.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.telefono_secundario.label }}
+            </label>
+            {{ form_persona.telefono_secundario }}
+            <div class="text-danger">
+                {{ form_persona.telefono_secundario.errors }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div
+            class="mb-3 col-lg-3 form-group {% if form_persona.anexo_institucional.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.anexo_institucional.label }}
+            </label>
+            {{ form_persona.anexo_institucional }}
+            <div class="text-danger">
+                {{ form_persona.anexo_institucional.errors }}
+            </div>
+        </div>
+        <div
+            class="mb-3 col-lg-9 form-group {% if form_persona.direccion.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.direccion.label }}
+            </label>
+            {{ form_persona.direccion }}
+            <div class="text-danger">
+                {{ form_persona.direccion.errors }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div
+            class="mb-3 col-lg-12 form-group {% if form_persona.observaciones.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.observaciones.label }}
+            </label>
+            {{ form_persona.observaciones }}
+            <div class="text-danger">
+                {{ form_persona.observaciones.errors }}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End form section 2 -->
+{% endblock fieldset %}    
+
+{% block form-buttons %}
+<div class="card-footer text-end">
+    <div class="d-flex">
+        <a href="{% url 'persons:list' %}" class="btn btn-link me-auto">
+            Cancelar
+        </a>
+        <div>
+            <button type="submit" class="btn btn-success ms-auto" name="department">
+                Guardar y asignar dependencia
+            </button>
+            <button type="submit" class="btn btn-primary ms-auto" name="another">
+                Guardar y añadir otro
+            </button>
+            <button type="submit" class="btn btn-primary ms-auto" name="save">
+                Guardar
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock form-buttons %}
+
 

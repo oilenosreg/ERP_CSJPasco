@@ -4,13 +4,14 @@
 <!-- TODO: Remover el nombre del archivo del la ventana editar -->
 
  
-    <div class=" card text-center">
+    <div class="card text-center mb-3">
         <img                 
             {% if persona.foto %}
                 src="/media/{{ persona.foto }}"
             {% else %}
                 src="{% static 'project/img/users/usuario_general_04.jpg' %}"
-            {% endif %}                
+            {% endif %}    
+            id="mostrar_imagen"             
             class="card-img" 
             alt="
                 {{ persona.nombres|title }}

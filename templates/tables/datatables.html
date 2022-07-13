@@ -3,31 +3,31 @@
 
 
 {% block lib-styles %}
-    <link href="{% static 'libs/datatables.1.12.1/css/dataTables.bootstrap5.min.css' %}" rel="stylesheet">    
-    <link href="{% static 'libs/datatables.1.12.1/css/responsive.bootstrap5.min.css' %}" rel="stylesheet">   
+<link href="{% static 'libs/datatables.1.12.1/css/dataTables.bootstrap5.min.css' %}" rel="stylesheet">
+<link href="{% static 'libs/datatables.1.12.1/css/responsive.bootstrap5.min.css' %}" rel="stylesheet">
 {% endblock lib-styles %}
 
 
 {% block page-title %}
-    {% include 'base/page-title.html' with pre_title=pre_title title=title %}
+{% include 'base/page-title.html' with pre_title=pre_title title=title %}
 
-    {% url 'persons:create' as action_url %}
-    {% include 'base/title-actions.html' with action='Nueva persona' action_url=action_url %}
+{% url 'persons:create' as action_url %}
+{% include 'base/title-actions.html' with action='Nueva persona' action_url=action_url %}
 {% endblock page-title %}
 
 
 {% block content %}
-    <div class="card">
-        <!-- Begin card title -->    
-        <!-- <div class="card-header">
+<div class="card">
+    <!-- Begin card title -->
+    <!-- <div class="card-header">
             <h3 class="card-title">
                 Invoices
             </h3>
         </div> -->
-        <!-- End card title -->
+    <!-- End card title -->
 
 
-        <!-- <div class="card-body border-bottom py-3">
+    <!-- <div class="card-body border-bottom py-3">
             <div class="d-flex">
                 <div class="text-muted">
                     Show
@@ -46,71 +46,98 @@
             </div>
         </div> -->
 
+    {% if object_list %}
+    <!-- Begin card body -->
+    <div class="table-responsive">
+        <table id="data" class="table card-table table-vcenter text-nowrap datatable">
+            <thead>
+                {% block columns %}
+                <tr>
+                    <th class="font-light align-middle text-center " style="width: 3%;">Nro</th>
+                    <th class="font-light align-middle text-center " style="width: 7%;">DNI</th>
+                    <th class="font-light align-middle text-center " style="width: 11%;">Apellido Paterno</th>
+                    <th class="font-light align-middle text-center " style="width: 11%;">Apellido Materno</th>
+                    <th class="font-light align-middle text-center " style="width: 16%;">Nombres</th>
+                    <th class="font-light align-middle text-center " style="width: 15%;">Correo</th>
+                    <th class="font-light align-middle text-center " style="width: 7%;">Teléfono</th>
+                    <th class="font-light align-middle text-center " style="width: 5%;">Anexo</th>
+                    <th class="font-light align-middle text-center " style="width: 15%;">Cumpleaños</th>
+                    <th class="font-light align-middle text-center " style="width: 10%;">Acciones</th>
+                </tr>
+                {% endblock columns %}
+            </thead>
+            <tbody>
+                {% block rows %}
+                {% for persona in personas %}
+                <tr>
+                    <td class="text-center font-light align-middle" style="background-color: #f8f9fa;">
+                    </td>
+                    <td class="font-light align-middle">
+                        <a href="">
+                            {{ persona.dni }}
+                        </a>
+                    </td>
+                    <td class="font-light align-middle">{{ persona.apellido_paterno|title|default_if_none:'' }}</td>
+                    <td class="font-light align-middle">{{ persona.apellido_materno|title|default_if_none:'' }}</td>
+                    <td class="font-light align-middle">{{ persona.nombres|title|default_if_none:'' }}</td>
+                    <td class="font-light align-middle">{{ persona.correo_institucional|default_if_none:''|lower }}</td>
+                    <td class="font-light align-middle">{{ persona.telefono_principal|default_if_none:'' }}</td>
+                    <td class="font-light align-middle">{{ persona.anexo_institucional|default_if_none:'' }}</td>
+                    <td class="font-light align-middle">
+                        {% if persona.fecha_nacimiento %}
+                        {{ persona.fecha_nacimiento|date:'j' }} de {{ persona.fecha_nacimiento|date:'F' }}
+                        {% endif %}
+                    </td>
+                    <td class="">
+                        <div class="btn-list flex-nowrap">
+                            {% include 'buttons/edit_button.html' %}
 
-        <!-- Begin card body -->
-        <div class="table-responsive">
-            <table 
-                id="data"
-                class="table card-table table-vcenter text-nowrap datatable">
-                <thead>
-                    {% block columns %}                
-                    <tr>
-                        <th class="font-light align-middle text-center " style="width: 3%;">Nro</th>
-                        <th class="font-light align-middle text-center " style="width: 7%;">DNI</th>
-                        <th class="font-light align-middle text-center " style="width: 11%;">Apellido Paterno</th>                                    
-                        <th class="font-light align-middle text-center " style="width: 11%;">Apellido Materno</th>                                    
-                        <th class="font-light align-middle text-center " style="width: 16%;">Nombres</th>
-                        <th class="font-light align-middle text-center " style="width: 15%;">Correo</th>
-                        <th class="font-light align-middle text-center " style="width: 7%;">Teléfono</th>
-                        <th class="font-light align-middle text-center " style="width: 5%;">Anexo</th>
-                        <th class="font-light align-middle text-center " style="width: 15%;">Cumpleaños</th>
-                        <th class="font-light align-middle text-center " style="width: 10%;">Acciones</th>               
-                    </tr>
-                    {% endblock columns %}
-                </thead>
-                <tbody>
-                    {% block rows %}
-                        {% for persona in personas %}
-                        <tr>
-                            <td 
-                                class="text-center font-light align-middle"
-                                style="background-color: #f8f9fa;">
-                            </td>
-                            <td class="font-light align-middle">
-                                <a href="">
-                                    {{ persona.dni }}
-                                </a>                                    
-                            </td>                                        
-                            <td class="font-light align-middle">{{ persona.apellido_paterno|title|default_if_none:'' }}</td>
-                            <td class="font-light align-middle">{{ persona.apellido_materno|title|default_if_none:'' }}</td>
-                            <td class="font-light align-middle">{{ persona.nombres|title|default_if_none:'' }}</td>
-                            <td class="font-light align-middle">{{ persona.correo_institucional|default_if_none:''|lower }}</td>                                                                                
-                            <td class="font-light align-middle">{{ persona.telefono_principal|default_if_none:'' }}</td>
-                            <td class="font-light align-middle">{{ persona.anexo_institucional|default_if_none:'' }}</td>
-                            <td class="font-light align-middle">
-                                {% if persona.fecha_nacimiento %}
-                                {{ persona.fecha_nacimiento|date:'j' }} de {{ persona.fecha_nacimiento|date:'F' }}
-                                {% endif %}
-                            </td>                                                                        
-                            <td class="">
-                                <div class="btn-list flex-nowrap">
-                                    {% include 'buttons/edit_button.html' %}
+                            {% include 'buttons/delete_button.html' %}
 
-                                    {% include 'buttons/delete_button.html' %}
-  
-                                    {% include 'buttons/instance_button.html' %}                        
-                                </div>
-                            </td>
-                        </tr>                            
-                        {% endfor %}                        
-                    {% endblock rows %}                
-                </tbody>
-            </table>
+                            {% include 'buttons/instance_button.html' %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endblock rows %}
+            </tbody>
+        </table>
+    </div>
+    <!-- End table body -->
+    {% else %}
+    <div class="card">
+        <div class="empty">
+            <div class="empty-img"><img src="{% static 'theme/tabler-1.0.0.b9/static/illustrations/undraw_quitting_time_dm8t.svg' %}" alt="" height="128">
+            </div>
+            <p class="empty-title">
+                No se han encontrado resultados
+            </p>
+            <p class="empty-subtitle text-muted">
+                Al parecer, no existen registros en la base de datos; si lo prefiere, puede agregar un nuevo registro,
+                mediante los botones de la parte superior.
+            </p>
+            <!-- <div class="empty-action">
+                <a href="./." class="btn btn-primary">                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <circle cx="10" cy="10" r="7"></circle>
+                        <line x1="21" y1="21" x2="15" y2="15"></line>
+                    </svg>
+                    Search again
+                </a>
+            </div> -->
+            
         </div>
-        <!-- End table body -->
+    </div>
+    {% endif %}
 
-        <!-- Begin card footer -->
-        <!-- <div class="card-footer d-flex align-items-center">
+
+
+
+    <!-- Begin card footer -->
+    <!-- <div class="card-footer d-flex align-items-center">
             <p class="m-0 text-muted">Showing <span>1</span> to <span>8</span> of <span>16</span> entries</p>
             <ul class="pagination m-0 ms-auto">
                 <li class="page-item disabled">
@@ -144,26 +171,26 @@
                 </li>
             </ul>
         </div> -->
-        <!-- End table footer -->
-    </div>
+    <!-- End table footer -->
+</div>
 {% endblock content %}
 
 
 {% block lib-scripts %}
-    <script src="{% static 'libs/datatables.1.12.1/js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'libs/datatables.1.12.1/js/dataTables.bootstrap5.min.js' %}"></script>    
-    
+<script src="{% static 'libs/datatables.1.12.1/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.1.12.1/js/dataTables.bootstrap5.min.js' %}"></script>
+
 {% endblock lib-scripts %}
 
 
 {% block page-scripts %}
-    <script>
-        $(document).ready( function () {
-            $('#data').DataTable({
-                'language': {
-                    'url': '/static/libs/datatables.1.12.1/lang/es-ES.json'
-                }
-            });
+<script>
+    $(document).ready(function () {
+        $('#data').DataTable({
+            'language': {
+                'url': '/static/libs/datatables.1.12.1/lang/es-ES.json'
+            }
         });
-    </script>
+    });
+</script>
 {% endblock page-scripts %}

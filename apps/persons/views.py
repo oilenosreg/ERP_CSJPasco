@@ -46,7 +46,7 @@ def list_personas(request):
     contexto = {
         'personas' : personas,
         'pre_title': 'Personas',        
-        'title': 'Listado de personas',
+        'title': 'Lista de personas',
 
     }
     return render(request, plantilla, contexto)
@@ -65,6 +65,7 @@ def create_persona(request):
             persona = form.save(commit=False)
             persona.save()    
             
+            dni = persona.dni
             name = form.cleaned_data.get('nombres')
             f_lname = form.cleaned_data.get('apellido_paterno')
             m_lname = form.cleaned_data.get('apellido_materno')
@@ -72,13 +73,17 @@ def create_persona(request):
             messages.success(
                 request, 
                 f'''
-                Se ha registrado a {name} {f_lname} {m_lname} de 
+                Se ha registrado a {name} {f_lname} {m_lname} de {dni}
                 manera correcta. ''')     
 
             if 'another' in request.POST:
                 return HttpResponseRedirect(reverse('persons:create'))
             elif 'save' in request.POST:
                  return HttpResponseRedirect(reverse('persons:list'))
+            elif 'department' in request.POST:
+                return HttpResponseRedirect(
+                    reverse('employees:create',
+                        kwargs={'dni':dni}))
  
 
             # TODO [0002]:  Validar que el dni y puesto no sean NONE para evitar

@@ -1,0 +1,77 @@
+{% extends 'tables/datatables.html' %}
+
+
+{% block columns %}
+<th class="font-light align-middle text-center">Nro</th>
+<th class="font-light align-middle text-center">DNI</th>
+<th class="font-light align-middle text-center">Apellidos y Nombres</th>
+<th class="font-light align-middle text-center">Dependencia</th>
+<th class="font-light align-middle text-center">Módulo</th>
+<th class="font-light align-middle text-center">Inicio</th>
+<th class="font-light align-middle text-center">Estado</th>        
+<th class="font-light align-middle text-center">Acciones</th>
+{% endblock columns %}
+
+{% block rows %}
+{% for empleado in object_list %}
+<tr>
+    <td class="font-light align-middle text-center">
+        
+    </td>
+    <td class="font-light align-middle">
+        {{ empleado.persona.dni }}
+    </td>        
+    <td class="font-light align-middle">
+        <div class="flex-fill">
+            <div class="font-weight-medium">
+                {{empleado.persona.apellido_paterno|title}} {{empleado.persona.apellido_materno|title}} {{ empleado.persona.nombres|title }} 
+            </div>
+            <div class="text-muted">
+                <a href="" class="text-reset">
+                    {{ empleado.cargo|default_if_none:''|title }}
+                </a>
+            </div>
+        </div>        
+    </td>
+                         
+    <td class="font-light align-middle">
+        
+        <div class="flex-fill">
+            <div class="font-weight-medium">
+                {{ empleado.dependencia|default_if_none:''|title }}
+            </div>
+            <div class="text-muted"><a href="#" class="text-reset">
+                {{ empleado.sede|default_if_none:''|title }}
+            </a></div>
+          </div>        
+    </td>      
+    <td class="font-light align-middle">
+        {{ empleado.modulo|default_if_none:''|title }}                
+    </td>             
+    <td class="font-light align-middle text-center">
+        {{ empleado.inicio|date:'d/m/Y'|default_if_none:'' }}
+    </td>
+    <!-- <td class="font-light align-middle text-center">
+        {{ empleado.cese|date:'d/m/Y'|default_if_none:'' }}
+    </td>        -->
+    <td class="font-light align-middle text-center">
+        {% if empleado.activo %}
+            <span class="label label-success">Activo</span>
+        {% else %}
+            <span class="label label-danger">Inactivo</span>
+        {% endif %}
+    </td>                 
+    <td class="font-light align-middle text-center">
+        <div class="btn-list flex-nowrap">
+            {% url 'persons:profile' empleado.persona.dni as profile_url %}
+            {% include 'buttons/profile_button.html' with profile_url=profile_url %}
+
+            {% url 'employees:edit' empleado.persona.dni empleado.id as edit_url %}
+            {% include 'buttons/edit_button.html' with edit_url=edit_url %}
+
+            {% include 'buttons/instance_button.html' %}            
+        </div>
+    </td>
+</tr>
+{% endfor %}
+{% endblock rows %}
