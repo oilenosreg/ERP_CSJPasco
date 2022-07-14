@@ -5,7 +5,8 @@
 
 
 {% block page-title %}
-    {% include 'base/page-title.html' with title=title pre_title=pre_title %}
+    Heredado desde: templates/forms/form.html <br>
+    Incluya: base/page-title.html
 {% endblock page-title %}
 
 
@@ -17,11 +18,12 @@
     <form 
         action="" 
         method="POST"
-        enctype="multipart/form-data">
+        enctype="multipart/form-data"
+        id="form_with_photo">
         {% csrf_token %}
 
-
         {% block form %}
+
         <div class="row gutters-sm">
             
             <!-- Begin photo -->
@@ -34,7 +36,10 @@
             <div class="col-lg-10 col-md-9 col-sm-9">
                 <div class="card">
                     <fieldset>
-                        {% block fieldset %}                        
+                        {% block fieldset %}                          
+                        Heredado desde: templates/forms/form.html <br>        
+                        Utilice el bloque: { % block fieldset % } para incluir solo los campos del formulario.                                              
+
                         <!-- Begin form section 1 -->
                         <div class="modal-body">
                             <div class="mb-3 form-group {% if form_persona.dni.errors %} has-error {% endif %}">
@@ -199,6 +204,9 @@
                         {% endblock fieldset %}    
                         
                         {% block form-buttons %}
+                        Heredado desde: templates/forms/form.html <br>        
+                        Utilice el bloque: { % block form-buttons % } para incluir los botones del formulario.
+
                         <div class="card-footer text-end">
                             <div class="d-flex">
                                 <a href="{% url 'persons:list' %}" class="btn btn-link me-auto">

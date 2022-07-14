@@ -1,67 +1,32 @@
-{% extends 'forms/form_with_photo.html' %}
+{% extends 'base/body.html' %}
 {% load static %}
 
 <!-- TODO: VALIDACIONES DE CAMPOS DE FORMULARIO -->
 <!-- TODO: instalar plugin datepicker -->
 
 {% block title %}
-    {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }} | {{ title }}
+{{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }} | {{ title }}
 {% endblock title %}
-
-{% block page-title %}
-    {% include 'base/page-title.html' with title=title pre_title=pre_title %}
-{% endblock page-title %}
 
 {% block form %}
 <!-- Begin card -->
 <div class="card">
     <!-- Begin card header -->
     <div class="card-header">
-        <div>
-            <div class="row align-items-center">
-                <div class="col-auto">
-                    {% if persona.foto %}
-                    <span class="avatar" style="background-image: url(/media/{{ persona.foto }})"></span>
-                    {% else %}
-                    <span class="avatar"
-                        style="background-image: url({% static 'project/img/users/usuario_general_04.jpg' %})"></span>
-                    {% endif %}
-                </div>
-                <div class="col">
-                    <div class="card-title">
-                        {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}
-                    </div>
-                    <div class="card-subtitle">
-                        {{ persona.dni }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card-actions">
-            <!-- <a href="#" class="btn">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path
-                        d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2">
-                    </path>
-                </svg>
-                Phone
-            </a> -->
-            <a href="{% url 'persons:edit' persona.dni %}" class="btn">
-                Editar datos de persona
-            </a>
-        </div>
+        {% url 'inventory:create_equipo' as action_url %}
+        {% include 'base/header_with_employee_01.html' with action='Perfil de empleado' action_url=action_url %}
     </div>
     <!-- Begin card header -->
 
     <!-- Begin form -->
+    <form action="" id="form" novalidate>
         <!-- Begin card body -->
         <div class="card-body">
             <!-- Begin messages -->
 
             {% csrf_token %}
+            
+            {% block fieldset %}  
             <div class="row">
                 <div class="mb-3 col-sm-4 form-group {% if form.sede.errors %}has-error{% endif %}">
                     <label class="form-label">
@@ -183,6 +148,7 @@
                     </div>
                 </div>
             </div>
+            {% endblock fieldset %}  
         </div>
         <!-- End card body -->
 
@@ -202,7 +168,7 @@
             </div>
         </div>
         {% endblock form-buttons %}
-
+    </form>
     <!-- End form -->
 </div>
 <!-- Begin card -->

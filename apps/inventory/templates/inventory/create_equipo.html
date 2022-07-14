@@ -1,0 +1,154 @@
+{% extends 'forms/form_with_header_employee.html' %}
+
+{% block page-title %}
+    {% include 'base/page-title.html' with title=title pre_title=pre_title %}
+{% endblock page-title %}
+
+
+{% block fieldset %}
+<div class="row">                
+    <div class="col-sm-4 form-group {% if form.categoria.errors  %} has-error {% endif %}">
+        {{ form.categoria.label }}
+        {{ form.categoria }} <a href=""></a>
+        <div class="text-danger">
+            {{ form.categoria.errors.errors }}
+        </div>
+    </div>                    
+
+    <div class="col-sm-4 form-group {% if form.marca.errors  %} has-error {% endif %}">
+        {{ form.marca.label }}
+        {{ form.marca }}
+        <div class="text-danger">
+            {{ form.marca.errors }}
+        </div>
+    </div>
+    
+    <div class="col-sm-4 form-group {% if form.modelo.errors  %} has-error {% endif %}">
+        {{ form.modelo.label }}
+        {{ form.modelo }}
+        <div class="text-danger">
+            {{ form.modelo.errors }}
+        </div>
+    </div>
+</div>
+
+<div class="row">      
+    <div class="col-sm-4 form-group {% if form.cod_patrimonial.errors  %} has-error {% endif %}">
+        {{ form.cod_patrimonial.label }}
+        {{ form.cod_patrimonial }}
+        <div class="text-danger">
+            {{ form.cod_patrimonial.errors }}
+        </div>
+    </div>
+
+    <div class="col-sm-4 form-group {% if form.serie.errors  %} has-error {% endif %}">
+        {{ form.serie.label }}
+        {{ form.serie }}
+        <div class="text-danger">
+            {{ form.serie.errors }}
+        </div>
+    </div>
+    
+    <div class="col-sm-4 form-group {% if form.estado.errors  %} has-error {% endif %}">
+        {{ form.estado.label }}
+        {{ form.estado }}
+        <div class="text-danger">
+            {{ form.estado.errors }}
+        </div>
+    </div>                
+</div>
+
+<div class="row">     
+    <div class="col-sm-3 form-group {% if form.condicion.errors  %} has-error {% endif %}">
+        {{ form.condicion.label }}
+        {{ form.condicion }}
+        <div class="text-danger">
+            {{ form.condicion.errors }}
+        </div>
+    </div>
+
+    <div class="col-sm-3 form-group {% if form.ip.errors  %} has-error {% endif %}">
+        {{ form.ip.label }}
+        {{ form.ip }}
+        <div class="text-danger">
+            {{ form.ip.errors }}
+        </div>
+    </div>      
+    
+    <div class="col-sm-3 form-group {% if form.mac.errors  %} has-error {% endif %}">
+        {{ form.mac.label }}
+        {{ form.mac }}
+        <div class="text-danger">
+            {{ form.mac.errors }}
+        </div>
+    </div>
+
+    <div class="col-sm-3 form-group {% if form.orden_compra.errors  %} has-error {% endif %}">
+        {{ form.orden_compra.label }}
+        {{ form.orden_compra }}
+        <div class="text-danger">
+            {{ form.orden_compra.errors }}
+        </div>
+    </div>                      
+</div>
+
+<div class="row">
+    <div class="col-sm-12 form-group {% if form.observaciones.errors  %} has-error {% endif %}">
+        {{ form.observaciones.label }}
+        {{ form.observaciones }}
+        <div class="text-danger">
+            {{ form.observaciones.errors }}
+        </div>
+    </div>  
+</div>
+
+<div class="row">
+    <div class="col-sm-6 form-group {% if form.componente_de.errors  %} has-error {% endif %}">
+        {{ form.componente_de.label }}
+        {{ form.componente_de }}
+        <div class="text-danger">
+            {{ form.componente_de.errors }}
+        </div>
+    </div>   
+</div>                        
+
+{% if nuevo or editar %}
+<hr>
+<div class="text-right">
+    <a href="">
+        Agregar componentes
+    </a>
+    <a 
+        href="{% url 'equipo:listar' %}" 
+        class="btn btn-default btn-fix">
+        Cancelar
+    </a>
+    <button 
+        type="submit"
+        class="btn btn-info btn-fix">
+        Guardar
+    </button>            
+</div>
+{% endif %}
+
+
+
+
+
+<!-- Begin form buttons -->
+<div class="card-footer text-end">
+    <div class="row">
+        <div class="d-flex">
+            <a href="{% url 'employees:list' %}" class="btn btn-link me-auto">
+                Cancelar
+            </a>
+            <div>
+                <button type="submit" class="btn btn-primary ms-auto" name="save">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End form buttons -->
+{% endblock fieldset %}

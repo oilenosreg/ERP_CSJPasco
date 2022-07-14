@@ -1,0 +1,29 @@
+{% load static %}
+
+<div>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            {% if persona.foto %}
+            <span class="avatar" style="background-image: url(/media/{{ persona.foto }})"></span>
+            {% else %}
+            <span class="avatar"
+                style="background-image: url({% static 'project/img/users/usuario_general_04.jpg' %})"></span>
+            {% endif %}
+        </div>
+        <div class="col">
+            <div class="card-title">
+                {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}
+            </div>
+            <div class="card-subtitle">
+                {{ persona.dni }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-actions">
+    <a 
+        href="{{ action_url }}" 
+        class="btn">
+        {{ action }}
+    </a>
+</div>

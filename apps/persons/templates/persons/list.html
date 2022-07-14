@@ -2,6 +2,16 @@
 {% load static %}
 
 
+
+{% block page-title %}
+    {% include 'base/page-title.html' with pre_title=pre_title title=title %}
+
+    {% url 'persons:create' as action_url %}
+    {% include 'base/title-actions.html' with action='Nuevo equipo' action_url=action_url %}
+{% endblock page-title %}
+
+
+
 {% block columns %}
 <tr>
     <th class="font-light align-middle text-center " style="width: 3%;">Nro</th>

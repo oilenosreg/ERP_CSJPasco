@@ -75,7 +75,7 @@ def create_empleado(request, dni):
         'distrito': distrito,
         'edit': True,
         'pre_title': 'Empleados',
-        'title': 'Listado de empleados',        
+        'title': 'Registrar nuevo empleado',        
     }
     return render(request, template, context)
 
