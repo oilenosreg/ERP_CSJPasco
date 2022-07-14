@@ -76,7 +76,7 @@ class CreatePersonaForm(forms.ModelForm):
             # TODO: El campo debería se con DateInput, evaluar y probar con otros
             # plugins de datepicker.
 
-            'fecha_nacimiento': forms.TextInput(
+            'fecha_nacimiento': forms.DateInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Fecha de nacimiento',                

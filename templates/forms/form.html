@@ -10,14 +10,20 @@
 
 
 {% block content %}
-<div class="row gutters-sm">
     {% include 'messages/messages.html' %}
+    {% include 'messages/errors.html' %}
 
     <!-- Begin Form -->
-    <form action="" method="POST">
+    <form 
+        action="" 
+        method="POST"
+        enctype="multipart/form-data">
         {% csrf_token %}
+
+
+        {% block form %}
         <div class="row gutters-sm">
-            {% block form %}
+            
             <!-- Begin photo -->
             <div class="col-lg-2 col-md-3 col-sm-3">
                 {% include 'base/photo.html' %}
@@ -27,7 +33,7 @@
             <!-- Begin form fields -->
             <div class="col-lg-10 col-md-9 col-sm-9">
                 <div class="card">
-                    <fieldset {% if detalle %} disabled {% endif %}>
+                    <fieldset>
                         {% block fieldset %}                        
                         <!-- Begin form section 1 -->
                         <div class="modal-body">
@@ -212,12 +218,12 @@
                     </fieldset>
                 </div>
             </div>
-            {% endblock form %}
-            <!-- End form fields -->
         </div>
+        {% endblock form %}
+        <!-- End form fields -->
     </form>
     <!-- End Form -->
-</div>
+
 {% endblock content %}
 
 

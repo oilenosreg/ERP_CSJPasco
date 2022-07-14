@@ -3,20 +3,15 @@
 <!-- TODO: Instalar librería de avatars -->
 <!-- TODO: Remover el nombre del archivo del la ventana editar -->
 
- 
-    <div class="card text-center mb-3">
-        <img                 
-            {% if persona.foto %}
-                src="/media/{{ persona.foto }}"
-            {% else %}
-                src="{% static 'project/img/users/usuario_general_04.jpg' %}"
-            {% endif %}    
-            id="mostrar_imagen"             
-            class="card-img" 
-            alt="
-                {{ persona.nombres|title }}
-                {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}">            
-    </div>
+
+<div class="card text-center mb-3">   
+    {% if persona.foto %}
+        <img id="mostrar_imagen" src="/media/{{ persona.foto }}" alt="" class="card-img-top">
+    {% else %}
+        <img id="mostrar_imagen" src="{% static 'project/img/users/usuario_general_04.jpg' %}" alt="" class="card-img-top">
+    {% endif %}
+</div>
+
 
 
 {% if create or edit %}
@@ -25,25 +20,29 @@
     <div class="form-group {% if form_persona.foto.errors %} has-error {% endif %} text-center">
         <!-- Begin upload image button -->
         <label for="id_foto" class="btn btn-default w-100 text-center mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-camera-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-camera-plus" width="24"
+                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <circle cx="12" cy="13" r="3"></circle>
-                <path d="M5 7h2a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h2m9 7v7a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2"></path>
+                <path
+                    d="M5 7h2a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h2m9 7v7a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2">
+                </path>
                 <line x1="15" y1="6" x2="21" y2="6"></line>
                 <line x1="18" y1="3" x2="18" y2="9"></line>
-             </svg>
-            Foto     
+            </svg>
+            Foto
         </label>
         <!-- End upload image button -->
 
         <div class="text-secondary text-center" id="nombreImagen">
-            
+
         </div>
-        {{ form_persona.foto }}         
-        
+        {{ form_persona.foto }}
+
         <div class="text-danger">
             {{ form_persona.foto.errors }}
-        </div>                                                  
+        </div>
     </div>
 </div>
-{% endif %} 
+{% endif %}

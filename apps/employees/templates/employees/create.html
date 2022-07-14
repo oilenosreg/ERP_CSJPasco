@@ -1,11 +1,18 @@
 {% extends 'forms/form.html' %}
 {% load static %}
 
+<!-- TODO: VALIDACIONES DE CAMPOS DE FORMULARIO -->
+<!-- TODO: instalar plugin datepicker -->
+
 {% block title %}
-    {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }} | {{ title }}
+{{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }} | {{ title }}
 {% endblock title %}
 
 {% block form %}
+
+
+
+<!-- Begin card -->
 <div class="card">
     <!-- Begin card header -->
     <div class="card-header">
@@ -13,7 +20,7 @@
             <div class="row align-items-center">
                 <div class="col-auto">
                     {% if persona.foto %}
-                    <span class="avatar" style="background-image: url(media/{{ persona.foto }})"></span>
+                    <span class="avatar" style="background-image: url(/media/{{ persona.foto }})"></span>
                     {% else %}
                     <span class="avatar"
                         style="background-image: url({% static 'project/img/users/usuario_general_04.jpg' %})"></span>
@@ -30,8 +37,8 @@
             </div>
         </div>
         <div class="card-actions">
-            <a href="#" class="btn">
-                <!-- Download SVG icon from http://tabler-icons.io/i/phone -->
+            <!-- <a href="#" class="btn">
+                
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -40,31 +47,20 @@
                     </path>
                 </svg>
                 Phone
-            </a>
-            <a href="#" class="btn">
-                <!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                    <polyline points="3 7 12 13 21 7"></polyline>
-                </svg>
-                Email
+            </a> -->
+            <a href="{% url 'persons:edit' persona.dni %}" class="btn">
+                Editar datos de persona
             </a>
         </div>
     </div>
     <!-- Begin card header -->
 
-    <!-- Begin card body -->
-    <div class="card-body">
-        <!-- Begin form -->
-        {% for error in form.non_field_errors %}
-        <div class="alert alert-danger" role="alert">
-            {{error}}
-        </div>
-        {% endfor %}
+    <!-- Begin form -->
+    <form action="" id="form" novalidate>
+        <!-- Begin card body -->
+        <div class="card-body">
+            <!-- Begin messages -->
 
-        <form action="" id="form" novalidate>
             {% csrf_token %}
             <div class="row">
                 <div class="mb-3 col-sm-4 form-group {% if form.sede.errors %}has-error{% endif %}">
@@ -119,7 +115,7 @@
             </div>
 
             <div class="row">
-                <div id="fecmb-3 ha_inicio" class="col-sm-4 form-group {% if form.inicio.errors %}has-error{% endif %}">
+                <div id="" class="col-sm-4 form-group {% if form.inicio.errors %}has-error{% endif %}">
                     <label class="form-label">
                         {{ form.inicio.label }}
                     </label>
@@ -134,7 +130,7 @@
                         {{ form.inicio.errors }}
                     </div>
                 </div>
-                <div id="fecmb-3 ha_cese" class="col-sm-4 form-group {% if form.cese.errors %}has-error{% endif %}">
+                <div id="" class="col-sm-4 form-group {% if form.cese.errors %}has-error{% endif %}">
                     <label class="form-label">
                         {{ form.cese.label }}
                     </label>
@@ -175,42 +171,39 @@
 
             <div class="row">
                 <div class="mb-3 col-sm-12 form-group m-b-0 {% if form.activo.errors %}has-error{% endif %}">
-                    <label class="form-label">
+
                         <label class="ui-checkbox ui-checkbox-primary">
                         </label>
                         {{ form.activo }}
                         <span class="input-span"></span>
                         {{ form.activo.label }}
-                    </label>
+
                     <div class="text-danger">
                         {{ form.activo.errors }}
                     </div>
                 </div>
             </div>
-        </form>
-        <!-- End form -->
-
-        <!-- TODO: ESPACIO DE FORMULARIO Y BOTONES -->
-        <!-- TODO: QUITAR LOS BOTONES DEL ENCABEZADO DEL FORMULARIO -->
-        <!-- TODO: VALIDACIONES DE CAMPOS DE FORMULARIO -->
-        <!-- TODO: TÍTULO DE LA PÁGINA -->
+        </div>
+        <!-- End card body -->
 
         {% block form-buttons %}
         <div class="card-footer text-end">
-            <div class="d-flex">
-                <a href="{% url 'employees:list' %}" class="btn btn-link me-auto">
-                    Cancelar
-                </a>
-                <div>
-
-                    <button type="submit" class="btn btn-primary ms-auto" name="save">
-                        Guardar
-                    </button>
+            <div class="row">
+                <div class="d-flex">
+                    <a href="{% url 'employees:list' %}" class="btn btn-link me-auto">
+                        Cancelar
+                    </a>
+                    <div>
+                        <button type="submit" class="btn btn-primary ms-auto" name="save">
+                            Guardar
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         {% endblock form-buttons %}
-    </div>
-    <!-- End card body -->
+    </form>
+    <!-- End form -->
 </div>
+<!-- Begin card -->
 {% endblock form %}

@@ -1,5 +1,6 @@
 {% extends 'tables/datatables.html' %}
 
+<!-- TODO: Implementar botón nuevo empleado -->
 
 {% block columns %}
 <th class="font-light align-middle text-center">Nro</th>
@@ -56,9 +57,9 @@
     </td>        -->
     <td class="font-light align-middle text-center">
         {% if empleado.activo %}
-            <span class="label label-success">Activo</span>
+            <span class="badge bg-success">Activo</span>
         {% else %}
-            <span class="label label-danger">Inactivo</span>
+            <span class="badge bg-danger">Inactivo</span>
         {% endif %}
     </td>                 
     <td class="font-light align-middle text-center">

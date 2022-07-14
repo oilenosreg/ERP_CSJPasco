@@ -54,6 +54,8 @@ class CreateEmpleadoForm(forms.ModelForm):
             'inicio': forms.DateInput(                
                 attrs={
                     'class': 'form-control',
+                    'placeholder': 'Inicio del cargo',
+                    'type': 'date',
                     # 'value':datetime.now().strftime('%d/%m/%Y'),
                     # 'id': 'inicio'
                 },
@@ -62,7 +64,8 @@ class CreateEmpleadoForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     # 'value': datetime.now().strftime('%d/%m/%Y'),
-                    'placeholder':'cese de cargo',
+                    'placeholder':'Cese al cargo',
+                    'type': 'date',
                 },
             ),             
             'documento_designacion': forms.TextInput(

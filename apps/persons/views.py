@@ -44,7 +44,7 @@ def list_personas(request):
 
     plantilla = 'persons/list.html'
     contexto = {
-        'personas' : personas,
+        'object_list' : personas,
         'pre_title': 'Personas',        
         'title': 'Lista de personas',
 
@@ -73,7 +73,7 @@ def create_persona(request):
             messages.success(
                 request, 
                 f'''
-                Se ha registrado a {name} {f_lname} {m_lname} de {dni}
+                Se ha registrado a {name} {f_lname} {m_lname} de
                 manera correcta. ''')     
 
             if 'another' in request.POST:

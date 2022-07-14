@@ -44,7 +44,7 @@ class Empleado(models.Model):
     # Datos del empleado.
     escalafon = models.CharField('Escalafón', max_length=5, blank=True, null=True)
     remuneracion = models.DecimalField('Remuneración', max_digits=12, decimal_places=2, blank=True, null=True)
-    inicio = models.DateField('Inicio', null=True, blank=True,)
+    inicio = models.DateField('Inicio', null=False, blank=False,)
     cese = models.DateField('Cese', null=True, blank=True,)
     documento_designacion = models.CharField('Documento de asignación', max_length=255, null=True, blank=True,)
     observaciones = models.TextField('Observaciones', null=True, blank=True)

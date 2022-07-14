@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 
@@ -33,12 +33,23 @@ def create_empleado(request, dni):
     if request.method == 'POST':
         form = CreateEmpleadoForm(request.POST)
         if form.is_valid():
-            pt = form.save(commit=False)  
-            pt.distrito = distrito
-            pt.persona = persona
-            pt.cargo = form.cleaned_data.get('cargo')
-            pt.save()
-            return HttpResponseRedirect(request.path_info)
+            employee = form.save(commit=False)  
+            employee.distrito = distrito
+            employee.persona = persona
+            employee.cargo = form.cleaned_data.get('cargo')
+            employee.save()
+            
+            sede = employee.sede.nombre
+            dependencia = employee.dependencia.nombre
+            messages.success(
+                request,
+                f'Empleado registrado con éxito en "{dependencia}"')
+            return redirect('employees:list')
+        else:
+            messages.error(
+                request,
+                'No fue posible guardar los datos. Verifique la información \
+                ingresada.')
     else:
         form = CreateEmpleadoForm()
     
@@ -64,18 +75,20 @@ def create_empleado(request, dni):
         'distrito': distrito,
         'edit': True,
         'pre_title': 'Empleados',
-        'title': 'Listado de empleados',
-        
+        'title': 'Listado de empleados',        
     }
     return render(request, template, context)
 
 
+# TODO: No devuelve la fecha cuando se edita.
+# TODO [0005]:  Dropdowns encadenados en el puesto de trabajo.
+# TODO: Checkbox "Activo" estilos del dashboard.
 def edit_empleado(request,dni, id):
     DISTRITO = settings.DISTRITO
     distrito = get_object_or_404(DistritoJudicial, codigo = DISTRITO)
     persona = get_object_or_404(Persona, dni = dni)
     empleado = get_object_or_404(Empleado, id = id)
-    cargos = Empleado.objects.filter(persona = dni).order_by('-fecha_registro')
+    # cargos = Empleado.objects.filter(persona = dni).order_by('-fecha_registro')
 
     if request.method == 'POST':
         form = CreateEmpleadoForm(
@@ -89,29 +102,21 @@ def edit_empleado(request,dni, id):
             # f_empleado = form.save(commit=False)
             # f_empleado.persona = f_persona
             # f_empleado.save()
-            messages.success(request, 'Datos actualizados de manera correcta.')
-
-            # TODO [0003]:  Definir a dónde debe retornar después de guardar
-            #               correctamente los cambios.
-
-            # TODO [0004]:  Mostrar la tabla de cargos que se detallan en el 
-            #               empleado/nuevo_empleado/nuevo.html
-
-            # TODO [0005]:  Dropdowns encadenados en el puesto de trabajo.
-            # TODO [0006]:  Datos actualizados de manera correcta 3.
-            # return('empleados:listar')
-
-            # return HttpResponseRedirect('/empleados/nuevo/%s/'%empleado.persona.dni)
-            
+            messages.success(
+                request,
+                'Datos del empleado actualizados de manera correcta.')
+            return redirect('employees:list')
+        else:
+            messages.error(
+                request,
+                'No fue posible guardar los datos. Verifique la información \
+                ingresada.')            
     else:
-        # form_persona = PersonaForm(instance=persona)
         form = CreateEmpleadoForm(instance=empleado) 
     
-    # plantilla = 'empleado/nuevo_empleado/nuevo.html'
     template = 'employees/create.html'
     context = {        
         'form': form,
-        'object_list': cargos,
         'persona': persona,
         'editar': True,
         'pre_title': 'Empleados',
