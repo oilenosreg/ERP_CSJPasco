@@ -10,17 +10,9 @@
 
 
 {% block content %}
-{% include 'messages/messages.html' %}
-{% include 'messages/errors.html' %}
+
 <!-- Begin card -->
 <div class="card">
-    <!-- Begin card header -->
-    <div class="card-header">
-        {% url 'inventory:create_equipo' as action_url %}
-        {% include 'base/header_with_employee_01.html' with action='Perfil de empleado' action_url=action_url %}
-    </div>
-    <!-- Begin card header -->
-
     <!-- Begin form -->
     <form 
         method="POST"

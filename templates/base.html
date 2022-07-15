@@ -17,11 +17,11 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 	<title>
 		{% block title %}
-			{{ title }} -
-			{{ pre_title }}			
+		{{ title }} -
+		{{ pre_title }}
 		{% endblock title %} |
 		ERP de la Corte Superior de Justica de Pasco
-  </title>
+	</title>
 
 
 	<!-- Theme CSS files -->
@@ -31,14 +31,14 @@
 	<link href="{% static 'theme/tabler-1.0.0.b9/css/tabler-vendors.min.css' %}" rel="stylesheet" />
 	<link href="{% static 'theme/tabler-1.0.0.b9/css/demo.min.css' %}" rel="stylesheet" />
 
-  <!-- Project CSS files -->
-  <link href="{% static 'project/css/custom.css' %}" rel="stylesheet" />
+	<!-- Project CSS files -->
+	<link href="{% static 'project/css/custom.css' %}" rel="stylesheet" />
 
 	{% block lib-styles %}
 	{% endblock lib-styles %}
 
-  {% block page-styles %}
-  {% endblock page-styles %}
+	{% block page-styles %}
+	{% endblock page-styles %}
 </head>
 
 <body>
@@ -53,30 +53,34 @@
 
 		<!-- Begin Body -->
 		<div class="page-wrapper">
-      <!-- Begin Container -->
+
+			<!-- Begin Container -->
 			<div class="container-xl">
 				<!-- Begin Page title -->
 				<div class="page-header d-print-none">
 					<div class="row g-2 align-items-center">
-            {% block page-title %}
-              <!-- Begin Page Title -->
-              {% include 'base/page-title.html' with title=title pre_title=pre_title %}
-              <!-- End Page Title -->
+						{% block page-title %}
+						<!-- Begin Page Title -->
+						{% include 'base/page-title.html' with title=title pre_title=pre_title %}
+						<!-- End Page Title -->
 
-              <!-- Begin Page title actions -->
-              {% include 'base/title-actions.html' with action='Nuevo registro' cancel='Cancelar' %}
-              <!-- End Page title actions -->
-            {% endblock page-title %}
+						<!-- Begin Page title actions -->
+						{% include 'base/title-actions.html' with action='Nuevo registro' cancel='Cancelar' %}
+						<!-- End Page title actions -->
+						{% endblock page-title %}
 					</div>
 				</div>
-        <!-- End Page title -->        
+				<!-- End Page title -->
 			</div>
-      <!-- End Container -->
+			<!-- End Container -->
 
-      <!-- Begin Content -->
-      {% block body %}
+			<!-- Begin Content -->
+			{% block body %}
 			<div class="page-body">
 				<div class="container-xl">
+					{% include 'messages/messages.html' %}
+					{% include 'messages/errors.html' %}				
+
 					{% block content %}
 					<div class="row row-deck row-cards">
 						<div class="col-sm-6 col-lg-3">
@@ -1842,7 +1846,8 @@
 								<div class="card-footer d-flex align-items-center">
 									<p class="m-0 text-muted">Showing <span>1</span> to <span>8</span> of
 										<span>16</span>
-										entries</p>
+										entries
+									</p>
 									<ul class="pagination m-0 ms-auto">
 										<li class="page-item disabled">
 											<a class="page-link" href="#" tabindex="-1" aria-disabled="true">
@@ -1882,13 +1887,13 @@
 					</div>
 					{% endblock content %}
 				</div>
-			</div>  
-      {% endblock body %}    
-      <!-- End Content -->
+			</div>
+			{% endblock body %}
+			<!-- End Content -->
 
-      <!-- Begin Footer -->
-      {% include 'base/footer.html' %}
-      <!-- End Footer -->
+			<!-- Begin Footer -->
+			{% include 'base/footer.html' %}
+			<!-- End Footer -->
 		</div>
 		<!-- End Body -->
 	</div>
@@ -1898,7 +1903,7 @@
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				{% block modal-form %}
-					{#{% include 'forms/prueba.html' %}#}
+				{#{% include 'forms/prueba.html' %}#}
 				{% endblock modal-form %}
 			</div>
 		</div>
@@ -1906,8 +1911,8 @@
 	<!-- End Modal Form -->
 
 
-  <!-- Core scripts -->
-  <script src="{% static 'libs/jquery.3.6.0/jquery-3.6.0.min.js' %}"></script>
+	<!-- Core scripts -->
+	<script src="{% static 'libs/jquery.3.6.0/jquery-3.6.0.min.js' %}"></script>
 
 	<!-- Libs JS -->
 	<script src="{% static 'theme/tabler-1.0.0.b9/libs/apexcharts/dist/apexcharts.min.js' %}" defer></script>
@@ -1919,14 +1924,14 @@
 	<script src="{% static 'theme/tabler-1.0.0.b9/js/demo.min.js' %}" defer></script>
 
 
-  <!-- Libraries level scripts -->
-  {% block lib-scripts %}
+	<!-- Libraries level scripts -->
+	{% block lib-scripts %}
 
-  {% endblock lib-scripts %}
+	{% endblock lib-scripts %}
 
 
-<!-- Page level scripts -->
-{% block page-scripts %}
+	<!-- Page level scripts -->
+	{% block page-scripts %}
 	<script>
 		// @formatter:off
 		document.addEventListener("DOMContentLoaded", function () {
@@ -2501,7 +2506,13 @@
 		});
       // @formatter:on
 	</script>
-{% endblock page-scripts %}
+
+	<script> /* Alert fading */
+		$('.alert').fadeTo(5000, 500).fadeOut(2000, function () {
+			$('.alert').alert('close');
+		});
+	</script>	
+	{% endblock page-scripts %}
 </body>
 
 </html>

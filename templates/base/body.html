@@ -2,13 +2,27 @@
 {% load static %}
 
 {% block page-title %}
-    body.html
+body.html
 {% endblock page-title %}
 
 
 <div class="page-body">
     <div class="container-xl">
         {% block content %}
+
+        <!-- Elimina este código. -->
+        <div class="card">
+            <div class="card-body p-0">
+                Extends: 'base.html' | Use: { % block content % }
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-100" preserveAspectRatio="none" width="400"
+                    height="200" viewBox="0 0 400 200" stroke="var(--tblr-border-color, #b8cef1)">
+                    <!--	<rect x=".5" y=".5" width="399" height="199" fill="#fff" rx="2"></rect>-->
+                    <line x1="0" y1="0" x2="400" y2="200"></line>
+                    <line x1="0" y1="200" x2="400" y2="0"></line>
+                </svg>
+            </div>
+        </div>
+
         {% endblock content %}
     </div>
-</div>  
+</div>
