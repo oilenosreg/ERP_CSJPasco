@@ -1,0 +1,121 @@
+{% extends 'base/body.html' %}
+{% load static %}
+
+<!-- TODO: VALIDACIONES DE CAMPOS DE FORMULARIO -->
+<!-- TODO: instalar plugin datepicker -->
+TODO: 
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+{% block content %}
+<!-- Begin messages -->
+{% include 'messages/messages.html' %}
+{% include 'messages/errors.html' %}
+
+<!-- Begin card -->
+<div class="card">
+    <!-- Begin card header -->
+    <div class="card-header">
+        <div>
+            <div class="row align-items-center">
+
+                <div class="col">
+                    <div class="card-title">
+                        {{ equipo.categoria.nombre }} {{ equipo.marca.nombre }} {{ equipo.modelo.nombre }}
+                    </div>
+                    <div class="card-subtitle">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-number"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M4 17v-10l7 10v-10"></path>
+                                <path d="M15 17h5"></path>
+                                <ellipse cx="17.5" cy="10" rx="2.5" ry="3"></ellipse>
+                            </svg>
+                            serie: {{ equipo.serie }}
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-barcode"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                <path d="M8 13h1v3h-1z"></path>
+                                <path d="M12 13v3"></path>
+                                <path d="M15 13h1v3h-1z"></path>
+
+                            </svg>
+                            Código patrimonial: {{ equipo.cod_patrimonial}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-actions">
+            <a href="{{ action_url }}" class="btn">
+                {{ action }}
+            </a>
+        </div>
+    </div>
+    <!-- Begin card header -->
+
+    <!-- Begin form -->
+    <form method="POST" action="" id="form" novalidate>
+
+        <!-- Begin card body -->
+        <div class="card-body">
+
+            {% csrf_token %}
+            {% block fieldset %}
+            <fieldset>
+                <div class="mb-3 form-group {% if form.empledo.errors %} has-error {% endif %}">
+                    <label for="" class="form-label">
+                    {{ form.empleado.label }}
+                    </label>
+                    {{ form.empleado }}
+                    <div class="text-danger">
+                        {{ form.empleado.errors }}
+                    </div>
+                </div>
+            
+                <div class="mb-3 form-group {% if form.inicio.errors %} has-error {% endif %}">
+                    <label for="" class="form-label">
+                    {{ form.inicio.label }}
+                    </label>
+                    {{ form.inicio }}
+                    <div class="text-danger">
+                        {{ form.inicio.errors }}
+                    </div>
+                </div>
+            </fieldset>
+            {% endblock fieldset %}
+        </div>
+        <!-- End card body -->
+
+        {% block form-buttons %}
+        <div class="card-footer text-end">
+            <div class="row">
+                <div class="d-flex">
+                    <a href="{% url 'employees:list' %}" class="btn btn-link me-auto">
+                        Cancelar
+                    </a>
+                    <div>
+                        <button type="submit" class="btn btn-primary ms-auto" name="save">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock form-buttons %}
+    </form>
+    <!-- End form -->
+</div>
+<!-- Begin card -->
+{% endblock content %}

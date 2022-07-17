@@ -1,7 +1,7 @@
 from django.urls import path
 
 # App modules.
-from .views import list_equipos, create_equipo, edit_equipo
+from .views import list_equipos, create_equipo, edit_equipo, detail_equipo, asignar_equipo
 
 
 app_name = 'inventory'
@@ -9,4 +9,6 @@ urlpatterns = [
     path('equipos/', list_equipos, name='list_equipos'),
     path('equipos/nuevo/', create_equipo, name='create_equipo'),
     path('equipos/modificar/<int:id>', edit_equipo, name='edit_equipo'),
+    path('equipos/detalle/<int:id>/', detail_equipo, name='detail_equipo'),
+    path('equipos/<int:id>/asignar/', asignar_equipo, name='asignar_equipo'),
 ]

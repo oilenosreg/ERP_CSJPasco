@@ -52,21 +52,6 @@ def create_empleado(request, dni):
                 ingresada.')
     else:
         form = CreateEmpleadoForm()
-    
-    # Historial de cargos.
-    cargos = Empleado.objects.filter(persona = dni).order_by('-fecha_registro')
-
-    # Paginación.
-    # try:
-    #     pagina = request.GET.get('pagina', 1)
-    #     paginator = Paginator(cargos, 5)
-    #     cargos = paginator.get_page(pagina)
-    # except PageNotAnInteger:
-    #     cargos = paginator.get_page(1)
-    # except EmptyPage:
-    #     cargos = paginator.get_page(paginator.num_pages)
-    # except Http404:
-    #     return Http404()
 
     template = 'employees/create.html'
     context = { 
@@ -123,3 +108,6 @@ def edit_empleado(request,dni, id):
         'title': 'Modificación de datos del empleado',
     }
     return render(request, template, context)    
+
+
+# TODO: El perfile debe pasar a la aplicación empleado.

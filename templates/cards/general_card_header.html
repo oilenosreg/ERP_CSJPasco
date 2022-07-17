@@ -1,0 +1,27 @@
+{% load static %}
+
+<div>
+    <div class="row align-items-center">
+        <div class="col-auto">
+        </div>
+        <div class="col">
+            <div class="card-title">
+                {% block card-title %}                    
+                {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}
+                {% endblock card-title %}
+            </div>
+            <div class="card-subtitle">
+                {% block card-subtitle %}
+                    {{ persona.dni }}
+                {% endblock card-subtitle %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-actions">
+    <a 
+        href="{{ action_url }}" 
+        class="btn">
+        {{ action }}
+    </a>
+</div>

@@ -85,7 +85,8 @@
             {% url 'inventory:edit_equipo' object.id as edit_url %}
             {% include 'buttons/edit_button.html' with edit_url=edit_url %}
 
-            {% include 'buttons/user_button.html' %}            
+            {% url 'inventory:asignar_equipo' object.id as employee_url %}
+            {% include 'buttons/user_button.html' with employee_url=employee_url %}            
         </div>
     </td>
 

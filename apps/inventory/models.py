@@ -140,8 +140,7 @@ ASIGNADO_CHOICES = ([
     ('A', 'ASIGNADO'),
     ('H', 'HISTÓRICO'),])
 class EquipoAsignado(models.Model):
-    empleado = models.ForeignKey(Empleado, on_delete=models.PROTECT, related_name='ae_empleado')
-    #dni = models.ForeignKey(Empleado, on_delete=models.PROTECT, related_name='puesto_trabajo')
+    empleado = models.ForeignKey(Empleado, on_delete=models.PROTECT, related_name='ae_empleado')    
     equipo = models.ForeignKey(Equipo, on_delete=models.PROTECT, related_name='ae_equipo')
     inicio = models.DateTimeField('Inicio', null=False, blank=False, auto_now_add=True)
     fin = models.DateTimeField('Fin', null=True, blank=True, )
