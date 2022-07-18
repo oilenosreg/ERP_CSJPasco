@@ -177,10 +177,11 @@
 {% endblock content %}
 
 
-{% block lib-scripts %}
-<script src="{% static 'libs/datatables.1.12.1/js/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'libs/datatables.1.12.1/js/dataTables.bootstrap5.min.js' %}"></script>
 
+
+{% block lib-scripts %}
+    <script src="{% static 'libs/datatables.1.12.1/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.1.12.1/js/dataTables.bootstrap5.min.js' %}"></script>
 {% endblock lib-scripts %}
 
 
@@ -200,7 +201,7 @@
 <script>
     let $ = jQuery.noConflict();
     function open_modal(url){
-        $('#modal_forms').load(url, function(){
+        $('#modal_form').load(url, function(){
             $(this).modal('show');
         });
     }

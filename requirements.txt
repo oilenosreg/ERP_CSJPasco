@@ -2,4 +2,6 @@ PS D:\Proyectos\Code\Django\ERP_CSJPasco> & D:/Proyectos/Envs/PY3104DJ404/Script
 (PY3104DJ404) PS D:\Proyectos\Code\Django\ERP_CSJPasco> 
 
 
-
+# LPJ
+D:\Documentos\Proyectos\Envs\PY3104DJ405\Scripts\
+D:\Documentos\Proyectos\code\ERP_CSJPasco

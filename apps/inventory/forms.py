@@ -1,8 +1,11 @@
+from re import A
 from django import forms
 from datetime import datetime
 
 # App modules.
 from .models import Categoria, Marca, Modelo, Equipo, EquipoAsignado
+
+from apps.employees.models import Empleado, models
 
 
 class CreateEquipmentForm(forms.ModelForm):
@@ -100,6 +103,7 @@ class CreateEquipmentForm(forms.ModelForm):
 
 class AsignarEquipoForm(forms.ModelForm):
     # inicio = forms.DateField(initial=datetime.now)
+    # empleado = forms.ModelMultipleChoiceField(queryset=Empleado.objects.all())
     class Meta:
         model = EquipoAsignado
         fields = '__all__'

@@ -1899,15 +1899,17 @@
 	</div>
 
 	<!-- Begin Modal Form -->
+	{% block modal-form %}
 	<div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
-				{% block modal-form %}
+				
 				{#{% include 'forms/prueba.html' %}#}
-				{% endblock modal-form %}
+				
 			</div>
 		</div>
 	</div>
+	{% endblock modal-form %}
 	<!-- End Modal Form -->
 
 
@@ -1922,11 +1924,15 @@
 	<!-- Tabler Core -->
 	<script src="{% static 'theme/tabler-1.0.0.b9/js/tabler.min.js' %}" defer></script>
 	<script src="{% static 'theme/tabler-1.0.0.b9/js/demo.min.js' %}" defer></script>
+	<script> /* Alert fading */
+		$('.alert').fadeTo(5000, 500).fadeOut(2000, function () {
+			$('.alert').alert('close');
+		});
+	</script>	
 
 
 	<!-- Libraries level scripts -->
 	{% block lib-scripts %}
-
 	{% endblock lib-scripts %}
 
 
@@ -2507,11 +2513,7 @@
       // @formatter:on
 	</script>
 
-	<script> /* Alert fading */
-		$('.alert').fadeTo(5000, 500).fadeOut(2000, function () {
-			$('.alert').alert('close');
-		});
-	</script>	
+
 	{% endblock page-scripts %}
 </body>
 

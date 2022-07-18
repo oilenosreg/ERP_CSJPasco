@@ -1,14 +1,14 @@
-from audioop import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.contrib import messages
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 # App modules.
 from .models import Equipo
 from .forms import CreateEquipmentForm, AsignarEquipoForm
 
 
-def list_equipos(request):
+def listar_equipos(request):
     equipos = Equipo.objects.all()
 
     template = 'inventory/list_equipos.html'
@@ -107,8 +107,9 @@ def asignar_equipo(request, id):
             
             messages.success(
                 request, 
-                f'Equipo asignado a {nombres} {a_paterno} {a_materno} con éxito.')               
-            return reverse_lazy('inventory:list_equipos')
+                f'Equipo asignado a {nombres} {a_paterno} {a_materno} con éxito.')     
+            return redirect('inventory:listar_equipos')
+            # return HttpResponseRedirect(reverse('inventory:asignar_equipo', kwargs={'id': id}))        
         else:
             messages.error(
                 request,
