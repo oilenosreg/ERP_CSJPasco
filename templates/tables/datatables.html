@@ -185,6 +185,7 @@
 
 
 {% block page-scripts %}
+<!-- DataTables -->
 <script>
     $(document).ready(function () {
         $('#data').DataTable({
@@ -193,5 +194,15 @@
             }
         });
     });
+</script>
+
+<!-- Formularios modal -->
+<script>
+    let $ = jQuery.noConflict();
+    function open_modal(url){
+        $('#modal_forms').load(url, function(){
+            $(this).modal('show');
+        });
+    }
 </script>
 {% endblock page-scripts %}

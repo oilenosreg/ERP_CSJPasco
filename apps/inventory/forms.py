@@ -99,7 +99,7 @@ class CreateEquipmentForm(forms.ModelForm):
 
 
 class AsignarEquipoForm(forms.ModelForm):
-    inicio = forms.DateField(initial=datetime.now)
+    # inicio = forms.DateField(initial=datetime.now)
     class Meta:
         model = EquipoAsignado
         fields = '__all__'

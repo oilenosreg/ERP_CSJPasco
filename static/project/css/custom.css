@@ -48,3 +48,29 @@
 input[type="file"] {
     display: none;
 }
+
+
+/*
+* ------------------------
+*   Divider for sections
+* ------------------------
+*/
+.hr-sect {
+	display: flex;
+	flex-basis: 100%;
+	align-items: center;
+    text-align: left;
+	color: #626976;
+	font-size: 12px;
+	margin: 8px 0px; 
+}
+.hr-sect::before,
+.hr-sect::after {
+	content: "";
+	flex-grow: 1;
+	background: #d9dbde;
+	height: 1px;
+	font-size: 0px;
+	line-height: 0px;
+	margin: 16px 5px;
+}

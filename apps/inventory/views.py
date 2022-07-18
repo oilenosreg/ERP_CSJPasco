@@ -1,5 +1,7 @@
+from audioop import reverse
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.contrib import messages
+from django.urls import reverse_lazy
 
 # App modules.
 from .models import Equipo
@@ -106,21 +108,22 @@ def asignar_equipo(request, id):
             messages.success(
                 request, 
                 f'Equipo asignado a {nombres} {a_paterno} {a_materno} con éxito.')               
-            return redirect('inventory:list_equipos')
+            return reverse_lazy('inventory:list_equipos')
         else:
             messages.error(
                 request,
                 'No fue posible guardar los datos. Verifique la información \
                 ingresada.')
 
-            return redirect('inventory:asignar') # TODO: verificar si esto es correto.
+            # return redirect('inventory:asignar') # TODO: verificar si esto es correto.
     else:
         form = AsignarEquipoForm()
-    template = 'inventory/asignar_equipo.html'
+    # template = 'inventory/asignar_equipo.html'
+    template = 'inventory/modal_asignar_equipo.html'
     context = {
         'form': form,
         'equipo': equipo,
         'pre_title': 'Parque informático',
-        'title': 'Asignar equipo a un empleado',
+        'title': 'Asignar equipo informático',
     }
     return render(request, template, context)

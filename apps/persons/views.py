@@ -17,6 +17,7 @@ from django.urls import reverse
 
 # Project modules.
 from django.conf import settings
+from apps.employees.models import Empleado
 
 # App modules.
 from .models import Persona
@@ -162,12 +163,22 @@ def edit_persona(request, dni):
 
 def profile_persona(request, dni):
     persona = get_object_or_404(Persona, dni = dni)
+
+    try:    
+        empleado = Empleado.objects.filter(persona=persona).last()
+    except:
+        raise Http404(f'{persona.nombres} {persona.apellido_paterno} {persona.apellido_materno}, no está registrada como empleado de la institución.')
+
+
+
     template = 'persons/profile.html'
     context = { 
         'persona': persona,        
+        'empleado': empleado,
         'detail': True,
         'pre_title': 'Personas',
         'title': 'Perfil de la persona'
+
         # 'title': f'{persona.nombres} {persona.apellido_paterno} {persona.apellido_materno}',
     }
     return render(request, template, context)

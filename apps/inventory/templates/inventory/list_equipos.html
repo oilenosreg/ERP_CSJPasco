@@ -86,10 +86,118 @@
             {% include 'buttons/edit_button.html' with edit_url=edit_url %}
 
             {% url 'inventory:asignar_equipo' object.id as employee_url %}
-            {% include 'buttons/user_button.html' with employee_url=employee_url %}            
+            {% include 'buttons/user_button.html' with employee_url=employee_url %}   
+            
+            <button 
+                class=""
+                type="submit"
+                onclick="open_modal('{% url 'inventory:asignar_equipo' object.id %}')">
+                Asignar
+            </button>
+
+            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal_form">
+                Modal with form
+              </a>
         </div>
     </td>
 
 </tr>
 {% endfor %}
+
+
+<div 
+    class="modal modal-blur fade show" 
+    id="modal_form" 
+    tabindex="-1" 
+    
+    aria-modal="true" 
+    role="dialog">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{ title }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+    
+            <!-- Begin form -->
+            <form id="modal_form" action="{% url 'inventory:asignar_equipo' object.id %}" method="POST">
+                {% csrf_token %}
+    
+                <!-- Begin form header -->
+                <div class="modal-body">
+                    <div class="mb-3 form-selectgroup-item">
+                        <h3 class="form-selectgroup-title strong mb-2 text-primary">
+                            {{ equipo.categoria.nombre|title|default_if_none:'' }} {{ equipo.marca.nombre|title|default_if_none:''}} {{ equipo.modelo.nombre|title|default_if_none:'' }}
+                        </h3>
+                        <span class="d-block text-muted">
+                            serie: {{ equipo.serie }} | Código patrimonial: {{ equipo.cod_patrimonial}}
+                        </span>
+                    </div>
+                </div>
+                <!-- End form header -->
+    
+    
+                <!-- Begin form body -->
+                {% block fieldset %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <fieldset>
+                            <div class="mb-3 form-group {% if form.empledo.errors %} has-error {% endif %}">
+                                <label for="" class="form-label">
+                                    {{ form.empleado.label }}
+                                </label>
+                                {{ form.empleado }}
+                                <div class="text-danger">
+                                    {{ form.empleado.errors }}
+                                </div>
+                            </div>
+            
+                            <div class="mb-3 form-group {% if form.inicio.errors %} has-error {% endif %}">
+                                <label for="" class="form-label">
+                                    {{ form.inicio.label }}
+                                </label>
+                                {{ form.inicio }}
+                                <div class="text-danger">
+                                    {{ form.inicio.errors }}
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                {% endblock fieldset %}
+                <!-- End form body -->
+    
+    
+                {% block form-buttons %}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+    
+                    <button type="submit" class="btn btn-primary ms-auto" name="save">
+                        Guardar
+                    </button>
+                </div>
+                {% endblock form-buttons %}
+            </form>
+            <!-- End form -->
+        </div>
+    </div>
+
+</div>
+
 {% endblock rows %}
+
+<!-- <div 
+    class="modal modal-blur fade show" 
+    id="modal-report" 
+    tabindex="-1" 
+    style="display: block;" 
+    aria-modal="true" 
+    role="dialog">
+
+</div> -->
