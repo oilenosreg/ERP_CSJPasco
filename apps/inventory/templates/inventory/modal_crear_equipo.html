@@ -1,0 +1,163 @@
+{% extends 'forms/modal_form.html' %}
+
+
+{% block form-modal-title %}
+{{ title }}
+{% endblock form-modal-title %}
+
+
+{% block form-modal-body %}
+<form id="" action="{% url 'inventory:asignar_equipo' equipo.id %}" method="POST">
+    {% csrf_token %}
+
+
+    <!-- Begin form body -->
+    <fieldset>
+        {% block fieldset %}
+        <div class="row">                
+            <div class="mb-3 col-sm-4 form-group {% if form.categoria.errors  %} has-error {% endif %}">        
+                <label for="" class="form-label">
+                {{ form.categoria.label }}
+                </label>
+                {{ form.categoria }} <a href=""></a>
+                <div class="text-danger">
+                    {{ form.categoria.errors.errors }}
+                </div>
+            </div>                    
+        
+            <div class="mb-3 col-sm-4 form-group {% if form.marca.errors  %} has-error {% endif %}">
+                <label for="" class="form-label">
+                {{ form.marca.label }}
+                </label>
+                {{ form.marca }}
+                <div class="text-danger">
+                    {{ form.marca.errors }}
+                </div>
+            </div>
+            
+            <div class="mb-3 col-sm-4 form-group {% if form.modelo.errors  %} has-error {% endif %}">
+                <label for="" class="form-label">
+                {{ form.modelo.label }}
+                </label>
+                {{ form.modelo }}
+                <div class="text-danger">
+                    {{ form.modelo.errors }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">      
+            <div class="mb-3 col-sm-4 form-group {% if form.cod_patrimonial.errors  %} has-error {% endif %}">
+                <label for="" class="form-label">
+                {{ form.cod_patrimonial.label }}
+                </label>
+                {{ form.cod_patrimonial }}
+                <div class="text-danger">
+                    {{ form.cod_patrimonial.errors }}
+                </div>
+            </div>
+        
+            <div class="mb-3 col-sm-4 form-group {% if form.serie.errors  %} has-error {% endif %}">
+                <label for="" class="form-label">
+                {{ form.serie.label }}
+                </label>
+                {{ form.serie }}
+                <div class="text-danger">
+                    {{ form.serie.errors }}
+                </div>
+            </div>
+            
+            <div class="mb-3 col-sm-4 form-group {% if form.estado.errors  %} has-error {% endif %}">
+                <label for="" class="form-label">
+                {{ form.estado.label }}
+                </label>
+                {{ form.estado }}
+                <div class="text-danger">
+                    {{ form.estado.errors }}
+                </div>
+            </div>                
+        </div>
+        
+        <div class="row">     
+            <div class="mb-3 col-sm-3 form-group {% if form.condicion.errors  %} has-error {% endif %}">
+                <label for="" class="form-label">
+                {{ form.condicion.label }}
+                </label>
+                {{ form.condicion }}
+                <div class="text-danger">
+                    {{ form.condicion.errors }}
+                </div>
+            </div>
+        
+            <div class="mb-3 col-sm-3 form-group {% if form.ip.errors  %} has-error {% endif %}">
+                <label for="" class="form-label">
+                {{ form.ip.label }}
+                </label>
+                {{ form.ip }}
+                <div class="text-danger">
+                    {{ form.ip.errors }}
+                </div>
+            </div>      
+            
+            <div class="mb-3 col-sm-3 form-group {% if form.mac.errors  %} has-error {% endif %}">
+                <label for="" class="form-label">
+                {{ form.mac.label }}
+                </label>
+                {{ form.mac }}
+                <div class="text-danger">
+                    {{ form.mac.errors }}
+                </div>
+            </div>
+        
+            <div class="mb-3 col-sm-3 form-group {% if form.orden_compra.errors  %} has-error {% endif %}">
+                <label for="" class="form-label">
+                {{ form.orden_compra.label }}
+                </label>
+                {{ form.orden_compra }}
+                <div class="text-danger">
+                    {{ form.orden_compra.errors }}
+                </div>
+            </div>                      
+        </div>
+        
+        <div class="row">
+            <div class="mb-3 col-sm-12 form-group {% if form.observaciones.errors  %} has-error {% endif %}">
+                <label for="" class="form-label">
+                {{ form.observaciones.label }}
+                </label>
+                {{ form.observaciones }}
+                <div class="text-danger">
+                    {{ form.observaciones.errors }}
+                </div>
+            </div>  
+        </div>
+        
+        <div class="row">
+            <div class="mb-3 col-sm-6 form-group {% if form.componente_de.errors  %} has-error {% endif %}">
+                <label for="" class="form-label">
+                {{ form.componente_de.label }}
+                </label>
+                {{ form.componente_de }}
+                <div class="text-danger">
+                    {{ form.componente_de.errors }}
+                </div>
+            </div>   
+        </div>    
+        {% endblock fieldset %}
+    </fieldset>
+    <!-- End form body -->
+
+
+    {% block form-buttons %}
+    <div class="modal-footer">
+        <button type="button" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+            Cancelar
+        </button>
+
+        <button type="submit" class="btn btn-primary ms-auto" name="save">
+            Guardar
+        </button>
+    </div>
+    {% endblock form-buttons %}
+</form>
+{% endblock form-modal-body %}

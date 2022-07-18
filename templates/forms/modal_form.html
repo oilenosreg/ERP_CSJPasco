@@ -1,299 +1,81 @@
-{% extends 'base/body.html' %}
-{% load static %}
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                {% block form-modal-title %}
+                {{ title }}
+                {% endblock form-modal-title %}
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+        </div>
 
-<!-- TODO: mejorar Card photo -->
-<!-- TODO: mejorar botón upload -->
+        {% include 'messages/messages.html' %}
+        {% include 'messages/errors.html' %}
+     
+        <!-- Begin form -->
+        {% block form-modal-body %}
+        <form id="" action="{% url 'inventory:asignar_equipo' equipo.id %}" method="POST">
+            {% csrf_token %}
 
-{% block page-styles %}
-<style> /* Estilo para botón subir imagen. */
-    /*
-        Estilos para el botón input "Subir Imagen" (file input field).
-    */
-    
-    /*
-    label {
-        cursor: pointer;
-    }*/
-    input{
-        display: none;
-    }; 
-    
-    .esconder {
-        opacity: 0;
-    }
-    
-</style>
-{% endblock page-styles %}
-
-
-{% block modal-form %}
-<!-- Begin title modal form -->
-    <div class="modal-header">
-        <h5 class="modal-title">
-            {{ title }}
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-<!-- End title modal form -->
-
-
-<!-- Begin photo -->
-    <div class="row col-lg-2" style="margin-top: 10px; margin-left: 10px;">
-        {% include 'base/photo.html' %}
-    </div>
-<!-- End photo -->
-
-
-<!-- Begin form -->
-    <form 
-        method="POST" 
-        id="{{ modal_form }}"
-        enctype="multipart/form-data"
-        class=""
-        action=""
-        novalidate>                    
-
-        {% csrf_token %}
-
-        <fieldset {% if detalle %} disabled {% endif %}>    
-            {% block form-fields %}          
-                <!-- Begin body modal form section 1 -->
-                <div class="modal-body">
-
-
-                    <div class="mb-3 form-group {% if form_persona.dni.errors %} has-error {% endif %}">
-                        <label class="form-label">
-                            {{ form_persona.dni.label }}
-                        </label>                                
-                        {{ form_persona.dni }}
-                        <div class="text-danger">
-                            {{ form_persona.dni.errors }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="mb-3 col-lg-4 form-group {% if form_persona.nombres.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.nombres.label }}
-                            </label>                                
-                            {{ form_persona.nombres }}
-                            <div class="text-danger">
-                                {{ form_persona.nombres.errors }}
-                            </div>
-                        </div>
-                        <div class="mb-3 col-lg-4 form-group {% if form_persona.apellido_paterno.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.apellido_paterno.label }}
-                            </label>                                
-                            {{ form_persona.apellido_paterno }}
-                            <div class="text-danger">
-                                {{ form_persona.apellido_paterno.errors }}
-                            </div>
-                        </div>  
-                        <div class="mb-3 col-lg-4 form-group {% if form_persona.apellido_materno.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.apellido_materno.label }}
-                            </label>                                
-                            {{ form_persona.apellido_materno }}
-                            <div class="text-danger">
-                                {{ form_persona.apellido_materno.errors }}
-                            </div>
-                        </div>                                                                                                  
-                    </div>
-
-                    <div class="row">
-                        <div class="mb-3 col-lg-4 form-group {% if form_persona.fecha_nacimiento.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.fecha_nacimiento.label }}
-                            </label>                                
-                            {{ form_persona.fecha_nacimiento }}
-                            <div class="text-danger">
-                                {{ form_persona.fecha_nacimiento.errors }}
-                            </div>
-                        </div>
-                        <div class="mb-3 col-lg-4 form-group {% if form_persona.genero.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.genero.label }}
-                            </label>                                
-                            {{ form_persona.genero }}
-                            <div class="text-danger">
-                                {{ form_persona.genero.errors }}
-                            </div>
-                        </div>  
-                        <div class="mb-3 col-lg-4 form-group {% if form_persona.estado_civil.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.estado_civil.label }}
-                            </label>                                
-                            {{ form_persona.estado_civil }}
-                            <div class="text-danger">
-                                {{ form_persona.estado_civil.errors }}
-                            </div>
-                        </div>                                                                                                  
-                    </div>
+            <!-- Begin form header -->
+            <div class="modal-body">
+                <div class="mb-3 form-selectgroup-item">
+                    <h3 class="form-selectgroup-title strong mb-2 text-primary">
+                        {{ equipo.categoria.nombre|title|default_if_none:'' }} {{ equipo.marca.nombre|title|default_if_none:''}} {{ equipo.modelo.nombre|title|default_if_none:'' }}
+                    </h3>
+                    <span class="d-block text-muted">
+                        ID: {{ equipo.id }} | serie: {{ equipo.serie }} | Código patrimonial: {{ equipo.cod_patrimonial}}
+                    </span>
                 </div>
-                <!-- End body modal form section 1 -->
-
-                <!-- Begin body modal form section 2 -->
-                <div class="modal-body">
-
-                    <div class="row">
-                        <div class="mb-3 col-lg-3 form-group {% if form_persona.correo_institucional.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.correo_institucional.label }}
-                            </label>
-                            {{ form_persona.correo_institucional }}
-                            <div class="text-danger">
-                                {{ form_persona.correo_institucional.errors }}
-                            </div>                                        
-                        </div>             
-                        <div class="mb-3 col-lg-3 form-group {% if form_persona.correo_personal.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.correo_personal.label }}
-                            </label>
-                            {{ form_persona.correo_personal }}
-                            <div class="text-danger">
-                                {{ form_persona.correo_personal.errors }}
-                            </div>                                        
-                        </div>   
-                        <div class="mb-3 col-lg-3 form-group {% if form_persona.telefono_personal.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.telefono_principal.label }}
-                            </label>
-                            {{ form_persona.telefono_principal }}
-                            <div class="text-danger">
-                                {{ form_persona.telefono_principal.errors }}
-                            </div>                                        
-                        </div>
-                        <div class="mb-3 col-lg-3 form-group {% if form_persona.telefono_institucional.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.telefono_secundario.label }}
-                            </label>
-                            {{ form_persona.telefono_secundario }}
-                            <div class="text-danger">
-                                {{ form_persona.telefono_secundario.errors }}
-                            </div>                                        
-                        </div>                       
-                    </div>
-                    
-                    <div class="row">
-                        <div class="mb-3 col-lg-3 form-group {% if form_persona.anexo_institucional.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.anexo_institucional.label }}
-                            </label>
-                            {{ form_persona.anexo_institucional }}
-                            <div class="text-danger">
-                                {{ form_persona.anexo_institucional.errors }}
-                            </div>                                        
-                        </div>          
-                        <div class="mb-3 col-lg-9 form-group {% if form_persona.direccion.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.direccion.label }}    
-                            </label>
-                            {{ form_persona.direccion }}    
-                            <div class="text-danger">
-                                {{ form_persona.direccion.errors }}
-                            </div>                                        
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="mb-3 col-lg-12 form-group {% if form_persona.observaciones.errors %} has-error {% endif %}">
-                            <label class="form-label">
-                                {{ form_persona.observaciones.label }}
-                            </label>
-                            {{ form_persona.observaciones }}
-                            <div class="text-danger">
-                                {{ form_persona.observaciones.errors }}
-                            </div>                                        
-                        </div>                          
-                    </div>
-
-
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label">Client name</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label">Reporting period</label>
-                                <input type="date" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div>
-                                <label class="form-label">Additional information</label>
-                                <textarea class="form-control" rows="3"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End body modal form section 2 -->
-            {% endblock form-fields %}                      
-
-            <!-- Begin modal footer -->
-            <div class="modal-footer">
-                {% block form-buttons %}
-                    <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
-                        Cancel
-                    </a>
-                    <a href="#" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <line x1="12" y1="5" x2="12" y2="19" />
-                            <line x1="5" y1="12" x2="19" y2="12" />
-                        </svg>
-                        Create new report
-                    </a>
-                {% endblock form-buttons %}
             </div>
-            <!-- End modal footer -->  
-        </fieldset> 
-    </form>   
-<!-- End form -->  
-
-{% endblock modal-form %}
+            <!-- End form header -->
 
 
-{% block page-scripts %}
-<script> /* Tratamiento de imágenes. */
-    // Personalización: 
-    // Agrega el nombre de la imagen a una etiqueta HTML, por ejemplo,
-    // <p> a fin de que se pueda aplicar estilos. 
+            <!-- Begin form body -->
+            {% block fieldset %}
+            <div class="modal-body">
+                <div class="mb-3">
+                    <fieldset>
+                        <div class="mb-3 form-group {% if form.empledo.errors %} has-error {% endif %}">
+                            <label for="" class="form-label">
+                                {{ form.empleado.label }}
+                            </label>
+                            {{ form.empleado }}
+                            <div class="text-danger">
+                                {{ form.empleado.errors }}
+                            </div>
+                        </div>
+        
+                        <div class="mb-3 form-group {% if form.inicio.errors %} has-error {% endif %}">
+                            <label for="" class="form-label">
+                                {{ form.inicio.label }}
+                            </label>
+                            {{ form.inicio }}
+                            <div class="text-danger">
+                                {{ form.inicio.errors }}
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            {% endblock fieldset %}
+            <!-- End form body -->
 
-    let input = document.getElementById('id_foto');
-    let nombreImagen = document.getElementById('nombreImagen');
 
-    input.addEventListener('change', () => {
-        let inputImagen = document.querySelector('input[type=file]').files[0];
-        nombreImagen.innerText = '' + inputImagen.name;
-    });  
+            {% block form-buttons %}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
 
-
-    // Muestra la imagen previa, antes de guardarlo en la Base de Datos.    
-    const foto = document.getElementById('id_foto');
-    const mostrar_imagen = document.getElementById('mostrar_imagen');
-
-    foto.addEventListener('change', function() {
-        obtener_foto();
-    });
-
-    function obtener_foto() {
-        const archivos = foto.files[0];
-        if (archivos) {
-            const archivo = new FileReader();
-            archivo.readAsDataURL(archivos);
-            archivo.addEventListener('load', function() {
-                //mostrar_imagen.innerHTML = '<img src="'+ this.result +'"/>';
-                mostrar_imagen.setAttribute('src', this.result);
-            });
-        }
-    }
-</script>    
-{% endblock page-scripts %}
+                <button type="submit" class="btn btn-primary ms-auto" name="save">
+                    Guardar
+                </button>
+            </div>
+            {% endblock form-buttons %}
+        </form>
+        {% endblock form-modal-body %}
+        <!-- End form -->
+    </div>
+</div>

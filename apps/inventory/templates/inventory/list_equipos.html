@@ -1,10 +1,10 @@
 {% extends 'tables/datatables.html '%}
 
 {% block page-title %}
-    {% include 'base/page-title.html' with pre_title=pre_title title=title %}
+{% include 'base/page-title.html' with pre_title=pre_title title=title %}
 
-    {% url 'inventory:create_equipo' as action_url %}
-    {% include 'base/title-actions.html' with action='Nuevo equipo' action_url=action_url %}
+{% url 'inventory:create_equipo' as action_url %}
+{% include 'base/title-actions.html' with action='Nuevo equipo' action_url=action_url %}
 {% endblock page-title %}
 
 {% block columns %}
@@ -85,119 +85,29 @@
             {% url 'inventory:edit_equipo' object.id as edit_url %}
             {% include 'buttons/edit_button.html' with edit_url=edit_url %}
 
-            {% url 'inventory:asignar_equipo' object.id as employee_url %}
-            {% include 'buttons/user_button.html' with employee_url=employee_url %}   
-            
-            <button 
-                class=""
-                type="submit"
-                onclick="open_modal('{% url 'inventory:asignar_equipo' object.id %}')">
-                Asignar
-            </button>
 
-            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal_form">
-                Modal with form
-              </a>
+
+            <a class="page-item active" type="submit" onclick="open_modal('{% url 'inventory:asignar_equipo' object.id %}')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24"
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                </svg>
+            </a>
         </div>
     </td>
-
 </tr>
 {% endfor %}
-
-
-<div 
-    class="modal modal-blur fade show" 
-    id="modal_form" 
-    tabindex="-1" 
-    
-    aria-modal="true" 
-    role="dialog">
-
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    {{ title }}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-    
-            <!-- Begin form -->
-            <form id="modal_form" action="{% url 'inventory:asignar_equipo' object.id %}" method="POST">
-                {% csrf_token %}
-    
-                <!-- Begin form header -->
-                <div class="modal-body">
-                    <div class="mb-3 form-selectgroup-item">
-                        <h3 class="form-selectgroup-title strong mb-2 text-primary">
-                            {{ equipo.categoria.nombre|title|default_if_none:'' }} {{ equipo.marca.nombre|title|default_if_none:''}} {{ equipo.modelo.nombre|title|default_if_none:'' }}
-                        </h3>
-                        <span class="d-block text-muted">
-                            serie: {{ equipo.serie }} | Código patrimonial: {{ equipo.cod_patrimonial}}
-                        </span>
-                    </div>
-                </div>
-                <!-- End form header -->
-    
-    
-                <!-- Begin form body -->
-                {% block fieldset %}
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <fieldset>
-                            <div class="mb-3 form-group {% if form.empledo.errors %} has-error {% endif %}">
-                                <label for="" class="form-label">
-                                    {{ form.empleado.label }}
-                                </label>
-                                {{ form.empleado }}
-                                <div class="text-danger">
-                                    {{ form.empleado.errors }}
-                                </div>
-                            </div>
-            
-                            <div class="mb-3 form-group {% if form.inicio.errors %} has-error {% endif %}">
-                                <label for="" class="form-label">
-                                    {{ form.inicio.label }}
-                                </label>
-                                {{ form.inicio }}
-                                <div class="text-danger">
-                                    {{ form.inicio.errors }}
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                </div>
-                {% endblock fieldset %}
-                <!-- End form body -->
-    
-    
-                {% block form-buttons %}
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link link-secondary" data-bs-dismiss="modal">
-                        Cancelar
-                    </button>
-    
-                    <button type="submit" class="btn btn-primary ms-auto" name="save">
-                        Guardar
-                    </button>
-                </div>
-                {% endblock form-buttons %}
-            </form>
-            <!-- End form -->
-        </div>
-    </div>
-
-</div>
-
 {% endblock rows %}
 
-<!-- <div 
-    class="modal modal-blur fade show" 
-    id="modal-report" 
-    tabindex="-1" 
-    style="display: block;" 
-    aria-modal="true" 
-    role="dialog">
 
-</div> -->
+{% block modal-form %}
+<div class="modal modal-blur fade show" id="modal_form" tabindex="-1" aria-modal="true" role="dialog">
+</div>
+
+<div class="modal modal-blur fade show" id="modal_form" tabindex="-1" aria-modal="true" role="dialog">
+</div>
+
+{% endblock modal-form %}
