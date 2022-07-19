@@ -9,7 +9,7 @@ from .forms import CreateEquipmentForm, AsignarEquipoForm
 
 
 def listar_equipos(request):
-    equipos = Equipo.objects.all()
+    equipos = Equipo.objects.all().order_by('id')
 
     template = 'inventory/list_equipos.html'
     context = { 
@@ -23,7 +23,7 @@ def listar_equipos(request):
 # TODO:   Mejorar la tabla de los equipos y sus componentes.
 #         ¿se debería usar un foreign key?
 # Procesador 	Advance 	802 	Computadora Portátil Epson 2201-61063-001 - Sn: #789**** - 7879787897 	SN:qqqqqqqqq 	7879787897 	Inoperativo 	Bueno 
-def create_equipo(request):
+def nuevo_equipo(request):
     if request.method == 'POST':
         form = CreateEquipmentForm(request.POST)
         if form.is_valid():
@@ -40,7 +40,7 @@ def create_equipo(request):
                 ingresada.')
     else:
         form = CreateEquipmentForm()    
-    template = 'inventory/create_equipo.html'
+    template = 'inventory/modal_nuevo_equipo.html'
     context = { 
         'form': form,
         'create': True,
@@ -50,28 +50,33 @@ def create_equipo(request):
     return render(request, template, context)
 
 
-def edit_equipo(request, id):
+def editar_equipo(request, id):
     equipo = get_object_or_404(Equipo, id = id)
-    form = CreateEquipmentForm(request.POST or None, instance=equipo)
+    
+    if request.method == 'POST':
+        form = CreateEquipmentForm(request.POST or None, instance=equipo)
+        if form.is_valid():
+            form.save()
 
-    if form.is_valid():
-        form.save()
+            messages.success(
+                request, 
+                'Equipo modificado con éxito.')     
 
-        messages.success(
-            request, 
-            'Equipo modificado con éxito.')     
-
-        return redirect('inventory:list_equipos')
+            return redirect('inventory:listar_equipos')
+        else:
+            messages.error(
+                request,
+                '''
+                No fue posible guardar los datos. Verifique la información \
+                ingresada.
+                ''')
     else:
-        messages.error(
-            request,
-            '''
-            No fue posible guardar los datos. Verifique la información \
-            ingresada.
-            ''')
-    template = 'inventory/create_equipo.html'
+        form = CreateEquipmentForm(instance=equipo)
+        
+    template = 'inventory/modal_nuevo_equipo.html'
     context = { 
         'form': form,
+        'equipo': equipo,
         'edit': True,
         'pre_title': 'Parque Informático',
         'title': 'Modificar equipo',
@@ -94,6 +99,7 @@ def detail_equipo(request, id):
 
 def asignar_equipo(request, id):
     equipo = get_object_or_404(Equipo, id = id)
+
     if request.method == 'POST':
         form = AsignarEquipoForm(request.POST)
         if form.is_valid():

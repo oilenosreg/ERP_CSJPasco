@@ -197,11 +197,12 @@
     });
 </script>
 
+
 <!-- Formularios modal -->
 <script>
     let $ = jQuery.noConflict();
     function open_modal(url){
-        $('#modal_form').load(url, function(){
+        $('.modal_form').load(url, function(){
             $(this).modal('show');
         });
     }

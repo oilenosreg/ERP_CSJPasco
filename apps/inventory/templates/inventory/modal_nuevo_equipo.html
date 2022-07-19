@@ -2,18 +2,20 @@
 
 
 {% block form-modal-title %}
-{{ title }}
+    {{ title }}
 {% endblock form-modal-title %}
 
 
 {% block form-modal-body %}
-<form id="" action="{% url 'inventory:asignar_equipo' equipo.id %}" method="POST">
+{% if create %}
+<form id="" action="{% url 'inventory:nuevo_equipo' %}" method="POST">
+{% else %}
+<form id="" action="{% url 'inventory:editar_equipo' equipo.id %}" method="POST">
+{% endif %}
+
     {% csrf_token %}
 
-
-    <!-- Begin form body -->
-    <fieldset>
-        {% block fieldset %}
+    <div class="modal-body">
         <div class="row">                
             <div class="mb-3 col-sm-4 form-group {% if form.categoria.errors  %} has-error {% endif %}">        
                 <label for="" class="form-label">
@@ -45,7 +47,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">      
             <div class="mb-3 col-sm-4 form-group {% if form.cod_patrimonial.errors  %} has-error {% endif %}">
                 <label for="" class="form-label">
@@ -76,8 +78,8 @@
                     {{ form.estado.errors }}
                 </div>
             </div>                
-        </div>
-        
+        </div>   
+
         <div class="row">     
             <div class="mb-3 col-sm-3 form-group {% if form.condicion.errors  %} has-error {% endif %}">
                 <label for="" class="form-label">
@@ -142,13 +144,9 @@
                     {{ form.componente_de.errors }}
                 </div>
             </div>   
-        </div>    
-        {% endblock fieldset %}
-    </fieldset>
-    <!-- End form body -->
+        </div> 
+    </div>
 
-
-    {% block form-buttons %}
     <div class="modal-footer">
         <button type="button" class="btn btn-link link-secondary" data-bs-dismiss="modal">
             Cancelar
@@ -157,7 +155,6 @@
         <button type="submit" class="btn btn-primary ms-auto" name="save">
             Guardar
         </button>
-    </div>
-    {% endblock form-buttons %}
+    </div>    
 </form>
 {% endblock form-modal-body %}

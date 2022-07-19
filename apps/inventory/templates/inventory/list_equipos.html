@@ -1,10 +1,21 @@
 {% extends 'tables/datatables.html '%}
 
 {% block page-title %}
-{% include 'base/page-title.html' with pre_title=pre_title title=title %}
+    {% include 'base/page-title.html' with pre_title=pre_title title=title %}
 
-{% url 'inventory:create_equipo' as action_url %}
-{% include 'base/title-actions.html' with action='Nuevo equipo' action_url=action_url %}
+
+    <div class="col-12 col-md-auto ms-auto d-print-none">
+        <div class="btn-list">
+            <a 
+                href="" 
+                class="btn btn-primary d-none d-sm-inline-block"
+                onclick="open_modal('{% url 'inventory:nuevo_equipo' %}')">
+                Nuevo equipo
+            </a>        
+        </div>
+    </div>
+
+
 {% endblock page-title %}
 
 {% block columns %}
@@ -82,12 +93,21 @@
             {% url 'persons:profile' empleado.persona.dni as profile_url %}
             {% include 'buttons/computer_button.html' with profile_url=profile_url %}
 
-            {% url 'inventory:edit_equipo' object.id as edit_url %}
-            {% include 'buttons/edit_button.html' with edit_url=edit_url %}
+            <a class="page-item active" 
+                onclick="open_modal('{% url 'inventory:editar_equipo' object.id %}')">
 
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil text-warning"
+                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                    <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
+                </svg>
+            </a>
 
+            <a class="page-item active" type="submit"
+                onclick="open_modal('{% url 'inventory:asignar_equipo' object.id %}')">
 
-            <a class="page-item active" type="submit" onclick="open_modal('{% url 'inventory:asignar_equipo' object.id %}')">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24"
                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                     stroke-linejoin="round">
@@ -104,10 +124,6 @@
 
 
 {% block modal-form %}
-<div class="modal modal-blur fade show" id="modal_form" tabindex="-1" aria-modal="true" role="dialog">
+<div class="modal modal-blur fade show modal_form" id="" tabindex="-1" aria-modal="true" role="dialog">
 </div>
-
-<div class="modal modal-blur fade show" id="modal_form" tabindex="-1" aria-modal="true" role="dialog">
-</div>
-
 {% endblock modal-form %}
