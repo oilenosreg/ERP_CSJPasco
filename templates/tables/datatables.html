@@ -189,10 +189,12 @@
 <!-- DataTables -->
 <script>
     $(document).ready(function () {
-        $('#data').DataTable({
+        $('#data').DataTable({            
             'language': {
                 'url': '/static/libs/datatables.1.12.1/lang/es-ES.json'
-            }
+            },
+            // processing: true,
+            // serverSide: true,
         });
     });
 </script>

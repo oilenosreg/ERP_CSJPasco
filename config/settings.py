@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'apps.departments',
     'apps.employees',
     'apps.inventory',
+    'apps.usuarios',
 ]
 
 MIDDLEWARE = [
@@ -161,10 +162,9 @@ STATICFILES_DIRS = [
 # Global variable 'Distrito Judicial'.
 DISTRITO = '29'
 
-# 3. Archivos multimedia.
-# 3.1. Archivos de imagen o fotos.
-#      MEDIA_ROOT: is for server path to store files in the computer.
-#      MEDIA_URL: is the reference URL for browser to access the files over Http. 
+# Archivos multimedia.
+#   MEDIA_ROOT: is for server path to store files in the computer.
+#   MEDIA_URL: is the reference URL for browser to access the files over Http. 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -177,3 +177,5 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert alert-warning',
     messages.ERROR: 'alert alert-danger',
 }
+
+# Especficando 
