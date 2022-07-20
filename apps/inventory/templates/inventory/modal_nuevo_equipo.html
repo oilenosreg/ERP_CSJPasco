@@ -8,9 +8,9 @@
 
 {% block form-modal-body %}
 {% if create %}
-<form id="" action="{% url 'inventory:nuevo_equipo' %}" method="POST">
+    <form id="" action="{% url 'inventory:nuevo_equipo' %}" method="POST">
 {% else %}
-<form id="" action="{% url 'inventory:editar_equipo' equipo.id %}" method="POST">
+    <form id="" action="{% url 'inventory:editar_equipo' equipo.id %}" method="POST">
 {% endif %}
 
     {% csrf_token %}

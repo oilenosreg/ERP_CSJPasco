@@ -20,8 +20,10 @@ def listar_equipos(request):
     return render(request, template, context)
 
 
-# TODO:   Mejorar la tabla de los equipos y sus componentes.
-#         ¿se debería usar un foreign key?
+# TODO: Mejorar la tabla de los equipos y sus componentes.
+# TODO: Validación de formulario.
+# TODO: DropDown enlazados.
+#         ¿se debería usar un foreign key para los componentes?
 # Procesador 	Advance 	802 	Computadora Portátil Epson 2201-61063-001 - Sn: #789**** - 7879787897 	SN:qqqqqqqqq 	7879787897 	Inoperativo 	Bueno 
 def nuevo_equipo(request):
     if request.method == 'POST':
@@ -32,7 +34,7 @@ def nuevo_equipo(request):
             messages.success(
                 request, 
                 'Equipo registrado con éxito.')               
-            return redirect('inventory:list_equipos')
+            return redirect('inventory:listar_equipos')
         else:
             messages.error(
                 request,
