@@ -178,4 +178,5 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert alert-danger',
 }
 
-# Especficando 
+# Especficando la clase Usuario que usará Django para la acreditación de usuarios.
+AUTH_USER_MODEL = 'usuarios.Usuario'
