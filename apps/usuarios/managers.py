@@ -18,10 +18,7 @@ class UsuarioPersonalizadoManager(BaseUserManager):
         if not dni:
             raise ValueError('El número de DNI es obligatorio para registrar a un usuario')
 
-        persona = get_object_or_404(Persona, dni = dni)
-        
-        p_dni = persona.dni
-        user = self.model(dni = p_dni, **extra_fields)
+        user = self.model(dni = dni, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -54,8 +51,7 @@ class UsuarioPersonalizadoManager(BaseUserManager):
 #         '''
 #         if not dni:
 #             raise ValueError('El número de DNI es obligatorio para registrar a un usuario')
-        
-#         # dni = self.dni
+
 #         user = self.model(dni = dni, **extra_fields)
 #         user.set_password(password)
 #         user.save()

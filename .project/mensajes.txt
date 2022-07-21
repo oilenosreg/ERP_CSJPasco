@@ -1,0 +1,5 @@
+CRUD
+====
+Creación:
+    Éxito: Registro del usuario {nombres} {apellidos} de manera exitosa.
+    Error: No fue posible guardar los datos. Verifique la información ingresada.

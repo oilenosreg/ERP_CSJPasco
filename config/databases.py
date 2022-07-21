@@ -17,7 +17,8 @@ Sqlite = {
 PostgresSQL = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ERP_Prueba',
+        # 'NAME': 'ERP_Prueba2',
+        'NAME': 'erp_prueba6',
         'USER': 'postgres',
         'PASSWORD': '123456',
         'HOST': 'localhost',
