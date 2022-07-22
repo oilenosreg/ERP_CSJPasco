@@ -18,7 +18,7 @@ PostgresSQL = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         # 'NAME': 'ERP_Prueba2',
-        'NAME': 'erp_prueba6',
+        'NAME': 'erp_prueba3',
         'USER': 'postgres',
         'PASSWORD': '123456',
         'HOST': 'localhost',

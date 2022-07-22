@@ -24,13 +24,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Project url's.
-    # path('', include('apps.main.urls')),
-    path('', include('apps.usuarios.urls')),
+    path('', include('apps.main.urls')),    
     path('personas/', include('apps.persons.urls')),
     path('empleados/', include('apps.employees.urls')),
+    path('usuarios/', include('apps.users.urls')),
     path('inventario/', include('apps.inventory.urls')),
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

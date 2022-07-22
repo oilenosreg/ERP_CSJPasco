@@ -1,20 +1,34 @@
+from typing import List
+from django.views.generic import ListView
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages
 from django.views import View
 
 # App modules.
-from .models import Usuario
-from .forms import RegistroUsuarioForm
+from .models import CustomUser
+from .forms import CreateUserForm
 
 
 def home(request):
     return render(request, 'usuarios/home.html')
 
 
-class RegistroUsuarioView(View):
-    form_class = RegistroUsuarioForm
+class ListUsersView(ListView):
+    model = CustomUser
+    template_name = 'users/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pre_title'] = 'Administración de usuarios'
+        context['title'] = 'Nuevo usuarios'
+        return context
+
+
+
+class CreateUserView(View):
+    form_class = CreateUserForm
     initial = {'key': 'value'}
-    template_name = 'usuarios/register.html'
+    template_name = 'users/create.html'
 
     def get(self, request, *args, **kwargs):
         '''
@@ -39,7 +53,7 @@ class RegistroUsuarioView(View):
                 f'Registro del usuario {dni} de manera exitosa.')
             # TODO: Aquí debe redirigir al formulario para registrar sus datos personales
             #       y datos de empleado.
-            # return redirect()
+            return redirect('usuarios:home')
         else:
             messages.error(
                 request,

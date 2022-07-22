@@ -1,0 +1,17 @@
+# LPER
+PS D:\Proyectos\Code\Django\ERP_CSJPasco> & D:/Proyectos/Envs/PY3104DJ404/Scripts/Activate.ps1
+(PY3104DJ404) PS D:\Proyectos\Code\Django\ERP_CSJPasco> 
+
+D:\Proyectos\Envs\PY3104DJ404\Scripts>
+
+# LPJ
+D:\Documentos\Proyectos\Envs\PY3104DJ405\Scripts\
+D:\Documentos\Proyectos\code\ERP_CSJPasco
+
+
+rm .\apps\departments\migrations\0*.py
+rm .\apps\employees\migrations\0*.py
+rm .\apps\inventory\migrations\0*.py
+rm .\apps\main\migrations\0*.py
+rm .\apps\persons\migrations\0*.py
+rm .\apps\users\migrations\0*.py

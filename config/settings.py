@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
-    
+    'django.contrib.messages',    
     'django.contrib.staticfiles',
 
     # Third party apps.
@@ -55,7 +54,7 @@ INSTALLED_APPS = [
     'apps.departments',
     'apps.employees',
     'apps.inventory',
-    'apps.usuarios',
+    'apps.users',
 ]
 
 MIDDLEWARE = [
@@ -179,4 +178,4 @@ MESSAGE_TAGS = {
 }
 
 # Especficando la clase Usuario que usará Django para la acreditación de usuarios.
-AUTH_USER_MODEL = 'usuarios.Usuario'
+AUTH_USER_MODEL = 'users.CustomUser'

@@ -2,10 +2,10 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 
 # App modules.
-from .models import Usuario
+from .models import CustomUser
 
 
-class RegistroUsuarioForm(UserCreationForm):
+class CreateUserForm(UserCreationForm):
     dni = forms.CharField(
         max_length=8, required=True, widget=forms.TextInput(attrs={
             'placeholder': 'Número de DNI',
@@ -26,12 +26,12 @@ class RegistroUsuarioForm(UserCreationForm):
             'class': 'form-control',
             'id': 'password', }))
     class Meta:
-        model = Usuario
+        model = CustomUser
         # fields = ('dni', )
         fields = ['dni', 'password1', 'password2']
 
 
-class EditarUsuarioForm(UserChangeForm):
+class EditUserForm(UserChangeForm):
     class Meta:
-        model = Usuario
+        model = CustomUser
         fields = ('dni', )
