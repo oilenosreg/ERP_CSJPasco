@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 
 # Project modules.
 from apps.departments.models import DistritoJudicial
@@ -24,11 +25,26 @@ def list_empleados(request):
     }
     return render(request, template, context)
 
-
+# TODO: Crear mensaje de error cuando no existe distrito judicial.
 def create_empleado(request, dni):
     persona = get_object_or_404(Persona, dni = dni)
+
+    # Validación del Distrito Judicial.
+    # try:
     DISTRITO = settings.DISTRITO
-    distrito = get_object_or_404(DistritoJudicial, codigo = DISTRITO)
+    # distrito = DistritoJudicial.objects.filter(codigo = DISTRITO)
+    distrito = get_object_or_404(DistritoJudicial, codigo=DISTRITO)
+    # except DistritoJudicial.DoesNotExist:
+    #     distrito = None
+    #     messages.error(
+    #         request,
+    #         f'No se ha registrado ningún Distrito Judicial en el sistema.'
+    #     )
+    # except DistritoJudicial.MultipleObjectsReturned:
+    #     messages.error(
+    #         request,
+    #         f'Se han encontrado varios Distritos Judiciales con el mismo código.'
+    #     )
 
     if request.method == 'POST':
         form = CreateEmpleadoForm(request.POST)
@@ -41,10 +57,15 @@ def create_empleado(request, dni):
             
             sede = employee.sede.nombre
             dependencia = employee.dependencia.nombre
+            
             messages.success(
                 request,
                 f'Empleado registrado con éxito en "{dependencia}"')
-            return redirect('employees:list')
+            
+            if 'user' in request.POST:
+                return HttpResponseRedirect(reverse('users:create', kwargs={'dni': dni}))
+            if 'save' in request.POST:
+                return HttpResponseRedirect(reverse('employees:list'))
         else:
             messages.error(
                 request,

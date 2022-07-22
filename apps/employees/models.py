@@ -15,6 +15,7 @@ TIPO_CHOICES = sorted([
 
 class Cargo(models.Model):
     # Datos del cargo.
+    
     nombre = models.CharField('Cargo', max_length=255, blank=False, null=False)
     tipo = models.CharField('Tipo', max_length=5, blank=False, null=False, choices=TIPO_CHOICES, default='J')
 

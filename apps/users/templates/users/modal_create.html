@@ -1,0 +1,153 @@
+{% extends 'forms/form_with_photo.html' %}
+{% load static %}
+
+<!-- TODO: VALIDACIONES DE CAMPOS DE FORMULARIO -->
+<!-- TODO: instalar plugin datepicker -->
+
+{% block title %}
+    {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }} | {{ title }}
+{% endblock title %}
+
+
+{% block page-title %}
+    {% include 'base/page-title.html' with title=title pre_title=pre_title %}
+{% endblock page-title %}
+
+
+{% block form %}
+{# {% if not distrito %} #}
+    <!-- <div class="card">
+        <div class="empty">
+            <div class="empty-img"><img src="{% static 'theme/tabler-1.0.0.b9/static/illustrations/undraw_quitting_time_dm8t.svg' %}" alt="" height="128">
+            </div>
+            <p class="empty-title">
+                No se ha registrado un Distrito Judicial
+            </p>
+            <p class="empty-subtitle text-muted">
+                Al parecer, no existen registros en la base de datos; si lo prefiere, puede agregar un nuevo registro,
+                mediante los botones de la parte superior.
+            </p>
+            <div class="empty-action">
+                <a href="./." class="btn btn-primary">                
+                    Agregar Distrito Judicial
+                </a>
+            </div>
+            
+        </div>
+    </div> -->
+{% if not empleado.persona.dni %}
+    <div class="card">
+        <div class="empty">
+            <div class="empty-img"><img src="{% static 'theme/tabler-1.0.0.b9/static/illustrations/undraw_quitting_time_dm8t.svg' %}" alt="" height="128">
+            </div>
+            <p class="empty-title">
+                No se ha registrado los datos de la persona
+            </p>
+            <p class="empty-subtitle text-muted">
+                Al parecer, no existen registros en la base de datos; si lo prefiere, puede agregar un nuevo registro,
+                mediante los botones de la parte superior.
+            </p>
+            <div class="empty-action">
+                <a href="{% url 'persons:create' %}" class="btn btn-primary">                
+                    Agregar persona
+                </a>
+            </div>
+            
+        </div>
+    </div>
+{% else %}
+    <!-- Begin card -->
+    <div class="card">
+        <!-- Begin card header -->
+        <div class="card-header">
+            <div>
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        {% if persona.foto %}
+                        <span class="avatar" style="background-image: url(/media/{{ persona.foto }})"></span>
+                        {% else %}
+                        <span class="avatar"
+                            style="background-image: url({% static 'project/img/users/usuario_general_04.jpg' %})"></span>
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        <div class="card-title">
+                            {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}
+                        </div>
+                        <div class="card-subtitle">
+                            {{ persona.dni }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-actions">
+                <a href="{% url 'persons:edit' persona.dni %}" class="btn">
+                    Editar datos de persona
+                </a>
+            </div>
+        </div>
+        <!-- Begin card header -->
+
+
+        <!-- Begin form -->
+            <!-- Begin card body -->
+            <div class="card-body">
+                <!-- Begin messages -->
+
+                {% csrf_token %}
+                <div class="row">
+                    <div class="mb-3 col-sm-4 form-group {% if form.dni.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.dni.label }}
+                        </label>
+                        {{ form.dni }}
+                        <div class="text-danger">
+                            {{ form.dni.errors }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3 col-sm-4 form-group {% if form.modulo.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.password1.label }}
+                        </label>
+                        {{ form.password1 }}
+                        <div class="text-danger">
+                            {{ form.password1.errors }}
+                        </div>
+                    </div>
+                    <div class="mb-3 col-sm-4 form-group {% if form.edificio.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.password2.label }}
+                        </label>
+                        {{ form.password2 }}
+                        <div class="text-danger">
+                            {{ form.password2.errors }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End card body -->
+
+            {% block form-buttons %}
+            <div class="card-footer text-end">
+                <div class="row">
+                    <div class="d-flex">
+                        <a href="{% url 'employees:list' %}" class="btn btn-link me-auto">
+                            Cancelar
+                        </a>
+                        <div>
+                            <button type="submit" class="btn btn-primary ms-auto" name="save">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock form-buttons %}
+
+        <!-- End form -->
+    </div>
+    <!-- Begin card -->
+{% endif %}
+
+{% endblock form %}

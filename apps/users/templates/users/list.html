@@ -1,2 +1,46 @@
 {% extends 'tables/datatables.html' %}
 
+{% block page-title %}
+    {% include 'base/page-title.html' with pre_title=pre_title title=title %}
+
+    <div class="col-12 col-md-auto ms-auto d-print-none">
+        <div class="btn-list">
+            <a class="btn btn-primary d-none d-sm-inline-block" type="submit"
+                onclick="open_modal('{% url 'inventory:nuevo_equipo' %}')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                 </svg>                
+                Nuevo equipo
+            </a>            
+        </div>
+    </div>
+{% endblock page-title %}
+
+
+{% block columns %}
+    <tr>
+        <td>Nro</td>
+        <td>Nombre de usuario</td>
+        <td>Nombres</td>
+        <td>Apellidos</td>
+        <td>Cargo</td>
+        <td>Dependencia</td>
+        <td>Acciones</td>
+    </tr>
+{% endblock columns %}
+
+{% block rows %}
+    {% for user in object_list %}
+        <tr>
+            <td></td>
+            <td>{{ user.dni }}</td>
+            <td>{{ user.dni }}</td>
+            <td>{{ user.dni }}</td>
+            <td>{{ user.dni }}</td>
+            <td>{{ user.dni }}</td>
+            <td></td>
+        </tr>
+    {% endfor %}
+{% endblock rows %}

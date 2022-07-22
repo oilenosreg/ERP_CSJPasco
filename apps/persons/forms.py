@@ -42,6 +42,9 @@ class CreatePersonaForm(forms.ModelForm):
             'anexo_institucional': 'Anexo telefónico',
             'direccion': 'Dirección'            
         }
+        help_texts = {
+            'estado_civil': 'Estado civil.'
+        }
         widgets = {
             'dni': forms.TextInput(
                 attrs={
@@ -54,7 +57,7 @@ class CreatePersonaForm(forms.ModelForm):
             'nombres': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Nombres completos',
+                    'placeholder': 'Nombres',
                     'name': 'nombres',
                 }
             ),
@@ -94,7 +97,7 @@ class CreatePersonaForm(forms.ModelForm):
             'estado_civil': forms.Select(
                 attrs={
                     'class': 'form-control',
-                    'name': 'estado_civil',
+                    'name': 'estado_civil',                    
                 }
             ),
             'observaciones': forms.Textarea(

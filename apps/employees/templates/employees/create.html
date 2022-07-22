@@ -4,6 +4,8 @@
 <!-- TODO: VALIDACIONES DE CAMPOS DE FORMULARIO -->
 <!-- TODO: instalar plugin datepicker -->
 
+<!-- TODO: Crear include para mostrar mensajes de validaciones de dependencias -->
+
 {% block title %}
     {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }} | {{ title }}
 {% endblock title %}
@@ -13,197 +15,246 @@
 {% endblock page-title %}
 
 {% block form %}
-<!-- Begin card -->
-<div class="card">
-    <!-- Begin card header -->
-    <div class="card-header">
-        <div>
-            <div class="row align-items-center">
-                <div class="col-auto">
-                    {% if persona.foto %}
-                    <span class="avatar" style="background-image: url(/media/{{ persona.foto }})"></span>
-                    {% else %}
-                    <span class="avatar"
-                        style="background-image: url({% static 'project/img/users/usuario_general_04.jpg' %})"></span>
-                    {% endif %}
-                </div>
-                <div class="col">
-                    <div class="card-title">
-                        {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}
-                    </div>
-                    <div class="card-subtitle">
-                        {{ persona.dni }}
-                    </div>
-                </div>
+
+
+{# {% if not distrito %} #}
+    <!-- <div class="card">
+        <div class="empty">
+            <div class="empty-img"><img src="{% static 'theme/tabler-1.0.0.b9/static/illustrations/undraw_quitting_time_dm8t.svg' %}" alt="" height="128">
             </div>
+            <p class="empty-title">
+                No se ha registrado un Distrito Judicial
+            </p>
+            <p class="empty-subtitle text-muted">
+                Al parecer, no existen registros en la base de datos; si lo prefiere, puede agregar un nuevo registro,
+                mediante los botones de la parte superior.
+            </p>
+            <div class="empty-action">
+                <a href="./." class="btn btn-primary">                
+                    Agregar Distrito Judicial
+                </a>
+            </div>
+            
         </div>
-        <div class="card-actions">
-            <!-- <a href="#" class="btn">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path
-                        d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2">
-                    </path>
-                </svg>
-                Phone
-            </a> -->
-            <a href="{% url 'persons:edit' persona.dni %}" class="btn">
-                Editar datos de persona
-            </a>
+    </div> -->
+{% if not persona.dni %}
+    <div class="card">
+        <div class="empty">
+            <div class="empty-img"><img src="{% static 'theme/tabler-1.0.0.b9/static/illustrations/undraw_quitting_time_dm8t.svg' %}" alt="" height="128">
+            </div>
+            <p class="empty-title">
+                No se ha registrado los datos de la persona
+            </p>
+            <p class="empty-subtitle text-muted">
+                Al parecer, no existen registros en la base de datos; si lo prefiere, puede agregar un nuevo registro,
+                mediante los botones de la parte superior.
+            </p>
+            <div class="empty-action">
+                <a href="./." class="btn btn-primary">                
+                    Agregar persona
+                </a>
+            </div>
+            
         </div>
     </div>
-    <!-- Begin card header -->
-
-    <!-- Begin form -->
-        <!-- Begin card body -->
-        <div class="card-body">
-            <!-- Begin messages -->
-
-            {% csrf_token %}
-            <div class="row">
-                <div class="mb-3 col-sm-4 form-group {% if form.sede.errors %}has-error{% endif %}">
-                    <label class="form-label">
-                        {{ form.sede.label }}
-                    </label>
-                    {{ form.sede }}
-                    <div class="text-danger">
-                        {{ form.sede.errors }}
+{% elif persona.dni %}
+    <!-- Begin card -->
+    <div class="card">
+        <!-- Begin card header -->
+        <div class="card-header">
+            <div>
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        {% if persona.foto %}
+                        <span class="avatar" style="background-image: url(/media/{{ persona.foto }})"></span>
+                        {% else %}
+                        <span class="avatar"
+                            style="background-image: url({% static 'project/img/users/usuario_general_04.jpg' %})"></span>
+                        {% endif %}
                     </div>
-                </div>
-
-                <div class="mb-3 col-sm-4 form-group {% if form.modulo.errors %}has-error{% endif %}">
-                    <label class="form-label">
-                        {{ form.modulo.label }}
-                    </label>
-                    {{ form.modulo }}
-                    <div class="text-danger">
-                        {{ form.modulo.errors }}
-                    </div>
-                </div>
-                <div class="mb-3 col-sm-4 form-group {% if form.edificio.errors %}has-error{% endif %}">
-                    <label class="form-label">
-                        {{ form.edificio.label }}
-                    </label>
-                    {{ form.edificio }}
-                    <div class="text-danger">
-                        {{ form.edificio.errors }}
+                    <div class="col">
+                        <div class="card-title">
+                            {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}
+                        </div>
+                        <div class="card-subtitle">
+                            {{ persona.dni }}
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="mb-3 col-sm-6 form-group {% if form.dependencia.errors %}has-error{% endif %}">
-                    <label class="form-label">
-                        {{ form.dependencia.label }}
-                    </label>
-                    {{ form.dependencia }}
-                    <div class="text-danger">
-                        {{ form.dependencia.errors }}
-                    </div>
-                </div>
-                <div class="mb-3 col-sm-6 form-group {% if form.cargo.errors %}has-error{% endif %}">
-                    <label class="form-label">
-                        {{ form.cargo.label }}
-                    </label>
-                    {{ form.cargo }}
-                    <div class="text-danger">
-                        {{ form.cargo.errors }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div id="" class="col-sm-4 form-group {% if form.inicio.errors %}has-error{% endif %}">
-                    <label class="form-label">
-                        {{ form.inicio.label }}
-                    </label>
-                    <div class="input-group date">
-                        <span class="input-group-addon bg-white">
-                            <i class="fa fa-calendar"></i>
-                        </span>
-                        {{ form.inicio }}
-                    </div>
-
-                    <div class="text-danger">
-                        {{ form.inicio.errors }}
-                    </div>
-                </div>
-                <div id="" class="col-sm-4 form-group {% if form.cese.errors %}has-error{% endif %}">
-                    <label class="form-label">
-                        {{ form.cese.label }}
-                    </label>
-                    <div class="input-group date">
-                        <span class="input-group-addon bg-white">
-                            <i class="fa fa-calendar"></i>
-                        </span>
-                        {{ form.cese }}
-                    </div>
-
-                    <div class="text-danger">
-                        {{ form.cese.errors }}
-                    </div>
-                </div>
-                <div class="mb-3 col-sm-4 form-group {% if form.documento_asignacion.errors %}has-error{% endif %}">
-                    <label class="form-label">
-                        {{ form.documento_designacion.label }}
-                    </label>
-                    {{ form.documento_designacion }}
-
-                    <div class="text-danger">
-                        {{ form.documento_designacion.errors }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="mb-3 col-sm-12 form-group {% if form.observaciones.errors %}has-error{% endif %}">
-                    <label class="form-label">
-                        {{ form.observaciones.label }}
-                    </label>
-                    {{ form.observaciones }}
-                    <div class="text-danger">
-                        {{ form.observaciones.errors }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="mb-3 col-sm-12 form-group m-b-0 {% if form.activo.errors %}has-error{% endif %}">
-
-                        <label class="ui-checkbox ui-checkbox-primary">
-                        </label>
-                        {{ form.activo }}
-                        <span class="input-span"></span>
-                        {{ form.activo.label }}
-
-                    <div class="text-danger">
-                        {{ form.activo.errors }}
-                    </div>
-                </div>
+            <div class="card-actions">
+                <!-- <a href="#" class="btn">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                            d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2">
+                        </path>
+                    </svg>
+                    Phone
+                </a> -->
+                <a href="{% url 'persons:edit' persona.dni %}" class="btn">
+                    Editar datos de persona
+                </a>
             </div>
         </div>
-        <!-- End card body -->
+        <!-- Begin card header -->
 
-        {% block form-buttons %}
-        <div class="card-footer text-end">
-            <div class="row">
+        <!-- Begin form -->
+            <!-- Begin card body -->
+            <div class="card-body">
+                <!-- Begin messages -->
+
+                {% csrf_token %}
+                <div class="row">
+                    <div class="mb-3 col-sm-4 form-group {% if form.sede.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.sede.label }}
+                        </label>
+                        {{ form.sede }}
+                        <div class="text-danger">
+                            {{ form.sede.errors }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3 col-sm-4 form-group {% if form.modulo.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.modulo.label }}
+                        </label>
+                        {{ form.modulo }}
+                        <div class="text-danger">
+                            {{ form.modulo.errors }}
+                        </div>
+                    </div>
+                    <div class="mb-3 col-sm-4 form-group {% if form.edificio.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.edificio.label }}
+                        </label>
+                        {{ form.edificio }}
+                        <div class="text-danger">
+                            {{ form.edificio.errors }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-sm-6 form-group {% if form.dependencia.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.dependencia.label }}
+                        </label>
+                        {{ form.dependencia }}
+                        <div class="text-danger">
+                            {{ form.dependencia.errors }}
+                        </div>
+                    </div>
+                    <div class="mb-3 col-sm-6 form-group {% if form.cargo.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.cargo.label }}
+                        </label>
+                        {{ form.cargo }}
+                        <div class="text-danger">
+                            {{ form.cargo.errors }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div id="" class="col-sm-4 form-group {% if form.inicio.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.inicio.label }}
+                        </label>
+                        <div class="input-group date">
+                            <span class="input-group-addon bg-white">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                            {{ form.inicio }}
+                        </div>
+
+                        <div class="text-danger">
+                            {{ form.inicio.errors }}
+                        </div>
+                    </div>
+                    <div id="" class="col-sm-4 form-group {% if form.cese.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.cese.label }}
+                        </label>
+                        <div class="input-group date">
+                            <span class="input-group-addon bg-white">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                            {{ form.cese }}
+                        </div>
+
+                        <div class="text-danger">
+                            {{ form.cese.errors }}
+                        </div>
+                    </div>
+                    <div class="mb-3 col-sm-4 form-group {% if form.documento_asignacion.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.documento_designacion.label }}
+                        </label>
+                        {{ form.documento_designacion }}
+
+                        <div class="text-danger">
+                            {{ form.documento_designacion.errors }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-sm-12 form-group {% if form.observaciones.errors %}has-error{% endif %}">
+                        <label class="form-label">
+                            {{ form.observaciones.label }}
+                        </label>
+                        {{ form.observaciones }}
+                        <div class="text-danger">
+                            {{ form.observaciones.errors }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-sm-12 form-group m-b-0 {% if form.activo.errors %}has-error{% endif %}">
+
+                            <label class="ui-checkbox ui-checkbox-primary">
+                            </label>
+                            {{ form.activo }}
+                            <span class="input-span"></span>
+                            {{ form.activo.label }}
+
+                        <div class="text-danger">
+                            {{ form.activo.errors }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End card body -->
+
+            {% block form-buttons %}
+            <div class="card-footer text-end">
                 <div class="d-flex">
                     <a href="{% url 'employees:list' %}" class="btn btn-link me-auto">
                         Cancelar
                     </a>
                     <div>
+                        <button type="submit" class="btn btn-info ms-auto" name="user">
+                            Guardar | crear usuario
+                        </button>
+                        <!-- <button type="submit" class="btn btn-info ms-auto" name="save">
+                            Guardar | crear usuario
+                        </button>             -->
                         <button type="submit" class="btn btn-primary ms-auto" name="save">
                             Guardar
                         </button>
                     </div>
                 </div>
-            </div>
-        </div>
-        {% endblock form-buttons %}
+            </div>  
+            {% endblock form-buttons %}
 
-    <!-- End form -->
-</div>
-<!-- Begin card -->
+        <!-- End form -->
+    </div>
+    <!-- Begin card -->
+{% endif %}
+
 {% endblock form %}

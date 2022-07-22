@@ -8,3 +8,9 @@ Creación:
     Mensajes:
         Éxito: Registro del usuario {nombres} {apellidos} de manera exitosa.
         Error: No fue posible guardar los datos. Verifique la información ingresada.
+        
+    Búsqueda:
+        DoesNotExist: No se encontraron personas con el número de DNI ingresado.
+        DoesNotExist: No se ha registrado ningún Distrito Judicial en el sistema.
+        MultipleObjectsReturned: Se han encontrado varios registros con el número de DNI ingresado.
+        MultipleObjectsReturned: Se han encontrado varios Distritos Judiciales con el mismo código.
