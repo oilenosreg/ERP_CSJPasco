@@ -16,7 +16,7 @@ from pathlib import Path
 from django.contrib.messages import constants as messages
 
 # Project: settings.
-from .databases import Sqlite, PostgresSQL
+from .databases import Sqlite, PostgresSQL, SupaBase
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = PostgresSQL
+DATABASES = Sqlite
 
 # DATABASES = {
 #     'default': {
