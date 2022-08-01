@@ -17,7 +17,11 @@ import sqlite3
 from django.contrib.messages import constants as messages
 
 # Project: settings.
+<<<<<<< HEAD
 from .databases import SQLite, PostgresSQL
+=======
+from .databases import Sqlite, PostgresSQL, SupaBase
+>>>>>>> e33f47183d2a0598b4e8de53281ed807d4a16dd2
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -98,7 +102,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+<<<<<<< HEAD
 DATABASES = SQLite
+=======
+DATABASES = Sqlite
+>>>>>>> e33f47183d2a0598b4e8de53281ed807d4a16dd2
 
 # DATABASES = {
 #     'default': {
