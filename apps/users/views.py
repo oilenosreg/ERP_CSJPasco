@@ -44,7 +44,7 @@ class ListUsersView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['pre_title'] = 'Administración de usuarios'
-        context['title'] = 'Nuevo usuarios'
+        context['title'] = 'Nuevo usuario'
         return context
 
 

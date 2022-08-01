@@ -1,21 +1,10 @@
 {% extends 'forms/form_with_photo.html' %}
 
 <!-- TODO: instalar plugin datepicker -->
-<!-- 09 60 51 58 5 82 28 014 4529
-
-# 20 27 21 28
-24828 
-46
-
-30 31 33 35 36 37 39
-
-20 12 1979
-2 3 8
-4 -->
 
 
 {% block page-title %}
-    {% include 'base/page-title.html' with title=title pre_title=pre_title %}
+    {% include 'base/page-title.html' with title=title|title pre_title=pre_title %}
 {% endblock page-title %}
 
 
@@ -193,9 +182,11 @@
             <button type="submit" class="btn btn-success ms-auto" name="department">
                 Guardar | asignar dependencia
             </button>
+            {% if create %}
             <button type="submit" class="btn btn-primary ms-auto" name="another">
                 Guardar | añadir otro
             </button>
+            {% endif %}
             <!-- <button type="submit" class="btn btn-info ms-auto" name="save">
                 Guardar | crear usuario
             </button>             -->

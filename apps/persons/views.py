@@ -137,6 +137,10 @@ def edit_persona(request, dni):
                 return HttpResponseRedirect(reverse('persons:create'))
             elif 'save' in request.POST:
                 return HttpResponseRedirect(reverse('persons:list'))
+            elif 'department' in request.POST:
+                return HttpResponseRedirect(
+                    reverse('employees:create',
+                        kwargs={'dni':dni}))                
         else:
             messages.error(
                 request,

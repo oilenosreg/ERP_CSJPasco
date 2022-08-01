@@ -14,3 +14,8 @@ Creación:
         DoesNotExist: No se ha registrado ningún Distrito Judicial en el sistema.
         MultipleObjectsReturned: Se han encontrado varios registros con el número de DNI ingresado.
         MultipleObjectsReturned: Se han encontrado varios Distritos Judiciales con el mismo código.
+
+Listado:
+    Títulos:
+        pre_title: Dependencias
+        title: Listado de cargos del empleado

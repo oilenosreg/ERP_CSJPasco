@@ -1,10 +1,10 @@
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 
 # Project modules.
-from apps.departments.models import DistritoJudicial
+from apps.departments.models import Dependencia, DistritoJudicial
 from apps.persons.models import Persona
 from django.conf import settings
 
@@ -132,3 +132,18 @@ def edit_empleado(request,dni, id):
 
 
 # TODO: El perfile debe pasar a la aplicación empleado.
+
+
+def list_departments(request, dni):
+    # empleado = get_list_or_404(Empleado, persona=dni)
+    # try:
+    employee = Empleado.objects.select_related('persona').filter(persona=dni)
+    
+
+    template = 'employees/employee_departments_list.html'
+    context = {
+        'object_list': employee,
+        'pre_title': 'Dependencias',
+        'title': 'Listado de cargos del empleado',        
+    }
+    return render(request, template, context)

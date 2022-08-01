@@ -2,6 +2,20 @@
 
 <!-- TODO: Implementar botón nuevo empleado -->
 
+{% block page-title %}
+    {% include 'base/page-title.html' with pre_title=pre_title title=title %}
+
+    <div class="col-12 col-md-auto ms-auto d-print-none">
+        <div class="btn-list">
+            <a class="btn btn-primary d-none d-sm-inline-block" type="submit"
+                onclick="open_modal('{% url 'inventory:nuevo_equipo' %}')">            
+                Nuevo empleado
+            </a>            
+        </div>
+    </div>
+{% endblock page-title %}
+
+
 {% block columns %}
 <th class="font-light align-middle text-center">Nro</th>
 <th class="font-light align-middle text-center">DNI</th>

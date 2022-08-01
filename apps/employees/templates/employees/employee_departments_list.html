@@ -1,0 +1,69 @@
+{% extends 'tables/datatables.html' %}
+
+{% block page-title %}
+    {% include 'base/page-title.html' with pre_title=pre_title title=title %}
+
+    <div class="col-12 col-md-auto ms-auto d-print-none">
+        <div class="btn-list">
+            <a class="btn btn-primary d-none d-sm-inline-block" type="submit"
+                onclick="open_modal('')">            
+                Nuevo cargo
+            </a>            
+        </div>
+    </div>
+{% endblock page-title %}
+
+
+{% block columns %}
+    <tr>
+        <th>nro</th>
+        <th>Cargo</th>
+        <th>Inicio</th>
+        <th>Cese</th>
+        <th>Estado</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+{% endblock columns %}
+
+
+{% block rows %}
+{% for empleado in object_list %}
+    <tr>
+        <td></td>
+        <td>
+            <div class="font-weigth-medium">
+                {{ empleado.cargo }}
+            </div>
+            <div class="text-muted">
+                {{ empleado.dependencia }}
+            </div>
+        </td>
+        <td>{{ empleado.inicio }}</td>
+        <td>{{ empleado.cese }}</td>
+        <td>{{ empleado.activo }}</td>
+        <td>{{ empleado. }}</td>
+        <td>{{ empleado. }}</td>
+        <td>{{ empleado. }}</td>
+        <td>{{ empleado. }}</td>
+        <td>{{ empleado. }}</td>
+        <td>{{ empleado. }}</td>
+    </tr>
+{% endfor %}
+{% endblock rows %}
+
+
+<div class="flex-fill">
+    <div class="font-weight-medium">
+        {{empleado.persona.apellido_paterno|title}} {{empleado.persona.apellido_materno|title}} {{ empleado.persona.nombres|title }} 
+    </div>
+    <div class="text-muted">
+        <a href="" class="text-reset">
+            {{ empleado.cargo|default_if_none:''|title }}
+        </a>
+    </div>
+</div> 
