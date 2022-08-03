@@ -1,32 +1,71 @@
 {% extends 'tables/datatables.html' %}
+{% load static %}
 
 {% block page-title %}
     {% include 'base/page-title.html' with pre_title=pre_title title=title %}
 
     <div class="col-12 col-md-auto ms-auto d-print-none">
         <div class="btn-list">
-            <a class="btn btn-primary d-none d-sm-inline-block" type="submit"
-                onclick="open_modal('')">            
+            <!-- <a class="btn btn-primary d-none d-sm-inline-block" type="submit"
+                onclick="open_modal('{% url 'employees:create' persona.dni %}')">            
                 Nuevo cargo
-            </a>            
+            </a>      -->
+            <a href="{% url 'employees:create' persona.dni %}" class="btn btn-primary d-none d-sm-inline-block" type="submit">
+                Nuevo cargo
+            </a>       
         </div>
     </div>
 {% endblock page-title %}
 
 
 {% block columns %}
+        <!-- Begin card header -->
+        <div class="card-header">
+            <div>
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        {% if persona.foto %}
+                        <span class="avatar" style="background-image: url(/media/{{ persona.foto }})"></span>
+                        {% else %}
+                        <span class="avatar"
+                            style="background-image: url({% static 'project/img/users/usuario_general_04.jpg' %})"></span>
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        <div class="card-title">
+                            {{ persona.nombres|title }} {{ persona.apellido_paterno|title }} {{ persona.apellido_materno|title }}
+                        </div>
+                        <div class="card-subtitle">
+                            {{ persona.dni }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-actions">
+                <!-- <a href="#" class="btn">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                            d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2">
+                        </path>
+                    </svg>
+                    Phone
+                </a> -->
+                <a href="" class="btn">
+                    Editar datos de persona
+                </a>
+            </div>
+        </div>
+        <!-- Begin card header -->
     <tr>
         <th>nro</th>
         <th>Cargo</th>
         <th>Inicio</th>
         <th>Cese</th>
         <th>Estado</th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th>Acciones</th>
     </tr>
 {% endblock columns %}
 
@@ -37,21 +76,17 @@
         <td></td>
         <td>
             <div class="font-weigth-medium">
-                {{ empleado.cargo }}
+                {{ empleado.cargo|default_if_none:'' }}
             </div>
             <div class="text-muted">
-                {{ empleado.dependencia }}
+                {{ empleado.dependencia|default_if_none:'' }}
             </div>
         </td>
-        <td>{{ empleado.inicio }}</td>
-        <td>{{ empleado.cese }}</td>
-        <td>{{ empleado.activo }}</td>
+        <td>{{ empleado.inicio|default_if_none:'' }}</td>
+        <td>{{ empleado.cese|default_if_none:'' }}</td>
+        <td>{{ empleado.activo|default_if_none:'' }}</td>
         <td>{{ empleado. }}</td>
-        <td>{{ empleado. }}</td>
-        <td>{{ empleado. }}</td>
-        <td>{{ empleado. }}</td>
-        <td>{{ empleado. }}</td>
-        <td>{{ empleado. }}</td>
+
     </tr>
 {% endfor %}
 {% endblock rows %}

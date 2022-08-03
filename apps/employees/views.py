@@ -135,14 +135,14 @@ def edit_empleado(request,dni, id):
 
 
 def list_departments(request, dni):
-    # empleado = get_list_or_404(Empleado, persona=dni)
-    # try:
+    person = get_object_or_404(Persona, dni=dni)    
     employee = Empleado.objects.select_related('persona').filter(persona=dni)
     
 
     template = 'employees/employee_departments_list.html'
     context = {
         'object_list': employee,
+        'persona': person,
         'pre_title': 'Dependencias',
         'title': 'Listado de cargos del empleado',        
     }
