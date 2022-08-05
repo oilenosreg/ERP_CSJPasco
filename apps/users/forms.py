@@ -40,8 +40,8 @@ class CreateUserForm(UserCreationForm):
                 'id': 'password', }))
     class Meta:
         model = CustomUser
-        fields = ('password1', 'password2',)
-        exclude = ('dni', )
+        fields = ('dni', 'password1', 'password2',)
+        # exclude = ('dni', )
         labels = {
             'dni': 'Nombre de usuario',
             'password1': 'Clave de acceso',

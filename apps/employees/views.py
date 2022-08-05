@@ -63,8 +63,7 @@ def create_empleado(request, dni):
                 f'Empleado registrado con éxito en "{dependencia}"')
             
             if 'user' in request.POST:
-                return HttpResponseRedirect(reverse('users:create', kwargs={'dni': dni}))
-            if 'save' in request.POST:
+                return HttpResponseRedirect(reverse('users:create', kwargs={'dni': dni})) 
                 return HttpResponseRedirect(reverse('employees:list'))
         else:
             messages.error(

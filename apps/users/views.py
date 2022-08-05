@@ -86,7 +86,7 @@ class CreateUserView(View):
         return render(request, self.template_name, context)
 
 
-def create_user(request, dni):
+def register_user(request, dni):
     empleado = Empleado.objects.filter(persona=dni).first()
     persona = get_object_or_404(Persona, dni=dni)
 
@@ -120,5 +120,34 @@ def create_user(request, dni):
         'empleado': empleado,
         'pre_title': 'Administración de usuarios',
         'title': 'Nuevo usuario',
+    }
+    return render(request, template, context)
+
+
+def create_user(request):
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            dni = form.cleaned_data.get('dni')
+
+            messages.success(
+                request,
+                f'Registro del usuario {dni} de manera exitosa.')                
+            return redirect('users:list')
+        else:
+            messages.error(
+                request,
+                f'No fue posible guardar los datos. Verifique la información ingresada.'
+            )
+    else:
+        form = CreateUserForm()
+    
+    template = 'users/create.html'
+    context = {
+        'form': form,
+        'pre_title': '',
+        'title': ''
     }
     return render(request, template, context)

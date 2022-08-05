@@ -13,6 +13,8 @@
 
 <!-- Begin card -->
 <div class="card">
+    {% include 'messages/messages.html' %}
+    {% include 'messages/errors.html' %}    
     <!-- Begin form -->
     <form 
         method="POST"
@@ -41,10 +43,11 @@
         </div>
         <!-- End card body -->
 
-        {% block form-buttons %}
+        
         <div class="card-footer text-end">
             <div class="row">
                 <div class="d-flex">
+                    {% block form-buttons %}
                     <a href="{% url 'employees:list' %}" class="btn btn-link me-auto">
                         Cancelar
                     </a>
@@ -53,10 +56,11 @@
                             Guardar
                         </button>
                     </div>
+                    {% endblock form-buttons %}
                 </div>
             </div>
         </div>
-        {% endblock form-buttons %}
+        
     </form>
     <!-- End form -->
 </div>

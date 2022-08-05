@@ -1,0 +1,24 @@
+{% extends 'forms/simple_form.html' %}
+
+
+{% block fieldset %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            guardar
+        </button>
+    </form>
+{% endblock fieldset %}
+
+
+{% block form-buttons %}
+<a href="{% url 'users:list' %}" class="btn btn-link me-auto">
+    Cancelar
+</a>
+<div>
+    <button type="submit" class="btn btn-primary ms-auto" name="save">
+        Guardar
+    </button>
+</div>
+{% endblock form-buttons %}
