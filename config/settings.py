@@ -168,8 +168,8 @@ DISTRITO = '29'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Configurando las etiquetas de messages.framework para
-# que coincida con los estilos de Bootstrap.
+# Configurando las etiquetas de messages.framework para que coincida con los 
+# estilos de Bootstrap.
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert alert-secondary',
     messages.INFO: 'alert alert-info',
@@ -178,5 +178,13 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert alert-danger',
 }
 
-# Especficando la clase Usuario que usará Django para la acreditación de usuarios.
+# Especficando la clase Usuario que usará Django para la acreditación de 
+# usuarios.
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# Configuración de cookies.
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
+
+# Redireccionamiento de login exitoso.
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'

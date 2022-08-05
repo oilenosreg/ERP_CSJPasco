@@ -1,4 +1,5 @@
 from django.views.generic import ListView
+from django.contrib.auth import views as auth_views
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponseRedirect, get_list_or_404
 from django.db.models import Q
 from django.contrib import messages
@@ -10,7 +11,7 @@ from apps.persons.models import Persona
 
 # App modules.
 from .models import CustomUser
-from .forms import CreateUserForm
+from .forms import CreateUserForm, LoginUserForm
 
 
 def home(request):
@@ -124,7 +125,7 @@ def register_user(request, dni):
     return render(request, template, context)
 
 
-def create_user(request):
+def create_user(request):    
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
@@ -151,3 +152,24 @@ def create_user(request):
         'title': ''
     }
     return render(request, template, context)
+
+
+class CustomLoginView(LoginUserForm):
+    form_class = LoginUserForm
+    redirect_authenticated_user = True
+    template_name = 'users/login.html'
+    authentication_form = LoginUserForm
+
+    def form_valid(self, form):
+        remember_me = form.cleaned_data.get('remember_me')
+
+        if not remember_me:
+            self.request.session.set_expiry(0)
+            self.request.session.modified = True
+        return super(CustomLoginView, self).form_valid(form)
+    
+
+# class CustomLogoutView(auth_views):
+#     template_name = 'users/logout.html'
+
+

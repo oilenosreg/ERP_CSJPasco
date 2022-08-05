@@ -24,10 +24,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Project url's.
-    path('', include('apps.main.urls')),    
+    path('aplicacion/', include('apps.main.urls')),    
     path('personas/', include('apps.persons.urls')),
     path('empleados/', include('apps.employees.urls')),
-    path('usuarios/', include('apps.users.urls')),
+    path('', include('apps.users.urls')),
     path('inventario/', include('apps.inventory.urls')),
 ]
 

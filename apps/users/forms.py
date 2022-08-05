@@ -1,5 +1,5 @@
-from lib2to3.pytree import LeafPattern
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import (
+    UserCreationForm, UserChangeForm, AuthenticationForm)
 from django import forms
 
 # App modules.
@@ -53,3 +53,24 @@ class EditUserForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('dni', )
+
+
+class LoginUserForm(AuthenticationForm):
+    dni = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Use su número de DNI como nombre de usuario',
+                'class': 'form-control',}))
+    password = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Clave de acceso',
+                'class': 'form-control',}))
+    remember_me = forms.BooleanField(required=False)
+    class Meta:
+        model = CustomUser
+        fields = ['dni', 'password', 'remember_me']
