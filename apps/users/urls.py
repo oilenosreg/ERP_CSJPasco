@@ -3,7 +3,7 @@ from django.urls import path
 
 
 from .views import (
-    ListUsersView, register_user, create_user, CustomLoginView,)
+    ListUsersView, register_user, create_user, CustomLoginView)
 
 
 app_name = 'users'
@@ -12,7 +12,7 @@ urlpatterns = [
     path('nuevo/', create_user, name='create'),
     path('registro/<str:dni>/', register_user, name='register'),    
     path('ingresar/', CustomLoginView.as_view(), name='login'),
-    path('salir/', auth_views.CustomLoginView.as_view(
-        template_name='users/logout.html'
-    ), name='logout'),
+    path('salir/', auth_views.LogoutView.as_view(
+        template_name='users/logout.html'), 
+        name='logout'),
 ]

@@ -1,0 +1,23 @@
+{% extends 'auth/sign-in.html' %}
+
+{% block content %}
+<form class="card card-md" action="." method="get">
+    <div class="card-body">
+        <h2 class="card-title text-center mb-4">
+            Vuelva pronto
+        </h2>
+        <p class="text-muted mb-4">
+            Usted se ha desconectado del sistema de manera exitosa. 
+        </p>
+        <p class="text-muted mb-4">
+            Gracias por su tiempo. Háganos llegar sus comentarios o sugerencias a <a href="mailto:informatica_pasco@pj.gob.pe">informatica_pasco@pj.gob.pe</a>, o si lo prefiere, puede... 
+        </p>
+
+        <div class="form-footer">
+            <a href="#" class="btn btn-primary w-100">
+                Iniciar sesión nuevamente
+            </a>
+        </div>
+    </div>
+</form>
+{% endblock content %}

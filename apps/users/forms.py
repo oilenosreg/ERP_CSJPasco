@@ -57,13 +57,16 @@ class EditUserForm(UserChangeForm):
 
 class LoginUserForm(AuthenticationForm):
     dni = forms.CharField(
-        max_length=100,
+        label='Usuario',
+        max_length=8,
         required=True,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Use su número de DNI como nombre de usuario',
-                'class': 'form-control',}))
+                'placeholder': 'Número de DNI',
+                'class': 'form-control',
+                'autocomplete': 'off',}))
     password = forms.CharField(
+        label='Contraseña',
         max_length=50,
         required=True,
         widget=forms.PasswordInput(

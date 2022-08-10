@@ -1,3 +1,4 @@
+from django.contrib.auth.views import LoginView
 from django.views.generic import ListView
 from django.contrib.auth import views as auth_views
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponseRedirect, get_list_or_404
@@ -154,7 +155,7 @@ def create_user(request):
     return render(request, template, context)
 
 
-class CustomLoginView(LoginUserForm):
+class CustomLoginView(LoginView):
     form_class = LoginUserForm
     redirect_authenticated_user = True
     template_name = 'users/login.html'
