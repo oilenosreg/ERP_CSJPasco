@@ -7,11 +7,10 @@ from apps.employees.models import Empleado
 
 class Categoria(models.Model):
     # Foreign keys.
-    subcategoria_de = models.ForeignKey('self', on_delete=models.PROTECT)
+    subcategoria_de = models.ForeignKey('self', on_delete=models.PROTECT, null=True)
 
     # Datos de la categoría.
-    nombre = models.CharField('Categoría', max_length=200, unique=True)    
-    componentes = models.BooleanField('Componentes', default=False, help_text='¿Esta categoría almacenará a componentes, partes o piezas de otro equipo?')
+    nombre = models.CharField('Categoría', max_length=200, unique=True)        
 
     # Datos adicionales.
     observaciones = models.TextField('Observaciones', null=True, blank=True)    
@@ -75,7 +74,7 @@ class Marca(models.Model):
 class Modelo(models.Model):
     # Foreign keys.
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
-    marca = models.ForeignKey(Marca, on_delete=models.PROTECT, related_name='marca')  
+    marca = models.ForeignKey(Marca, null=True, on_delete=models.PROTECT, related_name='marca')  
 
     # Datos del modelo.
     nombre = models.CharField('Nombre', max_length=50)   
@@ -97,31 +96,30 @@ class Modelo(models.Model):
 
 
 # Equipos.
-CONDICION_CHOICES = ([
+ESTADO_CHOICES = ([
     ('B', 'Bueno'),
     ('R', 'Regular'),
     ('M', 'Malo'),])
 
-ESTADO_CHOICES = ([
+FUNCIONAMIENTO_CHOICES = ([
     ('O', 'Operativo'),
-    ('I', 'Inoperativo'),
-    ('N', 'Nuevo'),
-    ('B', 'Baja'),])
+    ('I', 'Inoperativo'),])
 class Equipo(models.Model):
     # empleado = models.ManyToManyField(Empleado, through='AsignarEquipo',related_name='empleado')
     # empleado = models.ManyToManyField(Empleado, through='AsignarEquipo',related_name='empleado')
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)    
     marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
     modelo = models.ForeignKey(Modelo, on_delete=models.PROTECT)
-    componente_de = models.ForeignKey('self', max_length=250, null=True, blank=True, on_delete=models.PROTECT)    
+    # componente_de = models.ForeignKey('self', max_length=250, null=True, blank=True, on_delete=models.PROTECT)    
     serie = models.CharField('Número de Serie', max_length=200, null=True, blank=True)
-    estado = models.CharField('Estado', max_length=5, choices=ESTADO_CHOICES, default='N')
-    condicion = models.CharField('Condición', max_length=5, choices=CONDICION_CHOICES, default='B')
+    funcionamiento = models.CharField('Estado', max_length=5, choices=FUNCIONAMIENTO_CHOICES, default='N')
+    estado = models.CharField('Condición', max_length=5, choices=ESTADO_CHOICES, default='B')
     asignado = models.BooleanField('Asignado', default=False)
     cod_patrimonial = models.CharField('Código Patrimonial', max_length=200, null=True, blank=True)
     ip = models.CharField('Dirección IP', max_length=200, null=True, blank=True)
     mac = models.CharField('Dirección MAC', max_length=200, null=True, blank=True)    
     orden_compra = models.CharField('Órden de Compra', max_length=200, null=True, blank=True)
+    fecha_adquisicion = models.DateField('Fecha de Adquisición', null=True, blank=True)
 
     observaciones = models.TextField('Observaciones', max_length=255, blank=True, null=True)
     fecha_registro = models.DateTimeField('Fecha de Registro', auto_now_add=True)

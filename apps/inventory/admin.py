@@ -6,7 +6,7 @@ from .models import Categoria, Marca, Modelo, Equipo, EquipoAsignado
 
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = [
-        'id', 'nombre', 'subcategoria_de_id', 'activo', 'componentes', 'observaciones'
+        'id', 'nombre', 'subcategoria_de_id', 'activo', 'observaciones'
     ]
 
 admin.site.register(Categoria, CategoriaAdmin)
