@@ -11,8 +11,9 @@ urlpatterns = [
     path('', ListUsersView.as_view(), name='list'),
     path('nuevo/', create_user, name='create'),
     path('registro/<str:dni>/', register_user, name='register'),    
+    # path('perfil/', profile, name='profile'),
     path('ingresar/', CustomLoginView.as_view(), name='login'),
     path('salir/', auth_views.LogoutView.as_view(
         template_name='users/logout.html'), 
-        name='logout'),
+        name='logout'),    
 ]

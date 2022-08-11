@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.views.generic import ListView
 from django.contrib.auth import views as auth_views
@@ -174,3 +175,10 @@ class CustomLoginView(LoginView):
 #     template_name = 'users/logout.html'
 
 
+# @login_required
+# def profile(request):
+#     template = 'users/profile.html'
+#     context = {
+
+#     }
+#     return render(request, template)
