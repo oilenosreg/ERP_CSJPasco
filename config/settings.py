@@ -186,5 +186,5 @@ AUTH_USER_MODEL = 'users.CustomUser'
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
 
 # Redireccionamiento de login exitoso.
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'main:index'
 LOGIN_URL = 'login'

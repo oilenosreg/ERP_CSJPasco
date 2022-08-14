@@ -18,13 +18,16 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
+from apps.users.views import UserLoginView
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Project url's.
-    path('', include('apps.main.urls')),    
+    path('', UserLoginView.as_view(), name='login'),
+    path('aplicacion/', include('apps.main.urls')),    
     path('personas/', include('apps.persons.urls')),
     path('empleados/', include('apps.employees.urls')),
     path('usuarios/', include('apps.users.urls')),

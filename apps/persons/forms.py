@@ -23,7 +23,7 @@ class CreatePersonaForm(forms.ModelForm):
             'correo_institucional', 'correo_personal', 
             'telefono_principal', 'telefono_secundario',
             'anexo_institucional',          
-            'direccion',            
+            'direccion', 'activo',
         ]
         labels = {
             'dni': 'DNI',

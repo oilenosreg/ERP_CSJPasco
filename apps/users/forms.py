@@ -55,8 +55,8 @@ class EditUserForm(UserChangeForm):
         fields = ('dni', )
 
 
-class LoginUserForm(AuthenticationForm):
-    dni = forms.CharField(
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(
         label='Usuario',
         max_length=8,
         required=True,
@@ -64,7 +64,10 @@ class LoginUserForm(AuthenticationForm):
             attrs={
                 'placeholder': 'Número de DNI',
                 'class': 'form-control',
-                'autocomplete': 'off',}))
+                'data-toggle': 'DNI',
+                'autocomplete': 'off',
+                'id': 'dni',
+                'name': 'dni',}))
     password = forms.CharField(
         label='Contraseña',
         max_length=50,
@@ -72,8 +75,11 @@ class LoginUserForm(AuthenticationForm):
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': 'Clave de acceso',
-                'class': 'form-control',}))
+                'class': 'form-control',
+                'data-toggle': 'Clave de acceso',
+                'id': 'password',
+                'name': 'password',}))
     remember_me = forms.BooleanField(required=False)
     class Meta:
         model = CustomUser
-        fields = ['dni', 'password', 'remember_me']
+        fields = ['username', 'password', 'remember_me']

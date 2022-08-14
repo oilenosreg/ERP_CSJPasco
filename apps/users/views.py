@@ -13,7 +13,7 @@ from apps.persons.models import Persona
 
 # App modules.
 from .models import CustomUser
-from .forms import CreateUserForm, LoginUserForm
+from .forms import CreateUserForm, LoginForm
 
 
 def home(request):
@@ -37,7 +37,6 @@ def search_user_view(request):
                 request,
                 f'Se han encontrado varias personas con el número de DNI ingresado.'
             )
-
 
 
 class ListUsersView(ListView):
@@ -156,11 +155,13 @@ def create_user(request):
     return render(request, template, context)
 
 
-class CustomLoginView(LoginView):
-    form_class = LoginUserForm
+class UserLoginView(LoginView):
+    # form_class = LoginForm
     redirect_authenticated_user = True
     template_name = 'users/login.html'
-    authentication_form = LoginUserForm
+    authentication_form = LoginForm
+    extra_context = {
+        'title': 'Bienvenido'}
 
     def form_valid(self, form):
         remember_me = form.cleaned_data.get('remember_me')
@@ -168,7 +169,7 @@ class CustomLoginView(LoginView):
         if not remember_me:
             self.request.session.set_expiry(0)
             self.request.session.modified = True
-        return super(CustomLoginView, self).form_valid(form)
+        return super(UserLoginView, self).form_valid(form)
     
 
 # class CustomLogoutView(auth_views):
@@ -182,3 +183,5 @@ class CustomLoginView(LoginView):
 
 #     }
 #     return render(request, template)
+
+

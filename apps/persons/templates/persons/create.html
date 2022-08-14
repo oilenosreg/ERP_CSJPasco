@@ -11,15 +11,28 @@
 {% block fieldset %}                        
 <!-- Begin form section 1 -->
 <div class="modal-body">
-    <div class="mb-3 form-group {% if form_persona.dni.errors %} has-error {% endif %}">
-        <label class="form-label">
-            {{ form_persona.dni.label }}
-        </label>
-        {{ form_persona.dni }}
-        <div class="text-danger">
-            {{ form_persona.dni.errors }}
+    <div class="row">
+        <div class="mb-3 col-lg-10 form-group {% if form_persona.dni.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.dni.label }}
+            </label>
+            {{ form_persona.dni }}
+            <div class="text-danger">
+                {{ form_persona.dni.errors }}
+            </div>
         </div>
+        <div class="mb-3 col-lg-2 form-group {% if form_persona.activo.errors %} has-error {% endif %}">
+            <label class="form-label">
+                {{ form_persona.activo.label }}
+            </label>
+            {{ form_persona.activo }}
+            <div class="text-danger">
+                {{ form_persona.activo.errors }}
+            </div>
+        </div>        
     </div>
+
+    
 
     <div class="row">
         <div
